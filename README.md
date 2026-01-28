@@ -1,4 +1,4 @@
-# ServiceNow Notes 📘
+# ServiceNow Notes
 
 [![Python](https://img.shields.io/badge/Python-3.x-blue)](https://www.python.org/)
 [![MkDocs](https://img.shields.io/badge/MkDocs-1.5.0-green)](https://www.mkdocs.org/)
@@ -8,7 +8,7 @@ A **personal ServiceNow reference site** built with [MkDocs](https://www.mkdocs.
 
 ---
 
-## 🚀 Project Structure
+## Project Structure
 
 .
 ├── App_Dev_fundamentals/
@@ -28,7 +28,7 @@ A **personal ServiceNow reference site** built with [MkDocs](https://www.mkdocs.
 
 ---
 
-## 🏁 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -73,7 +73,7 @@ mkdocs gh-deploy
 
 ---
 
-## 📚 Navigation & Conventions
+## Navigation & Conventions
 
 - Keep notes organized by folder topic.
 - Add new Markdown files in the appropriate folder.
@@ -82,7 +82,7 @@ mkdocs gh-deploy
 
 ---
 
-## 🔗 Quick Links (Local / Future Live Site)
+## Quick Links (Local / Future Live Site)
 
 - [Home](index.md)
 - [ServiceNow Fundamentals](ServiceNow_Fundamentals.md)
@@ -93,7 +93,7 @@ mkdocs gh-deploy
 
 ---
 
-## 💡 Notes
+## Notes
 
 - Images, diagrams, and Mermaid charts are supported in Markdown.
 - Sections can be expanded over time as your notes grow.
@@ -101,7 +101,7 @@ mkdocs gh-deploy
 
 ---
 
-## 📜 License
+## License
 
 Personal use and learning purposes only.
 EOF
