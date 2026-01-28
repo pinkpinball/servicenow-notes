@@ -1,0 +1,37 @@
+site_name: ServiceNow Notes
+site_description: Personal ServiceNow reference site
+theme:
+  name: readthedocs
+  nav:
+    - Home: index.md
+    - ServiceNow Fundamentals: ServiceNow_Fundamentals.md
+    - App Development Fundamentals:
+        - onChange: App_Dev_fundamentals/client/onChange.md
+        - onLoad: App_Dev_fundamentals/client/onLoad.md
+    - App Engine Studio:
+        - Placeholder: App_engine_Studio/placeholder.md
+    - Studio:
+        - Placeholder: Studio/placeholder.md
+    - Flows:
+        - Flow Fundamentals: Flows/flow_fundamentals.md
+    - Integration Hub:
+        - Placeholder: Integration_Hub/placeholder.md
+    - UI:
+        - Placeholder: UI/placeholder.md
+    - Reports:
+        - Report Fundamentals: Reports/Report_fundamentals.md
+    - Scripting:
+        - Business Rules: Scripting/Business_Rules.md
+        - Script Includes: Scripting/Script_Include.md
+        - Client Scripts: Scripting/Client_Scripts.md
+        - Fix Script: Scripting/FIx_Script.md
+        - Flow Script: Scripting/Flow_Script_Step.md
+        - Scheduled Script: Scripting/Scheduled_Script.md
+        - Glide System / GlideRecord Notes: Scripting/glide_system_gliderecord_notes.md
+        - JavaScript on Now Platform: Scripting/JS_On_Now_Platform.md
+        - ServiceNow Scripting Notes: Scripting/servicenow_js_scripting_notes.md
+        - Client vs Server Scripting Notes: Scripting/servicenow_js_scripting_notes_with_client_vs_server_side.md
+        - ServiceNow Script Decision Tree: Scripting/service_now_script_decision_tree.md
+    - API Reference:
+        - GlideRecord: api/gliderecord.md
+        - REST API: api/rest_api.md

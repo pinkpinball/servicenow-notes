@@ -1,0 +1,40 @@
+.
+├── App_Dev_fundamentals
+├── App_engine_Studio
+├── Flows
+│   └── flow_fundamentals.md
+├── Integration_Hub
+├── Reports
+│   └── Report_fundamentals.md
+├── Scripting
+│   ├── Business_Rules.md
+│   ├── Client_Scripts.md
+│   ├── FIx_Script.md
+│   ├── Flow_Script_Step.md
+│   ├── JS_On_Now_Platform.md
+│   ├── Scheduled_Script.md
+│   ├── Script_Choice_Decision_Tree.png
+│   ├── Script_Choice_Decision_tree.mmd
+│   ├── Script_Decison_Flow_Chart.png
+│   ├── Script_Include.md
+│   ├── UI_Action.md
+│   ├── UI_Page.md
+│   ├── UI_Policy.md
+│   ├── When_Business_Rules_Execute.png
+│   ├── g_scratchpad.png
+│   ├── glide_system_gliderecord_notes.md
+│   ├── good_practices.png
+│   ├── script_tracer.png
+│   ├── script_tracer_ex.png
+│   ├── service_now_script_decision_tree.md
+│   ├── servicenow_js_scripting_notes.md
+│   └── servicenow_js_scripting_notes_with_client_vs_server_side.md
+├── ServiceNow_Fundamentals.md
+├── Studio
+├── UI
+├── folder_structure.txt
+├── general_notes_template.md
+├── index.md
+└── script_note_template.md
+
+9 directories, 29 files
