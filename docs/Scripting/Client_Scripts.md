@@ -12,7 +12,7 @@
 
 ## Runs
 
-- **Client (browser)**
+- **Client**
 - Trigger types:
   - **onLoad** – when the form loads
   - **onChange** – when a field value changes

@@ -52,6 +52,11 @@ pip install mkdocs-material
 mkdocs serve
 \`\`\`
 
+If you want it to refresh with your changes run
+\`\`\`bash
+mkdocs serve --livereload
+\`\`\`
+
 - Opens a local server at [http://127.0.0.1:8000](http://127.0.0.1:8000)
 - Navigate notes via the sidebar.
 

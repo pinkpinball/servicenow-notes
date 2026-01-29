@@ -1,13 +1,14 @@
-# ServiceNow JavaScript & Scripting Notes
+# ServiceNow JavaScript: Server Side vs Client Side
 
-This document consolidates **all major scripting types and JS usage on the Now Platform** into one reference. Use it as your active note-taking and recall guide.
+This document consolidates **all major scripting types and JS usage on the Now Platform** into one
+reference. Use it as your active note-taking and recall guide.
 
 ---
 
 ## Universal JS on Now Platform Template
 
 ```
-CONTEXT / FEATURE: (e.g., Client Script, Flow, App Engine, Report Script)
+Feature:
 
 Purpose:
 - Why this script exists
@@ -42,8 +43,9 @@ Common Mistakes / Gotchas:
 ## Client-Side Scripting
 
 ### Client Script
+
 ```
-CONTEXT / FEATURE: Client Script (onChange example)
+ Client Script (onChange example)
 
 Purpose:
 - Control form field behavior
@@ -74,8 +76,9 @@ Common Mistakes / Gotchas:
 ```
 
 ### UI Policy
+
 ```
-CONTEXT / FEATURE: UI Policy
+ UI Policy
 
 Purpose:
 - Declarative form behavior (low/no script)
@@ -105,8 +108,9 @@ Common Mistakes / Gotchas:
 ```
 
 ### UI Action
+
 ```
-CONTEXT / FEATURE: UI Action
+ UI Action
 
 Purpose:
 - Add buttons / actions to UI
@@ -136,8 +140,9 @@ Common Mistakes / Gotchas:
 ```
 
 ### UI Page
+
 ```
-CONTEXT / FEATURE: UI Page
+ UI Page
 
 Purpose:
 - Custom UI with HTML/JS
@@ -171,8 +176,9 @@ Common Mistakes / Gotchas:
 ## Server-Side Scripting
 
 ### Business Rule
+
 ```
-CONTEXT / FEATURE: Business Rule
+ Business Rule
 
 Purpose:
 - Enforce data rules at save time
@@ -204,8 +210,9 @@ Common Mistakes / Gotchas:
 ```
 
 ### Script Include
+
 ```
-CONTEXT / FEATURE: Script Include
+Script Include
 
 Purpose:
 - Reusable server-side logic
@@ -235,8 +242,9 @@ Common Mistakes / Gotchas:
 ```
 
 ### Scheduled Script
+
 ```
-CONTEXT / FEATURE: Scheduled Script
+Scheduled Script
 
 Purpose:
 - Run logic on a schedule
@@ -266,8 +274,9 @@ Common Mistakes / Gotchas:
 ```
 
 ### Fix Script
+
 ```
-CONTEXT / FEATURE: Fix Script
+Fix Script
 
 Purpose:
 - One-time data correction
@@ -301,8 +310,9 @@ Common Mistakes / Gotchas:
 ## Flow / Automation
 
 ### Flow Script Step
+
 ```
-CONTEXT / FEATURE: Flow Script Step
+Flow Script Step
 
 Purpose:
 - Custom logic inside Flow Designer
@@ -332,8 +342,9 @@ Common Mistakes / Gotchas:
 ```
 
 ### App Engine / Scoped App Script
+
 ```
-CONTEXT / FEATURE: Scoped App Script (Server-side)
+Scoped App Script (Server-side)
 
 Purpose:
 - Encapsulate app-specific logic
@@ -363,8 +374,9 @@ Common Mistakes / Gotchas:
 ```
 
 ### Report Script
+
 ```
-CONTEXT / FEATURE: Report Script
+Report Script
 
 Purpose:
 - Customize report logic / data retrieval
@@ -398,6 +410,7 @@ Common Mistakes / Gotchas:
 ## Server vs Client Method Tips
 
 ### Quick Guide to Remember
+
 - **g_form** → Client only (form manipulation, field visibility, mandatory fields)
 - **g_user** → Client only (user info in browser)
 - **current** → Server only (record being saved or queried)
@@ -409,6 +422,7 @@ Common Mistakes / Gotchas:
 - **UI Policy Actions** → Client (show/hide, mandatory, read-only)
 
 ### Mental Shortcut
+
 - **Touching the database = server**
 - **Touching the form/UI = client**
 - **Reusable logic = Script Include / Scoped App**
@@ -418,6 +432,7 @@ Common Mistakes / Gotchas:
 ---
 
 ## Key JS Patterns to Memorize
+
 - If it touches the DB → Server
 - If it touches the form → Client
 - If it’s reusable logic → Script Include / Scoped App
@@ -427,4 +442,3 @@ Common Mistakes / Gotchas:
 ---
 
 This document is designed for **active note-taking and hands-on reinforcement**. Fill in the `1-Min Example` and `Use Cases` sections with examples from your dev instance to lock in memory.
-

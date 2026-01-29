@@ -1,4 +1,4 @@
-# Flow Script Step
+# Flow Designer Script Step
 
 ## Purpose:
 

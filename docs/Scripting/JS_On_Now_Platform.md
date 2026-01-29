@@ -1,4 +1,6 @@
-# CONTEXT / FEATURE: (e.g., Client Script, Flow, App Engine, Report Script)
+# JavaScript On Now Platform
+
+## FEATURE: (e.g., Client Script, Flow, App Engine, Report Script)
 
 ## Purpose:
 

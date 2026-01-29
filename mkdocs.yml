@@ -1,4 +1,5 @@
 site_name: ServiceNow Notes
+site_author: Natalie Walker
 site_description: Personal ServiceNow reference site
 theme:
   name: readthedocs
@@ -24,8 +25,8 @@ theme:
         - Business Rules: Scripting/Business_Rules.md
         - Script Includes: Scripting/Script_Include.md
         - Client Scripts: Scripting/Client_Scripts.md
-        - Fix Script: Scripting/FIx_Script.md
-        - Flow Script: Scripting/Flow_Script_Step.md
+        - Fix Script: Scripting/Fix_Script.md
+        - Flow Scripts: Scripting/Flow_Script_Step.md
         - Scheduled Script: Scripting/Scheduled_Script.md
         - Glide System / GlideRecord Notes: Scripting/glide_system_gliderecord_notes.md
         - JavaScript on Now Platform: Scripting/JS_On_Now_Platform.md

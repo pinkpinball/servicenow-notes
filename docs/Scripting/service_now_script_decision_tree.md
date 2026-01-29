@@ -6,7 +6,8 @@ If you memorize nothing else, memorize this flow.
 
 ---
 
-```mermaid
+```
+mermaid
 flowchart TD
 A[Where must the logic run?]
 

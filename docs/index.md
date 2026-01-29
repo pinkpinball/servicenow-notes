@@ -1,7 +1,9 @@
 # ServiceNow Notes
 
-Welcome to your personal ServiceNow reference site!
-This site organizes your ServiceNow notes into fundamentals, app development, flows,
+**Author**: Natalie Walker
+
+Welcome to my personal ServiceNow reference site!
+This site organizes my ServiceNow notes into fundamentals, app development, flows,
 integrations, scripting, and API references. Use the sidebar or the links below to navigate.
 
 ---

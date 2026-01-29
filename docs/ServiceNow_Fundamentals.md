@@ -21,6 +21,8 @@ At its core, ServiceNow is:
 
 Everything you do maps to one (or more) of those layers.
 
+_Everything in ServiceNow is a record in a table and every records in serviceNow is a Javascript object_
+
 ---
 
 ## Core Platform Concepts
