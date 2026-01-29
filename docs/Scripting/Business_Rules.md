@@ -27,8 +27,7 @@ When a table is queried. When a record is:
 - Server
 - Before | After | Async
 
-![When_Business_Rules_Execute.png](When Business Rules Execute)
-[When Business Rules](When_Business_Rules_Execute.png)
+![When Business Rules Execute](When_Business_Rules_Execute.png)
 
 > Note: the green in the image is action being performed relative to a table.
 > The blue color is what will happen in the business rule
@@ -46,8 +45,7 @@ for what you can actually do. In scripting you have access to Glide System,
 - g_scratchpad ( take data from server-side and pass to client side)
   - Only works with _Display_ Business Rules
 
-![g_scratchPad.png](G_StratchPad Code Example)
-[G_scratchPad Code Example](g_scratchPad.png)
+![G_StratchPad Code Example](g_scratchpad.png)
 
 - global variables
   - allows for dot.walking aka dot notation. Allows you to go from table to table or
@@ -122,10 +120,8 @@ There are several tools to use
 - Script Debugger
 - Script tracer
   - Allows you to filter the debugging search to narrow down and problems in the script
-    ![script_tracer.png](Script Tracer Anatomy)
-    [Script Tracer Anatomy](script_tracer.png)
-    ![script_tracer_ex.png](Script Tracer Example)
-    [Script Tracer Example](script_tracer_ex.png)
+    ![Script Tracer Anatomy](script_tracer.png)
+    ![Script Tracer Example](script_tracer_ex.png)
 
 - Console Debugger
 - Try/Catch (JavaScript)
@@ -143,5 +139,4 @@ stack. Cannot use on an async script.
 
 ## Good Practices
 
-![good_practices.png](Good Practices)
-[Good Practices](good_practices.png)
+![Good Practices](good_practices.png)
