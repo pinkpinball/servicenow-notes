@@ -4,13 +4,14 @@
 [![MkDocs](https://img.shields.io/badge/MkDocs-1.5.0-green)](https://www.mkdocs.org/)
 [![Material Theme](https://img.shields.io/badge/Material%20Theme-7.3.0-orange)](https://squidfunk.github.io/mkdocs-material/)
 
-A **personal ServiceNow reference site** built with [MkDocs](https://www.mkdocs.org/) and organized into fundamentals, scripting, flows, integrations, UI, reports, and API references. Navigate topics via the sidebar in the MkDocs site.
+A **personal ServiceNow reference site** built with [MkDocs](https://www.mkdocs.org/)
+and organized into fundamentals, scripting, flows, integrations, UI, reports, and API references.
+Navigate topics via the sidebar in the MkDocs site.
 
 ---
 
 ## Project Structure
 
-.
 ├── App_Dev_fundamentals/
 ├── App_engine_Studio/
 ├── Flows/
@@ -37,42 +38,44 @@ A **personal ServiceNow reference site** built with [MkDocs](https://www.mkdocs.
 
 ### Install MkDocs
 
-\`\`\`bash
+```bash
 pip install mkdocs
-\`\`\`
+```
 
 Optional: Install the Material theme for a modern look:
-\`\`\`bash
+
+```bash
 pip install mkdocs-material
-\`\`\`
+```
 
 ### Serve Locally
 
-\`\`\`bash
+```bash
 mkdocs serve
-\`\`\`
+```
 
 If you want it to refresh with your changes run
-\`\`\`bash
+
+```bash
 mkdocs serve --livereload
-\`\`\`
+```
 
 - Opens a local server at [http://127.0.0.1:8000](http://127.0.0.1:8000)
 - Navigate notes via the sidebar.
 
 ### Build Static Site
 
-\`\`\`bash
+```bash
 mkdocs build
-\`\`\`
+```
 
 - Creates static HTML site in the `site/` folder.
 
 ### Deploy to GitHub Pages
 
-\`\`\`bash
+```bash
 mkdocs gh-deploy
-\`\`\`
+```
 
 - Publishes documentation to GitHub Pages automatically.
 
