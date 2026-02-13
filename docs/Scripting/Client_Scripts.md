@@ -17,6 +17,7 @@
   - **onLoad** – when the form loads
   - **onChange** – when a field value changes
   - **onSubmit** – right before submit
+  - **onCellEdit** -
 
 > Client Scripts **do not run** for:
 >
@@ -24,6 +25,8 @@
 > - integrations
 > - background scripts
 > - updates outside the UI
+
+![Client Scripts Execute](client_script_execution.png)
 
 ---
 
@@ -96,6 +99,10 @@
   - blocking submission
 
 > Note: Must return `true` or `false`
+
+---
+
+## onCellEdit
 
 ---
 

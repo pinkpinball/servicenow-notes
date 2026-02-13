@@ -1,311 +1,106 @@
 # ServiceNow Fundamentals
 
-This document is a **platform-wide overview** of ServiceNow. It’s meant to answer:
+This document is a **platform-wide mental model** of ServiceNow.
 
-> _What is this thing, how do the pieces fit together, and when do I use what?_
+It answers three questions:
+
+> **What is ServiceNow?**
+> **How do the pieces fit together?**
+> **How do I know which tool to use?**
 
 ---
 
 ## What is ServiceNow?
 
-ServiceNow is a **cloud-based platform** for:
+ServiceNow is a **cloud-based enterprise platform** used to:
 
-- managing work
-- enforcing business rules
-- automating processes
-- storing and acting on data
+- manage work
+- store and relate data
+- enforce business rules
+- automate processes
+- present controlled user experiences
 
 At its core, ServiceNow is:
 
-> **A relational database + workflow engine + UI layer**
+> **A relational database + execution engine + UI framework**
 
-Everything you do maps to one (or more) of those layers.
+Everything you configure maps to **one or more** of these layers.
 
-_Everything in ServiceNow is a record in a table and every records in serviceNow is a Javascript object_
+> **Everything in ServiceNow is a record in a table.**
+> **Every record is represented as a JavaScript object at runtime.**
 
 ---
 
-## Core Platform Concepts
+## Core Platform Architecture
+
+### The Three Layers
+
+| Layer       | Responsibility                         |
+| ----------- | -------------------------------------- |
+| Data Layer  | Stores records in tables               |
+| Logic Layer | Enforces rules and automation          |
+| UI Layer    | Displays and controls user interaction |
+
+Every feature you use lives in **at least one** of these layers.
+
+---
+
+## Data Layer
 
 ### Tables
 
 - Tables store records (rows)
 - Tables contain fields (columns)
-- Tables can extend other tables
+- Tables can **extend** other tables (inheritance)
 
 **Example:**
 
-- `task` → parent table
-- `incident` → extends `task`
+- `task` (parent)
+- `incident` (extends `task`)
 
-> Inheritance means child tables automatically get parent fields.
+> Child tables inherit all parent fields automatically.
 
 ---
 
 ### Records
 
 - A single row in a table
-- Represent real-world work items
+- Represent a unit of work or data
 
-**Example:**
+**Examples:**
 
-- One incident ticket
-- One request
+- One incident
+- One request item
 - One user
+- One CI
 
 ---
 
 ### Fields
 
 - Attributes of a record
-- Can be:
-  - string
-  - reference
-  - choice
-  - date/time
+- Defined in the **Dictionary**
+- Common types:
+  - String
+  - Reference
+  - Choice
+  - Date/Time
+  - Boolean
 
-**Example:**
+**Examples:**
 
-- `caller_id` (reference)
 - `state` (choice)
+- `caller_id` (reference)
 
 ---
 
-### Reference Fields
+### Reference Fields & Relationships
 
-- Point to another table
-- Enable dot-walking
+- Reference fields point to another table
+- Enable **dot-walking**
 
 **Example:**
 
+```js
+incident.caller_id.email;
 ```
-incident.caller_id.email
-```
-
-> Reference fields create relationships between tables.
-
----
-
-## UI Layer
-
-### Forms
-
-- Used to view/edit a single record
-- Display fields from a table
-
-**Example:**
-
-- Incident form
-
----
-
-### Lists
-
-- Table views showing many records
-- Filterable and sortable
-
-**Example:**
-
-- Incident list view
-
----
-
-### UI Policies
-
-- Declarative UI rules
-- No scripting required
-
-**Use for:**
-
-- show/hide fields
-- mandatory
-- read-only
-
----
-
-### Client Scripts
-
-- Client-side JavaScript
-- Enhance form behavior
-
-**Types:**
-
-- onLoad
-- onChange
-- onSubmit
-
----
-
-## Server Layer
-
-### Business Rules
-
-- Server-side logic
-- Run on database operations
-
-**Types:**
-
-- Before
-- After
-- Async
-
----
-
-### Script Includes
-
-- Reusable server-side logic
-- Called by other scripts
-
-**Use for:**
-
-- shared utilities
-- centralized logic
-
----
-
-### Glide APIs
-
-- ServiceNow server-side APIs
-
-**Common ones:**
-
-- GlideRecord
-- GlideSystem (`gs`)
-- GlideDateTime
-
----
-
-## Process Automation
-
-### Flow Designer
-
-- No/low-code automation tool
-- Trigger-based workflows
-
-**Use for:**
-
-- approvals
-- notifications
-- record updates
-
----
-
-### Workflows (Legacy)
-
-- Older automation engine
-- Still used in some instances
-
-> Prefer Flow Designer for new work.
-
----
-
-## Security & Access
-
-### Roles
-
-- Control access to features
-
-**Example:**
-
-- `admin`
-- `itil`
-
----
-
-### ACLs (Access Control Lists)
-
-- Control access to tables and fields
-
-**Example:**
-
-- Read/write restrictions
-
----
-
-## Application Development
-
-### Application Scope
-
-- Logical boundary for apps
-- Controls access and isolation
-
----
-
-### App Engine Studio
-
-- Guided app creation
-- Uses tables, flows, scripts
-
----
-
-## Reporting & Analytics
-
-### Reports
-
-- Visualize data
-- Based on tables
-
-**Types:**
-
-- bar
-- pie
-- list
-
----
-
-### Dashboards
-
-- Collections of reports
-
----
-
-## Data Management
-
-### Import Sets
-
-- Bring data into ServiceNow
-- Transform maps map source → target
-
----
-
-### CMDB (Configuration Management Database)
-
-- Stores configuration items (CIs)
-- Tracks relationships
-
----
-
-## Update Sets
-
-- Capture configuration changes
-- Move changes between instances
-
----
-
-## Integration Basics
-
-### REST / SOAP APIs
-
-- External system communication
-
----
-
-## Mental Model (Remember This)
-
-- **Tables store data**
-- **Forms & Lists show data**
-- **Scripts enforce behavior**
-- **Flows automate processes**
-- **ACLs protect data**
-
----
-
-## Final Advice
-
-If you ever feel lost, ask:
-
-1. Where is the data?
-2. Who is changing it?
-3. Does this need to always run?
-
-Those questions will guide you to the correct tool every time.

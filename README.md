@@ -110,3 +110,14 @@ mkdocs gh-deploy
 
 Personal use and learning purposes only.
 EOF
+
+## Useful commands
+
+- Grab the latest screenshot, move it to notes folder and rename it
+  `mv "$(ls -t ~/Pictures/Screenshots/Screenshot* | head -n 1)" ./images/example.png`
+
+  or
+  ` mv "$(ls -t ~/Desktop/Screenshot\* | head -1)" ~/Desktop/servicenow-notes/servicenow-notes/script_includes_overview.png
+
+--run the app
+mkdocs serve --livereload

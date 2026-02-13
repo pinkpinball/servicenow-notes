@@ -3,6 +3,10 @@ site_author: Natalie Walker
 site_description: Personal ServiceNow reference site
 theme:
   name: readthedocs
+  highlightjs: true
+  hljs_languages:
+    - yaml
+    - javaScript
   nav:
     - Home: index.md
     - ServiceNow Fundamentals: ServiceNow_Fundamentals.md

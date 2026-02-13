@@ -64,7 +64,7 @@ Reporting fundamentals and examples:
 Server-side and client-side scripting, scripts, and best practices:
 
 - [Business Rules](Scripting/Business_Rules.md)
-- [Script Includes](Scripting/Script_Include.md)
+- [Script Includes](Scripting/Script_Includes.md)
 - [Client Scripts Overview](Scripting/Client_Scripts.md)
 - [Fix Script](Scripting/FIx_Script.md)
 - [Flow Script Step](Scripting/Flow_Script_Step.md)
