@@ -116,11 +116,24 @@ EOF
 
 ## Useful commands
 
-- Grab the latest screenshot, move it to notes folder and rename it
+- Grab the latest screenshot, move it to notes folder and rename it (mac)
   `mv "$(ls -t ~/Pictures/Screenshots/Screenshot* | head -n 1)" ./images/example.png`
 
-  or
+  or (Mac)
   ` mv "$(ls -t ~/Desktop/Screenshot\* | head -1)" ~/Desktop/servicenow-notes/servicenow-notes/script_includes_overview.png
 
 --run the app
 mkdocs serve --livereload
+
+Optional:
+To set up environment
+
+python3 -m venv .venv
+source .venv/bin/activate
+pip install mkdocs mkdocs-bootswatch
+
+To run when you come back to your projec folder
+source .venv/bin/activate
+
+After installing a new theme
+mkdocs build -v
