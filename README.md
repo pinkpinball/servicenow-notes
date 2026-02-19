@@ -125,15 +125,20 @@ EOF
 --run the app
 mkdocs serve --livereload
 
-Optional:
-To set up environment
+**Optional**:
+To set up python environment
 
 python3 -m venv .venv
 source .venv/bin/activate
 pip install mkdocs mkdocs-bootswatch
 
-To run when you come back to your projec folder
+**To run the app if you set up the environment with python**
+To run when you come back to your project folder;
 source .venv/bin/activate
+mkdocs serve --livereload
 
-After installing a new theme
+(Maybe)After installing a new themes you
 mkdocs build -v
+
+**Run the app without python env**
+mkdocs serve --livereload

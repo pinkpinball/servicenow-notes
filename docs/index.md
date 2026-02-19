@@ -67,7 +67,7 @@ Server-side and client-side scripting, scripts, and best practices:
 - [Script Includes](Scripting/Script_Includes.md)
 - [Client Scripts Overview](Scripting/Client_Scripts.md)
 - [Fix Script](Scripting/FIx_Script.md)
-- [Flow Script Step](Scripting/Flow_Script_Step.md)
+- [Flow Scripting](Scripting/Flow_Scripting.md)
 - [Scheduled Script](Scripting/Scheduled_Script.md)
 - [Glide System / GlideRecord Notes](Scripting/glide_system_gliderecord_notes.md)
 - [JavaScript on Now Platform](Scripting/JS_On_Now_Platform.md)
