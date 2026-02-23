@@ -1,508 +1,519 @@
-# ServiceNow CAD Study Guide
+# ServiceNow CAD Certification — Enhanced Study Guide
 
-This Markdown document combines the full CAD Study Guide, Last-Minute Drill Sheet, execution diagrams, exam traps, and hands-on drills. It is designed for notes and offline review.
+> Deep Dives · Code Examples · Exam Traps · Practice Questions
 
 ---
 
 ## Table of Contents
 
-1. [CAD Overview](#cad-overview)
-2. [Domain 1: Designing & Creating an Application](#domain-1-designing--creating-an-application)
-3. [Domain 2: Application User Interface](#domain-2-application-user-interface)
-4. [Domain 3: Security & Restricting Access](#domain-3-security--restricting-access)
-5. [Domain 4: Application Automation](#domain-4-application-automation)
-6. [Domain 5: Working with External Data](#domain-5-working-with-external-data)
-7. [Domain 6: Managing Applications](#domain-6-managing-applications)
-8. [Quick Reference Cheat Sheet](#quick-reference-cheat-sheet)
-9. [Execution Flow & ACL Diagram](#execution-flow--acl-diagram)
-10. [Hands-On Drill Checklist](#hands-on-drill-checklist)
-11. [Mental Checklist for Exam Decisions](#mental-checklist-for-exam-decisions)
-12. [7–10 Day Prep Plan](#7-10-day-prep-plan)
+1. [Exam Overview](#exam-overview)
+2. [Domain 1: Designing & Creating an Application (20%)](#domain-1-designing--creating-an-application-20)
+3. [Domain 2: Application User Interface (20%)](#domain-2-application-user-interface-20)
+4. [Domain 3: Security & Restricting Access (20%)](#domain-3-security--restricting-access-20)
+5. [Domain 4: Application Automation (20%)](#domain-4-application-automation-20)
+6. [Domain 5: Working with External Data (10%)](#domain-5-working-with-external-data-10)
+7. [Domain 6: Managing Applications (10%)](#domain-6-managing-applications-10)
+8. [Master Quick Reference](#master-quick-reference)
+9. [All Exam Traps — Combined List](#all-exam-traps--combined-list)
+10. [7–10 Day Study Plan](#710-day-study-plan)
 
 ---
 
-## CAD Overview
+## Exam Overview
 
-- Total Questions: ~60
-- Time: 90 minutes
-- Passing: 70%
-- Focus: Conceptual understanding + hands-on practice
+| Detail          | Info                                          |
+| --------------- | --------------------------------------------- |
+| Total Questions | ~60                                           |
+| Time Allowed    | 90 minutes (~1.5 min/question)                |
+| Passing Score   | 70% (42+ correct)                             |
+| Focus           | Conceptual understanding + hands-on scripting |
+
+> All six domains carry equal or near-equal weight. Do not neglect any domain — even Import Sets (10%) can swing a borderline result.
 
 ---
 
 ## Domain 1: Designing & Creating an Application (20%)
 
-**Key Concepts:**
+### Application Scope — Deep Dive
 
-- Application Fit: Scoped vs Global
-- Data Model: Tables, dictionary entries, field types, relationships
-- Modules: Navigation, list, form
-- Application Scope: Cross-scope access, artifact protection
+Every artifact you create in ServiceNow belongs to exactly one scope. The scope is determined by what is selected in the **App Picker** at the moment of creation — not where you navigate afterward. This is the single most common setup mistake on real projects and on the exam.
 
-**Table & Field Prefixes — Know These Cold:**
+| Prefix | When it appears                          | Example                  |
+| ------ | ---------------------------------------- | ------------------------ |
+| `x_`   | Tables/fields in a **scoped app**        | `x_myco_myapp_incident`  |
+| `u_`   | Custom tables/fields in **global scope** | `u_custom_field`         |
+| `sys_` | Native ServiceNow platform tables        | `sys_user`, `sys_script` |
 
-| Prefix | Where it comes from                              | Example                  |
-| ------ | ------------------------------------------------ | ------------------------ |
-| `x_`   | Tables/fields created in a **scoped app**        | `x_myco_myapp_mytable`   |
-| `u_`   | Custom fields/tables created in **global scope** | `u_custom_field`         |
-| `sys_` | **ServiceNow's own** platform tables             | `sys_user`, `sys_script` |
+> ⚠️ **EXAM TRAP:** `u_` is for **GLOBAL** customizations. `x_` is for **SCOPED** apps. Confusing them is the #1 Domain 1 exam trap.
 
-> ⚠️ **Exam Trap:** `u_` is for global customizations, `x_` is for scoped apps. Don't mix these up!
+**How to verify an artifact's scope:** Open the record and check the **Application** field — it shows exactly which scope owns it. If you forgot to switch the App Picker before creating something, the artifact went to the wrong scope.
 
-**Application Scope — Key Rules:**
+### Cross-Scope Access — How it Really Works
 
-- Every artifact created while a scoped app is selected in the **App Picker** belongs to that scope
-- The App Picker is in the top banner of the ServiceNow UI and Studio
-- **Studio** is the recommended place to build scoped apps — it locks your scope and reduces accidental global artifact creation
-- If you forget to switch the App Picker, new artifacts go to the wrong scope!
+When App A calls a Script Include in App B, ServiceNow checks the **"Accessible from"** field on the Script Include record. If it says "This application scope only", the call silently fails at runtime — no obvious error, just no result.
 
-**How to verify an artifact's scope:** Open the record and check the **Application** field — it tells you exactly which scope owns it.
+| Setting                     | Meaning                                                   | Exam signal                   |
+| --------------------------- | --------------------------------------------------------- | ----------------------------- |
+| This application scope only | Only code in the same scope can call it                   | Default — restrictive         |
+| All application scopes      | Any scope including global can call it                    | Required for shared utilities |
+| Caller restriction          | Called resource controls access via `sys_scope_privilege` | Advanced — check the table    |
 
-**Cross-Scope Access:**
+> 🧠 **MEMORY TIP:** To diagnose a cross-scope failure: open the Script Include record and look at "Accessible from". 9 times out of 10, that's the problem.
 
-| Setting                       | What it means                                                                            |
-| ----------------------------- | ---------------------------------------------------------------------------------------- |
-| "This application scope only" | Only code in the same scope can call this resource                                       |
-| "All application scopes"      | Any scope (including global) can call this resource                                      |
-| Caller Restriction            | The called resource decides — check the Cross-Scope Access table (`sys_scope_privilege`) |
+### Practice Questions — Domain 1
 
-**Exam Traps:**
+> 📋 **PRACTICE Q:** A developer creates a new table while the **Global** app is selected in the App Picker. The table prefix is `u_`. Later, the developer switches to a scoped app and creates a Script Include. Which scope does the Script Include belong to?
 
-- Confusing cross-scope Script Includes
-- Table vs field restrictions in scoped apps
-- Creating artifacts in the wrong scope by forgetting to check the App Picker
-- `u_` vs `x_` prefix confusion
+> ✅ **ANSWER:** The Script Include belongs to the **scoped app** — scope is determined at creation time by the App Picker. The earlier `u_` table stays in global scope and is unaffected.
 
-**Hands-On Drill:**
+---
 
-- Build a small scoped app (2 tables, 1 extended, 1 custom)
-- Add modules for list & form view
-- Experiment with cross-scope calls
-- Check the Application field on artifacts to verify scope ownership
+> 📋 **PRACTICE Q:** A scoped app's Script Include has "Accessible from" set to "This application scope only". A Business Rule in a **different** scoped app tries to call it. What happens?
+
+> ✅ **ANSWER:** The call **silently fails**. No error is thrown, but the Script Include does not execute. To fix it, change "Accessible from" to "All application scopes" on the Script Include record.
 
 ---
 
 ## Domain 2: Application User Interface (20%)
 
-**Key Concepts:**
+### Client Script Types — Full Breakdown
 
-- Forms & Views: Add/remove fields, layout, sections
-- Client Scripts: UI Policy, `onLoad`, `onChange`, `onSubmit`, `g_form`
-- Server Scripts: BRs (Before, After, Async), Script Includes, GlideRecord
-- Record Producers as UI
+| Type         | When it fires                   | Key use case                 | Common trap                              |
+| ------------ | ------------------------------- | ---------------------------- | ---------------------------------------- |
+| `onLoad`     | Form first renders              | Pre-populate, set visibility | Runs even if user never touches the form |
+| `onChange`   | A watched field's value changes | Show/hide dependent fields   | Does NOT run on form load                |
+| `onSubmit`   | User clicks Save/Submit         | Last-chance validation       | Return `false` to cancel submit          |
+| `onCellEdit` | Cell edited in **LIST VIEW**    | Inline list editing logic    | **Not for forms — list only!**           |
 
-**Client Script Types — Know All Four:**
+> ⚠️ **EXAM TRAP:** `onCellEdit` fires in **LIST VIEW only**. If an exam question describes a form field change, the answer is `onChange`, not `onCellEdit`.
 
-| Type         | When it fires                            | Common use case                                |
-| ------------ | ---------------------------------------- | ---------------------------------------------- |
-| `onLoad`     | When the form first loads                | Pre-populate fields, set initial visibility    |
-| `onChange`   | When a specific field's value changes    | React to field changes, show/hide other fields |
-| `onSubmit`   | When user clicks Save/Submit             | Validate before save, prevent bad data         |
-| `onCellEdit` | When a cell is edited in a **list view** | Inline list editing logic                      |
+### GlideRecord — The Definitive Patterns
 
-> ⚠️ **Exam Trap:** `onCellEdit` is for **list view only**, not forms. Don't confuse with `onChange`.
-
-**UI Policy vs UI Policy Action:**
-
-- **UI Policy** = the _parent_ — holds the **condition** (e.g. `Priority = High`) and "On Load" setting
-- **UI Policy Action** = the _child_ — defines **what happens to a specific field** when the condition is true
-
-Each UI Policy Action controls one field and sets:
-
-- **Mandatory** — true, false, or leave alone
-- **Visible** — true, false, or leave alone
-- **Read Only** — true, false, or leave alone
-
-One UI Policy can have multiple UI Policy Actions (one per field). In Studio they appear grouped under the UI Policy, so you may have used them without knowing the name!
-
-> ⚠️ **Exam Trap:** Always check "On Load" if the condition could already be true when the form opens. Without it, the policy only fires on field changes during the session.
-
-**GlideRecord Best Practices:**
+GlideRecord is the most heavily tested scripting topic. Memorize the correct pattern and the failure modes.
 
 ```javascript
-// CORRECT pattern — always follow this order
+// ✅ CORRECT — standard query pattern
 var gr = new GlideRecord("incident");
 gr.addQuery("priority", "1");
-gr.query(); // ← NEVER forget this!
+gr.query(); // NEVER skip this
 while (gr.next()) {
-  // ← while, not if (unless you only want 1 record)
-  gs.log(gr.getValue("number")); // ← getValue() not gr.number
+  // while, not if
+  gs.log(gr.getValue("number")); // getValue(), not gr.number
+}
+
+// ✅ CORRECT — insert a record
+var gr = new GlideRecord("incident");
+gr.initialize();
+gr.setValue("short_description", "Test");
+gr.setValue("priority", "2");
+gr.insert();
+
+// ✅ CORRECT — update matching records
+var gr = new GlideRecord("incident");
+gr.addQuery("state", "1");
+gr.query();
+while (gr.next()) {
+  gr.setValue("state", "2");
+  gr.update(); // call update() inside the loop
 }
 ```
 
-| Mistake                                            | Why it's wrong                                                         |
-| -------------------------------------------------- | ---------------------------------------------------------------------- |
-| Using `if` instead of `while`                      | Only processes the first matching record                               |
-| Forgetting `.query()`                              | The database query never executes                                      |
-| Using `gr.field` instead of `gr.getValue('field')` | Returns a GlideElement object, not a plain string — causes subtle bugs |
-| Using `gr.setValue()` to read                      | `setValue()` is for writing, `getValue()` is for reading               |
+| Mistake                           | Why it's wrong                                                         | Fix                                            |
+| --------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------- |
+| Using `if` instead of `while`     | Processes only the first record, ignores the rest                      | Always use `while(gr.next())`                  |
+| Skipping `.query()`               | Query never executes — `gr.next()` returns false immediately           | Always call `gr.query()`                       |
+| Using `gr.field_name` directly    | Returns a GlideElement object, not a string — causes comparison bugs   | Use `gr.getValue('field_name')`                |
+| `current.update()` in a Before BR | Triggers another save event, causing an infinite loop                  | Just set values; the platform handles the save |
+| GlideRecord in a Client Script    | GlideRecord is server-side only — will throw ReferenceError in browser | Use GlideAjax instead                          |
 
-> 🧠 **Memory Tip:** Read with `getValue()`, write with `setValue()`. Always.
+> 🧠 **MEMORY TIP:** Read with `getValue()`, write with `setValue()`. Always.
 
-**Script Includes:**
+### GlideAjax — Client-to-Server Communication
 
-- Server-side reusable functions — call them from Business Rules, other Script Includes, etc.
-- Set **"Accessible from"** to control cross-scope access
-- Can be made **client-callable** (for use with GlideAjax)
+When a client script needs to run a server-side database query (e.g., on field change), use **GlideAjax**. It calls a client-callable Script Include asynchronously without reloading the form.
 
-**GlideAjax vs UI Action — When to use each:**
+```javascript
+// SERVER — Script Include (must extend AbstractAjaxProcessor)
+var MyAjaxSI = Class.create();
+MyAjaxSI.prototype = Object.extendsObject(AbstractAjaxProcessor, {
+  getManagerName: function () {
+    var userId = this.getParameter("sysparm_user_id");
+    var gr = new GlideRecord("sys_user");
+    if (gr.get(userId)) {
+      return this.newItem("result").setAttribute(
+        "manager",
+        gr.getValue("manager.name"),
+      );
+    }
+  },
+  type: "MyAjaxSI",
+});
 
-| Scenario                                                                | Use                                            |
-| ----------------------------------------------------------------------- | ---------------------------------------------- |
-| User clicks a **button** on a form → run server logic                   | **UI Action** (Form button checked)            |
-| Field changes → silently call server logic → update form without reload | **GlideAjax** + client-callable Script Include |
+// CLIENT — Client Script calling the Script Include
+function onChange(control, oldValue, newValue, isLoading) {
+  if (isLoading) return;
+  var ga = new GlideAjax("MyAjaxSI");
+  ga.addParam("sysparm_name", "getManagerName");
+  ga.addParam("sysparm_user_id", newValue);
+  ga.getXMLAnswer(function (answer) {
+    // async callback
+    g_form.setValue("manager", answer);
+  });
+}
+```
 
-> ⚠️ **Exam Trap:** Business Rules fire on **database events** (insert/update/delete), NOT button clicks. Use UI Actions for buttons.
+> 🧠 **MEMORY TIP:** The 3-step GlideAjax pattern: **(1)** `new GlideAjax('ScriptIncludeName')`, **(2)** `addParam` for `sysparm_name` + data params, **(3)** `getXMLAnswer(callback)`. The Script Include **must** extend `AbstractAjaxProcessor`.
 
-**Exam Traps:**
+### UI Policy Deep Dive
 
-- UI Policy does not enforce imports (use Data Policy instead)
-- Before BR does not need `current.update()`
-- Async vs After BR timing
-- `onCellEdit` is list view only
+A **UI Policy** is a parent record holding a condition. A **UI Policy Action** is a child record saying what happens to a specific field when that condition is true. One policy can have many actions.
 
-**Hands-On Drill:**
+| Setting                | What it controls                        | Gotcha                                                                          |
+| ---------------------- | --------------------------------------- | ------------------------------------------------------------------------------- |
+| Condition              | When the policy activates               | If condition is already true on load, nothing fires unless "On Load" is checked |
+| **On Load** (checkbox) | Also evaluate when the form first loads | Leave unchecked = policy only fires when fields change during the session       |
+| Action: Mandatory      | `true` / `false` / leave alone          | "Leave alone" = this policy doesn't touch it                                    |
+| Action: Visible        | `true` / `false` / leave alone          | Hidden field still submits its value                                            |
+| Action: Read Only      | `true` / `false` / leave alone          | UI only — doesn't protect data on server                                        |
 
-- Create a form with 3 fields
-- Add UI Policy & UI Policy Actions
-- Add Before, After, Async BRs affecting fields & related records
-- Create Record Producer
-- Test GlideAjax with a client-callable Script Include
+> ⚠️ **EXAM TRAP:** UI Policy controls the **browser form only**. It does not protect data from server-side scripts, imports, or REST API calls. Use **Data Policy** for server-side enforcement.
+
+### Practice Questions — Domain 2
+
+> 📋 **PRACTICE Q:** A developer wants a field to become mandatory when Priority is set to "High", **including when the form first loads** with Priority already set to High. What must be configured?
+
+> ✅ **ANSWER:** Create a UI Policy with Condition: `Priority = High` **AND** check the **"On Load"** checkbox. Add a UI Policy Action targeting the field with `Mandatory = true`. Without "On Load", the policy only fires when Priority changes during the session.
+
+---
+
+> 📋 **PRACTICE Q:** A client script needs to look up a user's department from the database when a field changes. What is the correct approach?
+
+> ✅ **ANSWER:** Use **GlideAjax** with a client-callable Script Include (extending `AbstractAjaxProcessor`). GlideRecord cannot run in a client script — it is server-side only.
 
 ---
 
 ## Domain 3: Security & Restricting Access (20%)
 
-**Key Concepts:**
+### ACL Evaluation — The Full Mental Model
 
-- ACLs: Table → Record → Field (broad to specific)
-- Role → Condition → Script evaluation order
-- Application & Module access
-- GlideSystem security methods
-- Application Scope protections
+ACL evaluation flows strictly from **broad to specific**. Failing any level stops evaluation entirely — the system does not check deeper levels.
 
-**ACL Evaluation Order — Broad to Specific:**
+```
+Access Request comes in
+       |
+       v
+  [TABLE ACL]  ------FAIL------>  Access Denied. STOP. No record/field ACLs checked.
+       |
+      PASS
+       v
+  [RECORD ACL] ------FAIL------>  Access Denied. STOP. No field ACLs checked.
+       |
+      PASS
+       v
+  [FIELD ACL]  ------FAIL------>  Field is hidden or read-only.
+       |
+      PASS
+       v
+  Access fully granted
 
-| Level      | Controls                                       | If blocked...                                  |
-| ---------- | ---------------------------------------------- | ---------------------------------------------- |
-| **Table**  | Can user access this table at all? (list view) | Stops here — record & field ACLs not evaluated |
-| **Record** | Can user access this specific record?          | Stops here — field ACLs not evaluated          |
-| **Field**  | Can user see/edit this specific field?         | Field is hidden or read-only                   |
+  KEY RULE: admin role bypasses ALL levels. security_admin does NOT.
+```
 
-> 🧠 **Memory Tip:** "Broad to specific — Table → Record → Field. Fail any gate, you're blocked."
+> 🧠 **MEMORY TIP:** "Broad to specific — Table → Record → Field. Fail any gate, you're blocked."
 
-**Diagnosing ACL Issues:**
+### ACL Diagnosis — Symptom to Cause
 
-| Symptom                                    | Likely cause              |
-| ------------------------------------------ | ------------------------- |
-| User can't see the list at all             | Table-level ACL blocking  |
-| User sees the list but can't open a record | Record-level ACL blocking |
-| User opens a record but a field is missing | Field-level ACL blocking  |
+| Symptom                                        | Root Cause                                              | Where to look                                       |
+| ---------------------------------------------- | ------------------------------------------------------- | --------------------------------------------------- |
+| User cannot see the table in nav or list       | Table-level ACL blocking read                           | ACL record: `name = table_name`, `operation = read` |
+| User sees list but can't open a record         | Record-level ACL blocking read                          | ACL record with a condition or script on the record |
+| User opens record but a field is blank/missing | Field-level ACL blocking read                           | ACL record: `name = table_name.field_name`          |
+| User can see a field but can't edit it         | Field-level ACL blocking write, or dictionary read-only | Check write ACL AND dictionary entry                |
 
-**Key Roles:**
+### ACL Evaluation — Role → Condition → Script
 
-| Role             | What it does                                                                                                                 |
-| ---------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| `admin`          | Full platform access, **bypasses ACLs entirely**                                                                             |
-| `security_admin` | Manages ACL records and security settings — required when High Security plugin is enabled. Does NOT grant full admin access. |
-| `itil`           | Standard service desk role — incidents, problems, changes                                                                    |
+Within a single ACL record, all three checks must pass. The evaluation order is: **Role → Condition → Script**. If the role check fails, condition and script are not evaluated.
 
-> ⚠️ **Exam Trap:** `security_admin` sounds powerful but doesn't bypass ACLs like `admin` does. Don't confuse them!
+| Check     | Fails when...                              | Practical note                                      |
+| --------- | ------------------------------------------ | --------------------------------------------------- |
+| Role      | User does not have the required role       | Leave blank to allow any authenticated user         |
+| Condition | Record does not match the condition filter | Example: only allow if `assigned_to = current user` |
+| Script    | Script returns `false`                     | Most powerful — can implement any logic             |
 
-**Exam Traps:**
+> ⚠️ **EXAM TRAP:** `admin` bypasses **ALL** ACL evaluation entirely. `security_admin` only allows managing ACL records — it does **not** bypass them. Don't confuse these on the exam.
 
-- Table deny stops field ACL evaluation
-- Client vs server misconceptions
-- `security_admin` vs `admin` role confusion
+### Practice Questions — Domain 3
 
-**Hands-On Drill:**
+> 📋 **PRACTICE Q:** A user with the `itil` role reports they can see a list of incidents but clicking any record shows an error. The `admin` role works fine. What is the most likely cause?
 
-- 2 table ACLs (read/write), 1 field ACL with script
-- Test with different roles & users
-- Observe how table deny blocks record/field evaluation
+> ✅ **ANSWER:** A **record-level ACL** is blocking read access for the `itil` role. The table-level ACL is passing (they see the list), but a record-level ACL with a condition or script is denying access to individual records.
+
+---
+
+> 📋 **PRACTICE Q:** A new field is added to the incident table. Users with `itil` can open incident records but the new field is not visible. What should the admin check first?
+
+> ✅ **ANSWER:** Check for a **field-level ACL** on `incident.new_field_name`. Also verify the field is present on the **Form Layout** — a missing field from the layout looks identical to a field-level ACL from the user's perspective, but is a different root cause.
 
 ---
 
 ## Domain 4: Application Automation (20%)
 
-**Key Concepts:**
+### Business Rule Timing — Visual Flow
 
-- Workflows & Flow Designer
-- Application Properties
-- Events, Scheduled Jobs, Utility Script Includes
-- Email notifications
+```
+User clicks Save on a form
+         |
+         v
+   [BEFORE BR]  <── Can read & modify 'current'. Can abort with current.setAbortAction(true).
+         |          Do NOT call current.update() here — causes an infinite loop!
+         v
+   DATABASE WRITE  (record is committed to DB)
+         |
+         v
+   [AFTER BR]   <── 'current' is effectively read-only here. Use to update RELATED records.
+         |          User is still waiting. Keep this fast.
+         v
+   [ASYNC BR]   <── Runs in a background thread. User does NOT wait.
+         |          Use for emails, integrations, heavy processing.
+         v
+   [DISPLAY BR] <── Fires when form LOADS for display (not on save).
+                    Use g_scratchpad to pass data to client scripts.
+```
 
-**Business Rule Timing — Full Reference:**
+| Type       | Modify `current`?               | Blocks user?               | Best used for                             |
+| ---------- | ------------------------------- | -------------------------- | ----------------------------------------- |
+| Before BR  | Yes — directly set field values | Yes                        | Validate/transform fields before save     |
+| After BR   | No (already saved)              | Yes — user waits           | Update related records, trigger workflows |
+| Async BR   | No                              | **No** — background thread | Notifications, integrations, slow tasks   |
+| Display BR | Via `g_scratchpad` only         | Yes (form load)            | Pass server data to client scripts        |
 
-| Type           | When it runs                       | Can modify `current`? | Blocks user? | Common use                               |
-| -------------- | ---------------------------------- | --------------------- | ------------ | ---------------------------------------- |
-| **Before BR**  | Before DB save                     | ✅ Yes                | ✅ Yes       | Modify/validate field values before save |
-| **After BR**   | After DB save                      | ⚠️ Limited            | ✅ Yes       | Update related records                   |
-| **Async BR**   | After DB save, **separate thread** | ❌ No                 | ❌ No        | Notifications, integrations, heavy tasks |
-| **Display BR** | When form loads for display        | ✅ via `g_scratchpad` | ✅ Yes       | Pass server data to client scripts       |
+> ⚠️ **EXAM TRAP:** Async BRs do **NOT** block the user. If an exam question asks for **immediate feedback** after a save, Async is wrong — use After BR. If the task is a notification or integration, Async is the right answer.
 
-> 🧠 **Memory Tip:** "Before = shape it. After = react to it. Async = fire and forget. Display = feed the form."
+> 🧠 **MEMORY TIP:** "Before = shape it. After = react to it. Async = fire and forget. Display = feed the form."
 
-> ⚠️ **Exam Trap:** Async BRs do NOT block the user — they run in a background thread. Never use Async when you need the result to appear immediately on the form.
+### Flow Designer — Key Concepts
 
-**Scheduled Jobs vs Async BRs:**
+Flow Designer is the no-code/low-code replacement for legacy Workflow.
 
-|                  | Scheduled Job                         | Async BR                                |
-| ---------------- | ------------------------------------- | --------------------------------------- |
-| **Triggered by** | A time schedule (daily, hourly, etc.) | A database event (insert/update/delete) |
-| **Use when**     | You need logic to run on a timer      | You need background logic after a save  |
+| Concept           | What to know                                                                     |
+| ----------------- | -------------------------------------------------------------------------------- |
+| Trigger           | What starts the flow: record created/updated, schedule, inbound email, or manual |
+| Action            | A single step — create record, update field, send email, call spoke              |
+| Spoke             | A pre-built integration package (e.g., Slack Spoke, JIRA Spoke)                  |
+| Subflow           | A reusable flow callable from other flows — like a Script Include for flows      |
+| Script step       | Run arbitrary JavaScript inside a flow when no built-in action exists            |
+| Execution context | Flows run as **System** by default — be careful with ACL-sensitive operations    |
 
-**Exam Traps:**
+> 📝 **NOTE:** Flow Designer runs **after** the database write, similar to an After BR. If you need to **prevent** a save, use a Before BR — you cannot do that from Flow Designer.
 
-- Scheduled jobs vs Async BRs confusion
-- Flow designer execution timing
-- Using After BR when Async would be more appropriate (performance)
+### Scheduled Jobs vs Async Business Rules
 
-**Hands-On Drill:**
+|                   | Scheduled Job                                                        | Async Business Rule                            |
+| ----------------- | -------------------------------------------------------------------- | ---------------------------------------------- |
+| Triggered by      | A time schedule (daily, hourly, cron)                                | A DB event (insert, update, delete)            |
+| When to use       | Nightly batch processing, periodic cleanup                           | Background work triggered by a record change   |
+| Frequency control | Set in the schedule — runs independently of data changes             | Fires every time the trigger condition is met  |
+| Example           | Every night at midnight, close resolved incidents older than 30 days | When a new incident is inserted, post to Slack |
 
-- Scheduled job updating a field daily
-- Flow on record insert
-- Event triggered via BR or Script Include
+### Practice Questions — Domain 4
+
+> 📋 **PRACTICE Q:** A Business Rule sets a field value on the current record. After deployment, users report the save operation is stuck in an infinite loop. What is the most likely cause?
+
+> ✅ **ANSWER:** The Business Rule is calling `current.update()`. This triggers another save event, which fires the Business Rule again. **Fix:** remove `current.update()` from a Before BR (the platform handles the save automatically) or restructure the After BR to not re-trigger.
+
+---
+
+> 📋 **PRACTICE Q:** A notification email must be sent after a high-priority incident is created, but the user should not have to wait for it. Which Business Rule type is most appropriate?
+
+> ✅ **ANSWER:** **Async Business Rule.** It runs in a background thread after the DB commit, so the user is not blocked. An After BR would also work technically but makes the user wait for the email — Async is the better design choice.
 
 ---
 
 ## Domain 5: Working with External Data (10%)
 
-**Key Concepts:**
+### Import Sets — Full Pipeline
 
-- Import Sets (CSV, Excel)
-- Transform Maps & Field Maps
-- Data Policy enforcement on imports
-- REST API integrations
+```
+External Data Source (CSV, Excel, JDBC, REST)
+         |
+         v
+   [Import Set Table]   <── Staging table (u_import_*). Raw data lands here first.
+         |
+         v
+   [Transform Map]      <── Maps source columns to target table fields.
+         |                  Contains Field Maps (1 per source→target mapping).
+         |                  Optional: coalesce field to match/update existing records.
+         |                  Optional: "Run business rules" checkbox.
+         v
+   [Target Table]       <── Final destination (e.g., incident, sys_user).
+```
 
-**UI Policy vs Data Policy — Critical Distinction:**
+### UI Policy vs Data Policy — Critical Distinction
 
-|                       | UI Policy                                       | Data Policy                               |
-| --------------------- | ----------------------------------------------- | ----------------------------------------- |
-| **Runs on**           | Client (browser)                                | Server (database)                         |
-| **Enforces imports?** | ❌ No                                           | ✅ Yes                                    |
-| **Controls**          | Field visibility, mandatory, read-only on forms | Mandatory and read-only at the data level |
+|                     | UI Policy                              | Data Policy                                     |
+| ------------------- | -------------------------------------- | ----------------------------------------------- |
+| Runs where?         | Browser (client-side)                  | Server (database layer)                         |
+| Enforces on import? | **NO** — imports bypass the browser    | **YES** — enforced at DB level                  |
+| Controls            | Mandatory, visible, read-only on forms | Mandatory, read-only (no visibility control)    |
+| Enforcement scope   | Current user's form session only       | All data writes — forms, imports, REST, scripts |
+| When to use         | Dynamic form UX                        | Enforcing data integrity across all channels    |
 
-> ⚠️ **Exam Trap:** UI Policies do NOT enforce imports. If you need mandatory/read-only to apply to imported data, use Data Policy.
+> ⚠️ **EXAM TRAP:** UI Policies do **NOT** enforce data imported via Import Sets. If a question asks how to ensure a field is mandatory for both form saves AND imports, the answer is **Data Policy**.
 
-**Exam Traps:**
+### Transform Map — Key Settings
 
-- Forgetting "Run business rules" checkbox on Transform Maps
-- UI Policies do not enforce imports
+| Setting                    | What it does                                          | Note                                                  |
+| -------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
+| Run business rules         | Whether BRs fire on the target table during transform | Unchecked by default — check it if BRs must run       |
+| Coalesce field             | Match existing records to prevent duplicates          | If match found, updates; otherwise inserts            |
+| Script (field map)         | Transform source value before writing to target       | Access source with `source.field_name`                |
+| Run script (transform map) | Runs once before/after the entire transform           | `onBefore`, `onAfter`, `onStart`, `onComplete` events |
 
-**Hands-On Drill:**
+### Practice Questions — Domain 5
 
-- Import CSV, map fields, optionally script transform
-- Test REST GET/POST integration
+> 📋 **PRACTICE Q:** An administrator imports a CSV file of user records. A field on `sys_user` is defined as mandatory in a UI Policy. After the import, records exist with that field empty. Why?
+
+> ✅ **ANSWER:** UI Policies are browser-side only and do not apply to server-side imports. To enforce the mandatory rule on imports, a **Data Policy** must be created on the `sys_user` table for that field.
 
 ---
 
 ## Domain 6: Managing Applications (10%)
 
-**Key Concepts:**
+### Update Sets vs App Repository
 
-- Install/download apps
-- Delegated Development & code reviews
-- ServiceNow Git integration
+|                    | Update Set                                        | App Repository (Studio)                 |
+| ------------------ | ------------------------------------------------- | --------------------------------------- |
+| Best for           | Global/legacy configurations                      | Scoped apps (preferred)                 |
+| Captures           | Configuration changes (scripts, forms, workflows) | Full scoped app including all artifacts |
+| Does NOT capture   | Data — records, incidents, users, attachments     | Instance-specific settings              |
+| Source control     | Manual export XML → import to other instance      | Git integration supported               |
+| Deployment flow    | Dev → Test → Prod (Preview before Commit)         | Dev → Test → Prod via app version       |
+| Conflict detection | Preview step shows conflicts before commit        | Compare with published version          |
 
-**Update Sets — Key Facts:**
+> ⚠️ **EXAM TRAP:** Update Sets capture **CONFIGURATION**, not **DATA**. Creating a new incident record, uploading an attachment, or adding a user will **NOT** appear in your Update Set.
 
-- Capture **configuration changes** (scripts, forms, workflows) — NOT data (records, users, incidents)
-- Changes go to the **Default Update Set** if you don't create a custom one
-- Migration flow: **Dev → Test → Production**
-- Always **Preview** before **Commit** in the target instance to catch conflicts
-
-> ⚠️ **Exam Trap:** Update Sets capture config, not data. A new incident record will NOT be in your Update Set.
-
-**Update Set vs App Repository:**
-
-|                    | Update Set                   | App Repository            |
-| ------------------ | ---------------------------- | ------------------------- |
-| **Best for**       | Legacy/global customizations | Scoped apps (preferred)   |
-| **Source control** | Manual export/import         | Git integration supported |
-
-**Exam Traps:**
-
-- Update Set vs App Repository confusion
-- Delegated permissions misunderstood
-- Thinking Update Sets capture data records
-
-**Hands-On Drill:**
-
-- Push/pull app via Git
-- Create delegated developer account
-
----
-
-## Quick Reference Cheat Sheet
-
-**BR Timing:**
-
-| Type        | Runs                         | Can Abort | Notes                             |
-| ----------- | ---------------------------- | --------- | --------------------------------- |
-| Before BR   | Before DB                    | ✅        | Do not call `current.update()`    |
-| After BR    | After DB commit              | ❌        | Update related records            |
-| Async BR    | After DB commit (background) | ❌        | Non-blocking, fire and forget     |
-| Data Policy | Before DB                    | ✅        | Enforces imports                  |
-| UI Policy   | Client only                  | ❌        | Form only, cannot enforce imports |
-
-**Client vs Server APIs:**
-
-| Object             | Scope           | Notes                                                       |
-| ------------------ | --------------- | ----------------------------------------------------------- |
-| `g_form`           | Client          | Only on forms — get/set field values, visibility, mandatory |
-| `current`          | Server          | GlideRecord in BR/Script Include                            |
-| `GlideRecord`      | Server          | Query/update DB — always use `getValue()` / `setValue()`    |
-| `GlideAjax`        | Client → Server | Call server-side Script Include from a Client Script        |
-| `gs` (GlideSystem) | Server          | Logging, user info, system utilities                        |
-| `g_scratchpad`     | Bridge          | Pass data from Display BR (server) to Client Script         |
-| Script Include     | Server          | Reusable; can be made client-callable for GlideAjax         |
-
-**ACL Evaluation:**
-
-- Table → Record → Field (broad to specific)
-- Fail any level = access denied, evaluation stops
-- `admin` role bypasses all ACLs
-- `security_admin` manages ACL records — does NOT bypass them
-
-**Prefixes:**
-
-| Prefix | Meaning                         |
-| ------ | ------------------------------- |
-| `x_`   | Scoped app table/field          |
-| `u_`   | Global scope custom table/field |
-| `sys_` | ServiceNow platform table       |
-
-**Cross-Scope / Scoped App:**
-
-- Set "Accessible from" = "All application scopes" to allow cross-scope calls
-- UI Policies do not cross scope
-- Check the **Application** field on any artifact to verify its scope
-
-**Transform Map / Import:**
-
-- "Run business rules" checkbox controls BR execution on import
-- Field Maps: source → target
-- Data Policy enforces mandatory/readonly on imports (UI Policy does NOT)
-
-**Deployment / Source Control:**
-
-- App Repository → preferred for scoped apps
-- Update Set → legacy, captures config not data
-- Delegated Development → code reviews
-- Git → commit/pull/push
-
-**Common Exam Traps — Quick List:**
-
-| Symptom / Scenario                          | Answer                                              |
-| ------------------------------------------- | --------------------------------------------------- |
-| Form is slow after save                     | Check After vs Async BR — use Async for heavy tasks |
-| Field not saving                            | Check dictionary read-only                          |
-| Client Script needs DB query                | Use GlideAjax, not GlideRecord directly             |
-| Mandatory field not enforced on import      | Use Data Policy, not UI Policy                      |
-| Cross-scope call failing                    | Check "Accessible from" / Cross-Scope Access table  |
-| User sees list but can't open record        | Record-level ACL blocking                           |
-| User can't see list at all                  | Table-level ACL blocking                            |
-| Need button on form to trigger server logic | UI Action (not Business Rule)                       |
-| Need field change to silently call server   | GlideAjax + client-callable Script Include          |
-| Move config between instances               | Update Set or App Repository                        |
-| Wrong scope on new artifact                 | Forgot to check App Picker before creating          |
-
----
-
-## Execution Flow & ACL Diagram (ASCII)
+### Update Set Deployment — Step by Step
 
 ```
-Record Save Flow:
+1. In SOURCE instance:
+   System Update Sets > Local Update Sets
+   Create / select your Update Set > mark Complete
+   Export to XML file
 
-Client Form Submit
-       |
-       v
-  [Before BR] ---> can modify `current`, can abort
-       |
-       v
-   Database Commit
-       |
-       v
-   [After BR] ---> update related records, user waits
-       |
-       v
-   [Async BR] ---> background thread, user continues
+2. In TARGET instance:
+   System Update Sets > Retrieved Update Sets
+   Import XML file
 
-ACL Evaluation Flow:
+3. PREVIEW the Update Set (mandatory best practice)
+   Identifies conflicts with existing customizations
+   Review any problem records before committing
 
-Access Request
-       |
-       v
-  Table ACL? --> FAIL --> Access Denied (stops here)
-       |
-      PASS
-       v
-  Record ACL? --> FAIL --> Access Denied (stops here)
-       |
-      PASS
-       v
-  Field ACL? --> FAIL --> Field hidden/read-only
-       |
-      PASS
-       v
-  Access Granted
-
-Rules:
-- Table deny stops ALL further evaluation
-- Must pass ALL levels for full access
-- admin role skips all ACL evaluation
+4. COMMIT the Update Set
+   Applies all configuration changes to the target
+   This action cannot be easily undone — always preview first!
 ```
+
+> 🧠 **MEMORY TIP:** "**Complete → Export → Import → Preview → Commit**". If any exam option says to skip Preview, that's a trap — always preview first.
+
+### Delegated Development
+
+| Concept                  | What to know                                                           |
+| ------------------------ | ---------------------------------------------------------------------- |
+| Delegated Developer role | Grants development access to a specific scoped app                     |
+| Code Review              | A designated approver must review changes before they are promoted     |
+| Scope isolation          | Delegated developer cannot modify artifacts outside their assigned app |
+| Why use it               | Allows team-based development without handing out admin access         |
+
+### Practice Questions — Domain 6
+
+> 📋 **PRACTICE Q:** A developer completes workflow and script changes in a dev instance. They export the Update Set and import it to test. During Preview, a conflict is shown on a Business Rule. What should happen next?
+
+> ✅ **ANSWER:** **Resolve the conflict before committing.** The Preview step shows the existing record vs. the incoming record. The admin should review both versions, choose which to keep (or merge manually), then proceed to Commit. Never commit a conflicted Update Set without reviewing it.
 
 ---
 
-## Hands-On Drill Checklist
+## Master Quick Reference
 
-- [ ] Scoped app with 2 tables (1 extended, 1 custom) — verify `x_` prefix on tables
-- [ ] Check App Picker before creating each artifact — verify Application field on records
-- [ ] Create modules (list/form)
-- [ ] Client Scripts (onLoad, onChange, onSubmit, onCellEdit)
-- [ ] UI Policies + UI Policy Actions (with and without "On Load")
-- [ ] Before, After, Async BRs — observe timing differences
-- [ ] Display BR with `g_scratchpad` passing data to Client Script
-- [ ] Data Policies for mandatory/readonly — test on import
-- [ ] ACLs (table & field, scripts, roles) — test table deny blocking record/field evaluation
-- [ ] Transform Map + Import Set + optional script
-- [ ] REST integration test
-- [ ] Scheduled Job / Event trigger
-- [ ] Record Producer
-- [ ] Script Include — test cross-scope access with "Accessible from" settings
-- [ ] GlideAjax with a client-callable Script Include
-- [ ] UI Action with Form button triggering server-side script
-- [ ] Git integration & Delegated Development test
-- [ ] Update Set — export config, import to another instance, preview before commit
+### Client vs Server API Cheat Sheet
+
+| Object / API       | Client or Server        | Purpose                                               | Key Gotcha                                         |
+| ------------------ | ----------------------- | ----------------------------------------------------- | -------------------------------------------------- |
+| `g_form`           | Client only             | Get/set field values, visibility, mandatory on a form | Not available in Business Rules                    |
+| `current`          | Server only             | GlideRecord in a BR representing the current record   | Do not call `current.update()` in a Before BR      |
+| `GlideRecord`      | Server only             | Query / insert / update any table                     | Use `getValue()`, not `gr.field_name` directly     |
+| `GlideAjax`        | Client → Server         | Call a server Script Include from a client script     | Script Include must extend `AbstractAjaxProcessor` |
+| `gs` (GlideSystem) | Server only             | Logging, user info, system properties                 | `gs.getUser()` returns a GlideUser object          |
+| `g_scratchpad`     | Bridge: server → client | Pass data from Display BR to client scripts           | Set in Display BR, read in client script           |
+| Script Include     | Server                  | Reusable server-side functions                        | Set "Accessible from" for cross-scope use          |
+
+### BR Timing Quick Reference
+
+| Type        | Runs                         | Can abort? | Notes                                 |
+| ----------- | ---------------------------- | ---------- | ------------------------------------- |
+| Before BR   | Before DB write              | ✅ Yes     | Do NOT call `current.update()`        |
+| After BR    | After DB commit              | ❌ No      | Update related records; user waits    |
+| Async BR    | After DB commit (background) | ❌ No      | Non-blocking — fire and forget        |
+| Display BR  | On form load                 | ❌ No      | Use `g_scratchpad` to pass to client  |
+| Data Policy | Before DB write              | ✅ Yes     | Enforces imports (UI Policy does not) |
+| UI Policy   | Client/browser only          | ❌ No      | Form only — cannot enforce imports    |
+
+### Prefix Quick Reference
+
+| Prefix | Meaning                          |
+| ------ | -------------------------------- |
+| `x_`   | Scoped app table/field           |
+| `u_`   | Global scope custom table/field  |
+| `sys_` | ServiceNow native platform table |
+
+---
+
+## All Exam Traps — Combined List
+
+| Scenario / Symptom                          | Trap                                     | Correct Answer                                                 |
+| ------------------------------------------- | ---------------------------------------- | -------------------------------------------------------------- |
+| Form is slow after save                     | Thinking it's a client issue             | Check for heavy After BR — consider Async instead              |
+| Field not saving despite no error           | Checking only UI settings                | Check dictionary read-only flag                                |
+| Client Script needs DB data                 | Using GlideRecord in client script       | Use GlideAjax + client-callable Script Include                 |
+| Mandatory not enforced on import            | Using UI Policy                          | Use Data Policy — it's server-side                             |
+| Cross-scope call fails silently             | Assuming it's a code bug                 | Check "Accessible from" on the Script Include                  |
+| User sees list, can't open record           | Checking field-level ACLs first          | Record-level ACL is blocking — check that first                |
+| User can't see list at all                  | Checking record/field ACLs               | Table-level ACL is blocking — start there                      |
+| Button on form needs server logic           | Using a Business Rule                    | Use a UI Action with Form Button checked                       |
+| Field change needs silent server call       | Using a UI Action                        | Use GlideAjax + client-callable Script Include                 |
+| Move config between instances               | Manually recreating scripts              | Use Update Set or App Repository                               |
+| Artifact in wrong scope                     | Blaming the script                       | Check App Picker — was the correct scope selected at creation? |
+| BR causing infinite loop                    | Adding more conditions to the BR         | Remove `current.update()` from the Before BR                   |
+| `onCellEdit` used on a form                 | Thinking it works on forms               | `onCellEdit` is list view only — use `onChange` on forms       |
+| `security_admin` assumed = `admin`          | Thinking `security_admin` bypasses ACLs  | Only `admin` bypasses ACLs — `security_admin` manages them     |
+| Update Set expected to include data records | Expecting incident records in Update Set | Update Sets capture config only, not data                      |
+| UI Policy expected to enforce on import     | Using UI Policy for import validation    | UI Policies are browser-side — use Data Policy                 |
 
 ---
 
 ## Mental Checklist for Exam Decisions
 
-- **ACL issue?** → Table deny → stop; Record deny → stop; Field deny → restrict further
-- **BR Timing?** → Before → DB → After → Async (background)
-- **Client vs Server?** → `g_form` = client; `current`/`GlideRecord`/`gs` = server
-- **Cross-scope failure?** → Check "Accessible from" / Cross-Scope Access table
+- **ACL issue?** → Table deny → stop; Record deny → stop; Field deny → restrict field only
+- **BR Timing?** → Before → DB write → After → Async (background)
+- **Client vs Server?** → `g_form` = client; `current` / `GlideRecord` / `gs` = server
+- **Cross-scope failure?** → Check "Accessible from" on the Script Include
 - **Button on form?** → UI Action (not Business Rule)
 - **Silent server call from client?** → GlideAjax + client-callable Script Include
 - **Mandatory on import?** → Data Policy (not UI Policy)
 - **Move config between instances?** → Update Set or App Repository
-- **Wrong scope on artifact?** → Check App Picker, verify Application field on record
-- **Read a field value in GlideRecord?** → `getValue()` not `gr.field`
+- **Wrong scope on artifact?** → Check App Picker, verify Application field on the record
+- **Read a field in GlideRecord?** → `getValue()`, not `gr.field_name`
 - **Multi-select exam question?** → Commit first instinct, don't second-guess
 
 ---
 
-## 7–10 Day Prep Plan
+## 7–10 Day Study Plan
 
-**Days 1–3:** Build small scoped app, BRs, ACLs, UI Policies, Data Policies. Pay attention to App Picker and scope prefixes.
-
-**Days 4–5:** Cross-scope, GlideAjax, UI Actions, Flow Designer, Scheduled Jobs, REST
-
-**Days 6–7:** Timed practice exams, commit instinct answers
-
-**Day 8:** Quick-reference drills (ACL levels, BR timing, prefix table, client vs server APIs)
-
-**Days 9–10:** Light review, mental walkthroughs, confidence reinforcement
+| Days | Focus                                                                              | Goal                                                                    |
+| ---- | ---------------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| 1–2  | Domain 1 & 2: Scoped apps, tables, client scripts, UI Policy, GlideRecord          | Build a small scoped app with 2 tables, client scripts, UI Policies     |
+| 3–4  | Domain 3 & 4: ACLs, Business Rules, Flow Designer, Scheduled Jobs                  | Create ACLs at all 3 levels, all 4 BR types, observe timing differences |
+| 5    | Domain 2 deep dive: GlideAjax, UI Actions, `g_scratchpad`, Script Includes         | Build a GlideAjax call from scratch — this is exam-heavy content        |
+| 6    | Domain 5 & 6: Import Sets, Transform Maps, Update Sets, App Repository             | Import a CSV, test Data Policy, export and import an Update Set         |
+| 7    | Timed practice: 60 questions in 90 minutes                                         | Identify weak areas — revisit those domain sections                     |
+| 8    | Quick-reference drills: ACL levels, BR timing, prefix table, client vs server APIs | Can you recall all tables and flows without looking?                    |
+| 9–10 | Light review, mental walkthroughs, exam-day confidence                             | Re-read all exam traps, sleep well, trust your prep                     |
