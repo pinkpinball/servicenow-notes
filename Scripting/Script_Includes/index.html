@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Natalie Walker" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Script Includes - ServiceNow Notes</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Script Includes";
+        var mkdocs_page_input_path = "Scripting/Script_Includes.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/javaScript.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> ServiceNow Notes
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">ServiceNow Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../ServiceNow_Fundamentals/">ServiceNow Fundamentals</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Flows</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Flows/flow_fundamentals/">ServiceNow Flow Fundamentals</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Reports</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Reports/Report_fundamentals/">ServiceNow Reports Fundamentals</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Scripting</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../Business_Rules/">Business Rule</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Client_Scripts/">Client Script</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Fix_Script/">Fix Script</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Flow_Scripting/">Flow Designer Scripting</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../JS_On_Now_Platform/">JavaScript On Now Platform</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Scheduled_Script/">Scheduled Script</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Script Includes</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#purpose">Purpose</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#runs">Runs</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#types">Types</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#classless-function">Classless Function</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#script-include-class">Script Include Class</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#extended-class">Extended Class</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#json">JSON</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#state-model">State Model</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#use-when">Use When</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#touches">Touches</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#common-mistakes">Common Mistakes</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#application-scope">Application Scope</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#good-practices">Good Practices</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#mental-model">Mental Model</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#1-min-example">1-Min Example</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../UI_Action/">UI Action</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../UI_Page/">UI Page</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../UI_Policy/">UI Policy</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../glide_system_gliderecord_notes/">Glide API Notes: GlideSystem &amp; GlideRecord</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../service_now_script_decision_tree/">ServiceNow: Which Tool Do I Use?</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../servicenow_js_scripting_notes/">ServiceNow JavaScript &amp; Scripting Notes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../servicenow_js_scripting_notes_with_client_vs_server_side/">ServiceNow JavaScript: Server Side vs Client Side</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Study Guides</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Study_Guides/cad_study_guide/">ServiceNow CAD Certification — Master Study Guide</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">ServiceNow Notes</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Scripting</li>
+      <li class="breadcrumb-item active">Script Includes</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="script-includes">Script Includes</h1>
+<h2 id="purpose">Purpose</h2>
+<ul>
+<li>Stores reusable Javascript to execute server-side</li>
+<li>Centralize business rules</li>
+</ul>
+<blockquote>
+<p>A record in a table that allows us to store a JavaScript function that can be called from any where that server-side JS
+is acceptable or to store an entire new class that server-side js is accessible. The classes can be called client-side in
+some cases</p>
+<p><strong>Note:</strong> The name of the script includes must match the name of the function of class it's calling</p>
+</blockquote>
+<h2 id="runs">Runs</h2>
+<ul>
+<li>Server</li>
+<li>Called by other scripts and flows</li>
+<li>Runs only when called</li>
+<li>Client-callable (via GlideAjax)</li>
+</ul>
+<p><img alt="Script Includes Overview" src="../script_includes_overview.png" /></p>
+<p><img alt="Script Includes Trigger" src="../script_includes_trigger.png" /></p>
+<h2 id="types">Types</h2>
+<h4 id="classless-function">Classless Function</h4>
+<p>By default, ServiceNow gives you class template for script includes. make sure you clear this out</p>
+<ul>
+<li>Re-usable</li>
+<li>Server-side only</li>
+<li>Executed on demand</li>
+<li>Can be called by a Business Rule, reference qualifier field, Event caller, embedded in an email notification</li>
+</ul>
+<p><img alt="Script Includes Classless" src="../script_includes_classless.png" /></p>
+<h4 id="script-include-class">Script Include Class</h4>
+<ul>
+<li>Defines a reusable class</li>
+<li>Can be called by client-side scripts (if client-callable)</li>
+<li>Naming convention: include <code>_Utils</code></li>
+</ul>
+<p><img alt="Script Includes Class" src="../script_includes_class.png" /></p>
+<p>The below shows how to use the initialize function. This runs the moment that and object of this class is created.
+(see lines 6 and 12 in the above, They are redundant)</p>
+<p><img alt="Script Includes Class: Initialize" src="../script_includes_class_initialize.png" /></p>
+<ul>
+<li>Reference Qualifiers : simple, dynamic, advanced</li>
+</ul>
+<p><img alt="Script Includes Class: Qualifiers" src="../script_includes_class_qualifiers.png" /></p>
+<h4 id="extended-class">Extended Class</h4>
+<ul>
+<li>Inherits from an existing class</li>
+<li>Adds or overrides functionality</li>
+<li>Can be client-callable if parent allows</li>
+</ul>
+<p><img alt="Script Includes Class: Extending" src="../script_includes_class_extending.png" /></p>
+<blockquote>
+<p><strong>Why Do this</strong>?</p>
+<p><em>Search the baseline script includes to see where and why ServiceNow extends classes</em></p>
+<ul>
+<li>LDAP or Catalog Updates, extend so you don't ruing base functionality</li>
+<li>AJAX Class Called "AbstractClassAjaxProcessor"</li>
+</ul>
+</blockquote>
+<p><img alt="Script Includes Class AJAX" src="../script_includes_class_ajax.png" /></p>
+<blockquote>
+<p>Note: When using the AbstractAjaxProcessors class, it has the getParameter method that allows for client side
+JS to pass a value that will affect how the server-side JavaScript runs. (Glide AJAX)</p>
+</blockquote>
+<p><img alt="Script Includes Call Client_side" src="../script_includes_call_on_client.png" /></p>
+<p>Pictured above we see how we can have client scripts and ui policies process things on the server, that would normally be
+"expensive" for client-side to do.</p>
+<p><img alt="Script Includes XML Response Example" src="../script_includes_xml_response.png" /></p>
+<p><img alt="Script Includes Putting It Together" src="../script_includes_putting_it_together.png" /></p>
+<h3 id="json">JSON</h3>
+<p>Script Includes allows you to use JSON and pass data between client and server. (It still come back in an xml payload/wrapper but
+you will not have to traverse the xml)</p>
+<p><img alt="Script Includes JSON Response" src="../script_includes_json.png" /></p>
+<blockquote>
+<p>Note: When calling an extended script include on the client side and you only want the answer attribute, you can use the .getXMLAnswer().
+You can create a callback to parse the xml if needed</p>
+</blockquote>
+<p><img alt="Script Includes JSON Response Parsing" src="../script_includes_json_parse.png" /></p>
+<h3 id="state-model">State Model</h3>
+<p><img alt="Script Includes State Model" src="../script_includes_state_model.png" /></p>
+<p>Pictured above we have Script Includes IncidentStateSNC, use this to store custom property values for the IncidentState and workflow.</p>
+<h2 id="use-when">Use When</h2>
+<ul>
+<li>Logic reused across BusinessRules, Flows, APIs</li>
+<li>Complex business rules</li>
+<li>NOT for UI logic</li>
+</ul>
+<h2 id="touches">Touches</h2>
+<ul>
+<li>Tables: varies</li>
+<li>APIs: GlideRecord, gs</li>
+</ul>
+<h2 id="common-mistakes">Common Mistakes</h2>
+<ul>
+<li>Putting logic directly in Business Rules</li>
+<li>Forgetting client-callable flag</li>
+<li>Mixing UI logic into server code</li>
+<li>There are no access to the <em>current</em> object.</li>
+<li>Using g_scratchpad instead of GlideAjax</li>
+<li>g_scratchpad only gets the data on load so if you need new data you have to reload the form.</li>
+</ul>
+<h2 id="application-scope">Application Scope</h2>
+<p>You can have public of private scope but how you call the script include will change based on scope.
+A scope prefix is not required to call a script include in the same scope. To call a script include in another scope you must
+prepend the script includes name with it's unique scope namespace. When you look at the details for the Script Include you
+will see the API Name, use that when you need the entire name. You can only do this is the Script Include can be access from
+other scopes.</p>
+<blockquote>
+<p>Note: When you have an app that is downloadable from the ServiceNow App Store, you have the option to use a protection policy
+on your script includes: Read-Only, Protected, or --None--.</p>
+</blockquote>
+<h2 id="good-practices">Good Practices</h2>
+<ul>
+<li>Single responsibility</li>
+<li>Scope-aware</li>
+<li>Small, focused methods</li>
+</ul>
+<h2 id="mental-model">Mental Model</h2>
+<blockquote>
+<p>Script Includes = Service Layer</p>
+</blockquote>
+<h2 id="1-min-example">1-Min Example</h2>
+<ul>
+<li>Calculate SLA based on priority</li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../Scheduled_Script/" class="btn btn-neutral float-left" title="Scheduled Script"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../UI_Action/" class="btn btn-neutral float-right" title="UI Action">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../Scheduled_Script/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../UI_Action/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

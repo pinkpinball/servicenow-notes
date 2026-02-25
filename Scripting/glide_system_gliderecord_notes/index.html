@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Natalie Walker" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Glide API Notes: GlideSystem &amp; GlideRecord - ServiceNow Notes</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Glide API Notes: GlideSystem \u0026amp; GlideRecord";
+        var mkdocs_page_input_path = "Scripting/glide_system_gliderecord_notes.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/javaScript.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> ServiceNow Notes
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">ServiceNow Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../ServiceNow_Fundamentals/">ServiceNow Fundamentals</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Flows</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Flows/flow_fundamentals/">ServiceNow Flow Fundamentals</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Reports</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Reports/Report_fundamentals/">ServiceNow Reports Fundamentals</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Scripting</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../Business_Rules/">Business Rule</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Client_Scripts/">Client Script</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Fix_Script/">Fix Script</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Flow_Scripting/">Flow Designer Scripting</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../JS_On_Now_Platform/">JavaScript On Now Platform</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Scheduled_Script/">Scheduled Script</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Script_Includes/">Script Includes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../UI_Action/">UI Action</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../UI_Page/">UI Page</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../UI_Policy/">UI Policy</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Glide API Notes: GlideSystem &amp; GlideRecord</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#1-glidesystem-gs">1. GlideSystem (gs)</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#2-gliderecord-gr">2. GlideRecord (gr)</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#tips-for-distinguishing-glidesystem-vs-gliderecord-methods">Tips for Distinguishing GlideSystem vs GlideRecord Methods</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#glide-query">Glide Query</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#fail-fast">Fail Fast</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#be-javascript">Be Javascript</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#be-expressive">Be Expressive</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../service_now_script_decision_tree/">ServiceNow: Which Tool Do I Use?</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../servicenow_js_scripting_notes/">ServiceNow JavaScript &amp; Scripting Notes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../servicenow_js_scripting_notes_with_client_vs_server_side/">ServiceNow JavaScript: Server Side vs Client Side</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Study Guides</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Study_Guides/cad_study_guide/">ServiceNow CAD Certification — Master Study Guide</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">ServiceNow Notes</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Scripting</li>
+      <li class="breadcrumb-item active">Glide API Notes: GlideSystem &amp; GlideRecord</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="glide-api-notes-glidesystem-gliderecord">Glide API Notes: GlideSystem &amp; GlideRecord</h1>
+<p>This is a focused reference for <strong>GlideSystem (gs)</strong> and <strong>GlideRecord</strong>, the core server-side APIs in ServiceNow.
+Use it for study, hands-on practice, or quick lookup.</p>
+<p>Essentially it is a JavaScript class that can be used anywhere in the platform where server-side JavaScript is accepted.</p>
+<ul>
+<li>Business Rules</li>
+<li>UI Actions</li>
+</ul>
+<hr />
+<h2 id="1-glidesystem-gs">1. GlideSystem (gs)</h2>
+<p><strong>Purpose:</strong></p>
+<ul>
+<li>Provides system-level utilities and context information.</li>
+<li>Mostly used in server-side scripts (Business Rules, Script Includes, Scheduled Scripts, Flow Script Steps).</li>
+</ul>
+<p><strong>Runs:</strong></p>
+<ul>
+<li>Server</li>
+</ul>
+<p><img alt="GlideSystemApi" src="../GlideSystem_API.png" /></p>
+<p><strong>Common Methods &amp; Use Cases:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>gs.log(message, source)</code></td>
+<td>Log info to system logs</td>
+<td><code>gs.log('Incident closed', 'IncidentBR');</code></td>
+</tr>
+<tr>
+<td><code>gs.info(message)</code></td>
+<td>Log info (simpler)</td>
+<td><code>gs.info('Process started');</code></td>
+</tr>
+<tr>
+<td><code>gs.warn(message)</code></td>
+<td>Log a warning</td>
+<td><code>gs.warn('High load');</code></td>
+</tr>
+<tr>
+<td><code>gs.error(message)</code></td>
+<td>Log an error</td>
+<td><code>gs.error('Failed update');</code></td>
+</tr>
+<tr>
+<td><code>gs.getUser()</code></td>
+<td>Current user object</td>
+<td><code>var user = gs.getUser();</code></td>
+</tr>
+<tr>
+<td><code>gs.getUserID()</code></td>
+<td>Current user's sys_id</td>
+<td><code>var user = gs.getUserID();</code></td>
+</tr>
+<tr>
+<td><code>gs.getUserName()</code></td>
+<td>Current user's username</td>
+<td><code>var name = gs.getUserName();</code></td>
+</tr>
+<tr>
+<td><code>gs.getUserDisplayName()</code></td>
+<td>Current user's display name</td>
+<td><code>var display = gs.getUserDisplayName();</code></td>
+</tr>
+<tr>
+<td><code>gs.nowDateTime()</code></td>
+<td>Current date-time</td>
+<td><code>var dt = gs.nowDateTime();</code></td>
+</tr>
+<tr>
+<td><code>gs.daysAgo(n)</code></td>
+<td>Date n days ago</td>
+<td><code>var weekAgo = gs.daysAgo(7);</code></td>
+</tr>
+<tr>
+<td><code>gs.nil(object)</code></td>
+<td>Checks if object is null/undefined</td>
+<td><code>if (gs.nil(current.short_description)) {...}</code></td>
+</tr>
+<tr>
+<td><code>gs.addInfoMessage(msg)</code></td>
+<td>Adds a message to UI</td>
+<td><code>gs.addInfoMessage('Update successful');</code></td>
+</tr>
+<tr>
+<td><code>gs.addErrorMessage(msg)</code></td>
+<td>Adds an error message to UI</td>
+<td><code>gs.addErrorMessage('Cannot save record');</code></td>
+</tr>
+<tr>
+<td><code>gs.sleep(ms)</code></td>
+<td>Pause execution (server)</td>
+<td><code>gs.sleep(500);</code></td>
+</tr>
+<tr>
+<td><code>gs.nil(object)</code></td>
+<td>Check if there is no value</td>
+<td><code>gs.nil(current.location);</code></td>
+</tr>
+</tbody>
+</table>
+<p><img alt="GlideSystem System Methods" src="../gs_system_methods.png" /></p>
+<p><img alt="GlideSystem System Method Example" src="../gs_system_methods_ex.png" /></p>
+<blockquote>
+<p><strong>Note</strong>: See the ServiceNow docs to review the GluideDate and GluideDatsTime API's to see other methods used to manipulate dates.</p>
+</blockquote>
+<p><img alt="GlideSystem Date &amp; Time Methods" src="../gs_date_time_methods.png" /></p>
+<p><strong>Common Mistakes / Gotchas:</strong></p>
+<ul>
+<li>Using <code>gs.*</code> on client scripts (won’t work)</li>
+<li>Overusing logs in large batch scripts (can slow down execution)</li>
+<li>Forgetting that <code>gs.addInfoMessage()</code> only appears in UI, not API calls</li>
+</ul>
+<p><strong>1-Min Example:</strong></p>
+<pre><code class="language-javascript">// Log user info when incident is closed
+if (current.state == 7) {
+  // Closed
+  gs.log(
+    &quot;Incident &quot; + current.number + &quot; closed by &quot; + gs.getUserName(),
+    &quot;IncidentBR&quot;,
+  );
+}
+</code></pre>
+<hr />
+<p><strong>Scoped GlideSystem:</strong></p>
+<p>You must use Scoped APIs when developing scripts for scoped applications. There are error messages to inform users
+if there are using a method that is in the wrong scope.</p>
+<p>Examples:</p>
+<ul>
+<li>debug()</li>
+<li>erro()</li>
+<li>info()</li>
+<li>warn()</li>
+<li>isDebugging()</li>
+</ul>
+<p>Navigate to System Logs &gt; System Log &gt; Errors to see output</p>
+<h2 id="2-gliderecord-gr">2. GlideRecord (gr)</h2>
+<p><strong>Purpose:</strong></p>
+<ul>
+<li>Server-side API to query, create, update, and delete records in tables.</li>
+</ul>
+<p><strong>Runs:</strong></p>
+<ul>
+<li>Server only (Business Rules, Script Includes, Scheduled Scripts, Flow Script Steps)</li>
+</ul>
+<blockquote>
+<p>Note: Can be called on the client side but there might be some performance issues</p>
+</blockquote>
+<p><img alt="Create a Glide Record" src="../create_gr.png" /></p>
+<p><strong>Basic Workflow:</strong></p>
+<pre><code class="language-javascript">var gr = new GlideRecord(&quot;incident&quot;); // Table name
+gr.addQuery(&quot;priority&quot;, 1); // Query condition
+// add other query conditions as needed
+gr.query(); // Execute query
+while (gr.next()) {
+  // Iterate results
+  gs.log(gr.number);
+}
+
+// Query: SELECT * FROM Incident WHERE priority = 1
+</code></pre>
+<p><img alt="addQuery() Operators" src="../gr_addQuery_operators.png" /></p>
+<p><strong>Common Methods &amp; Use Cases:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>new GlideRecord(tableName)</code></td>
+<td>Instantiate GlideRecord for a table</td>
+<td><code>var gr = new GlideRecord('incident');</code></td>
+</tr>
+<tr>
+<td><code>addQuery(field, value)</code></td>
+<td>Add a query condition</td>
+<td><code>gr.addQuery('state', 1);</code></td>
+</tr>
+<tr>
+<td><code>addEncodedQuery(query)</code></td>
+<td>Add encoded query</td>
+<td><code>gr.addEncodedQuery('priority=1^active=true');</code></td>
+</tr>
+<tr>
+<td><code>query()</code></td>
+<td>Execute query</td>
+<td><code>gr.query();</code></td>
+</tr>
+<tr>
+<td><code>next()</code></td>
+<td>Move to next record</td>
+<td><code>while(gr.next()) {...}</code></td>
+</tr>
+<tr>
+<td><code>get(sys_id)</code></td>
+<td>Retrieve a record by sys_id</td>
+<td><code>gr.get('abc123');</code></td>
+</tr>
+<tr>
+<td><code>insert()</code></td>
+<td>Insert new record</td>
+<td><code>gr.insert();</code></td>
+</tr>
+<tr>
+<td><code>update()</code></td>
+<td>Update current record</td>
+<td><code>gr.update();</code></td>
+</tr>
+<tr>
+<td><code>deleteRecord()</code></td>
+<td>Delete current record</td>
+<td><code>gr.deleteRecord();</code></td>
+</tr>
+<tr>
+<td><code>setValue(field, value)</code></td>
+<td>Set field value</td>
+<td><code>gr.setValue('short_description', 'Updated');</code></td>
+</tr>
+<tr>
+<td><code>getValue(field)</code></td>
+<td>Get field value</td>
+<td><code>var desc = gr.getValue('short_description');</code></td>
+</tr>
+<tr>
+<td><code>autoSysFields(false)</code></td>
+<td>Skip system fields on insert/update</td>
+<td><code>gr.autoSysFields(false);</code></td>
+</tr>
+<tr>
+<td><code>addOrConditon(condition)</code></td>
+<td>Add a second condition to a select</td>
+<td><code>myObj.addQuery('catagory', '=', 'Hardware').addOrContion('priority', '!=', 1)</code></td>
+</tr>
+</tbody>
+</table>
+<p><img alt="Process Records" src="../gr_process_records.png" /></p>
+<p><strong>Common Mistakes / Gotchas:</strong></p>
+<ul>
+<li>Using <code>GlideRecord</code> on client scripts (won’t work)</li>
+<li>Forgetting <code>query()</code> before iterating results</li>
+<li>Using <code>update()</code> on a record that wasn’t retrieved</li>
+<li>Not respecting permissions when manipulating records</li>
+<li>Not using GlideAggregate to check if &gt; 100 rows are returned or for tables that grow continuously.</li>
+</ul>
+<p><strong>1-Min Example:</strong></p>
+<pre><code class="language-javascript">// Close all high-priority incidents
+var gr = new GlideRecord(&quot;incident&quot;);
+gr.addQuery(&quot;priority&quot;, 1);
+gr.addQuery(&quot;state&quot;, &quot;!=7&quot;);
+gr.query();
+while (gr.next()) {
+  gr.state = 7; // Closed
+  gr.update();
+  gs.log(&quot;Closed &quot; + gr.number);
+}
+
+// Example of addOrCondition
+var gr = new GlideRecord(&quot;incident&quot;);
+gr.addQuery(&quot;priority&quot;, 1);
+gr.addQuery(&quot;state&quot;, &quot;!=7&quot;).addOrContion(&quot;priority&quot;, &quot;!=&quot;, &quot;2&quot;);
+gr.query();
+while (gr.next()) {
+  gr.state = 7; // Closed
+  gr.update();
+  gs.log(&quot;Closed &quot; + gr.number);
+}
+</code></pre>
+<p><img alt="andOrCondition Grouping" src="../gr_addOrCondition.png" /></p>
+<p><img alt="addEncodedQuery" src="../gr_addEncodedQuery.png" /></p>
+<blockquote>
+<p><strong>Note</strong>: You can build and addEncodedQuery() from the list view query selector. When you are done with your query,
+right click and you can copy the query.</p>
+<p>GlideRecordSecure performs the same actions as GlideRecord and enforces ACL rules
+If a record cannot be read do to ACLS, the column will be set to NULL</p>
+</blockquote>
+<h2 id="tips-for-distinguishing-glidesystem-vs-gliderecord-methods">Tips for Distinguishing GlideSystem vs GlideRecord Methods</h2>
+<ul>
+<li><strong>GlideSystem</strong>: System info, logs, user info, dates, messages. Never touches tables directly.</li>
+<li><strong>GlideRecord</strong>: Table data access and manipulation. Always involves a specific table.</li>
+<li>Mental shortcut: <strong>gs = system utilities</strong>, <strong>GlideRecord = database CRUD</strong>.</li>
+<li>Both are <strong>server-side only</strong>. Use GlideAjax to call server from client.</li>
+</ul>
+<hr />
+<h2 id="glide-query">Glide Query</h2>
+<p>**An alternative to GlideRecord that make take a bit longer that Glide Record</p>
+<blockquote>
+<p><strong>Note</strong>: To improve performance, reduce the number of loops in the code.</p>
+</blockquote>
+<ul>
+<li>can be users to perform CRUD, written in JS, and uses GlideRecord behind the scenes</li>
+<li>Has three principles</li>
+</ul>
+<h3 id="fail-fast">Fail Fast</h3>
+<ul>
+<li>Run into errors ASAP and provide a feedback loop</li>
+<li>Field checking</li>
+<li>Choice Checking</li>
+<li>Type Checking</li>
+</ul>
+<h3 id="be-javascript">Be Javascript</h3>
+<ul>
+<li>Behave like a JS library</li>
+<li>Returns a JS Objects</li>
+<li>Has a JS Stack Trace</li>
+</ul>
+<h3 id="be-expressive">Be Expressive</h3>
+<ul>
+<li>Do more with less lines of code</li>
+<li>Stream Class</li>
+<li>Optional Class</li>
+</ul>
+<p><strong>Use this document alongside hands-on practice.</strong> Fill in examples from your dev instance to reinforce learning and retention.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../UI_Policy/" class="btn btn-neutral float-left" title="UI Policy"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../service_now_script_decision_tree/" class="btn btn-neutral float-right" title="ServiceNow: Which Tool Do I Use?">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../UI_Policy/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../service_now_script_decision_tree/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

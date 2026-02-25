@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Natalie Walker" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>ServiceNow Reports Fundamentals - ServiceNow Notes</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "ServiceNow Reports Fundamentals";
+        var mkdocs_page_input_path = "Reports/Report_fundamentals.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/javaScript.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> ServiceNow Notes
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">ServiceNow Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../ServiceNow_Fundamentals/">ServiceNow Fundamentals</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Flows</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Flows/flow_fundamentals/">ServiceNow Flow Fundamentals</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Reports</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">ServiceNow Reports Fundamentals</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#what-is-a-report">What is a Report?</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#when-should-i-use-a-report">When Should I Use a Report?</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#types-of-reports">Types of Reports</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#list-reports">List Reports</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#pivot-aggregation-reports">Pivot / Aggregation Reports</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#bar-column-pie-charts">Bar / Column / Pie Charts</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#calendar-timeline-reports">Calendar / Timeline Reports</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#performance-analytics-advanced">Performance Analytics (Advanced)</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#how-reports-work">How Reports Work</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#dashboards">Dashboards</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#report-best-practices">Report Best Practices</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#common-mistakes">Common Mistakes</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#1-min-example">1-Min Example</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#relationship-to-other-tools">Relationship to Other Tools</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#mental-shortcut">Mental Shortcut</a>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Scripting</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Scripting/Business_Rules/">Business Rule</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Scripting/Client_Scripts/">Client Script</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Scripting/Fix_Script/">Fix Script</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Scripting/Flow_Scripting/">Flow Designer Scripting</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Scripting/JS_On_Now_Platform/">JavaScript On Now Platform</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Scripting/Scheduled_Script/">Scheduled Script</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Scripting/Script_Includes/">Script Includes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Scripting/UI_Action/">UI Action</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Scripting/UI_Page/">UI Page</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Scripting/UI_Policy/">UI Policy</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Scripting/glide_system_gliderecord_notes/">Glide API Notes: GlideSystem &amp; GlideRecord</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Scripting/service_now_script_decision_tree/">ServiceNow: Which Tool Do I Use?</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Scripting/servicenow_js_scripting_notes/">ServiceNow JavaScript &amp; Scripting Notes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Scripting/servicenow_js_scripting_notes_with_client_vs_server_side/">ServiceNow JavaScript: Server Side vs Client Side</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Study Guides</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Study_Guides/cad_study_guide/">ServiceNow CAD Certification — Master Study Guide</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">ServiceNow Notes</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Reports</li>
+      <li class="breadcrumb-item active">ServiceNow Reports Fundamentals</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="servicenow-reports-fundamentals">ServiceNow Reports Fundamentals</h1>
+<p>This document provides an overview of <strong>reporting and analytics</strong> on the Now Platform.</p>
+<p>Use it to understand what reports are, when to use them, and how they fit into ServiceNow.</p>
+<hr />
+<h2 id="what-is-a-report">What is a Report?</h2>
+<ul>
+<li>A report is a <strong>visualization of data from a table or set of tables</strong></li>
+<li>Reports can show trends, summarize information, or list records</li>
+</ul>
+<blockquote>
+<p>Reports are how you turn data into insights.</p>
+</blockquote>
+<hr />
+<h2 id="when-should-i-use-a-report">When Should I Use a Report?</h2>
+<p>Use reports when:</p>
+<ul>
+<li>You need to see data from tables quickly</li>
+<li>You want to analyze trends</li>
+<li>You want to share information with others</li>
+</ul>
+<p>Do not use reports for:</p>
+<ul>
+<li>Data enforcement</li>
+<li>Real-time form validation</li>
+<li>Automating processes (use flows/scripts instead)</li>
+</ul>
+<hr />
+<h2 id="types-of-reports">Types of Reports</h2>
+<h3 id="list-reports">List Reports</h3>
+<ul>
+<li>Show rows of records</li>
+<li>Sortable and filterable</li>
+</ul>
+<p><strong>Example:</strong></p>
+<ul>
+<li>All open incidents</li>
+</ul>
+<hr />
+<h3 id="pivot-aggregation-reports">Pivot / Aggregation Reports</h3>
+<ul>
+<li>Summarize data by field(s)</li>
+<li>Show totals, averages, counts</li>
+</ul>
+<p><strong>Example:</strong></p>
+<ul>
+<li>Count of incidents by priority</li>
+</ul>
+<hr />
+<h3 id="bar-column-pie-charts">Bar / Column / Pie Charts</h3>
+<ul>
+<li>Visual representation of grouped data</li>
+</ul>
+<p><strong>Example:</strong></p>
+<ul>
+<li>Number of incidents per department</li>
+</ul>
+<hr />
+<h3 id="calendar-timeline-reports">Calendar / Timeline Reports</h3>
+<ul>
+<li>Show data over time</li>
+</ul>
+<p><strong>Example:</strong></p>
+<ul>
+<li>Planned maintenance schedule</li>
+</ul>
+<hr />
+<h3 id="performance-analytics-advanced">Performance Analytics (Advanced)</h3>
+<ul>
+<li>Trend analysis and forecasting</li>
+<li>KPI dashboards</li>
+</ul>
+<blockquote>
+<p>Performance Analytics is optional and often used in ITSM metrics</p>
+</blockquote>
+<hr />
+<h2 id="how-reports-work">How Reports Work</h2>
+<ol>
+<li><strong>Select Table / Data Source</strong></li>
+<li><strong>Define Conditions / Filters</strong></li>
+<li><strong>Choose Type of Report</strong></li>
+<li><strong>Configure Visualization</strong></li>
+<li><strong>Save and Share</strong></li>
+</ol>
+<blockquote>
+<p>Reports can be personal, shared, or global</p>
+</blockquote>
+<hr />
+<h2 id="dashboards">Dashboards</h2>
+<ul>
+<li>Dashboards are <strong>collections of reports</strong></li>
+<li>Can include multiple report types and layouts</li>
+<li>Useful for executives, teams, or daily operations</li>
+</ul>
+<p><strong>Example:</strong></p>
+<ul>
+<li>Incident dashboard showing open, prioritized, and SLA-breached incidents</li>
+</ul>
+<hr />
+<h2 id="report-best-practices">Report Best Practices</h2>
+<ul>
+<li>Keep it simple: focus on actionable insights</li>
+<li>Use meaningful groupings and filters</li>
+<li>Avoid overloading dashboards with too many reports</li>
+<li>Name reports clearly</li>
+<li>Schedule reports if recurring review is needed</li>
+</ul>
+<hr />
+<h2 id="common-mistakes">Common Mistakes</h2>
+<ul>
+<li>Using reports to enforce rules</li>
+<li>Making dashboards too cluttered</li>
+<li>Forgetting to filter out irrelevant data</li>
+<li>Ignoring performance implications of large datasets</li>
+</ul>
+<hr />
+<h2 id="1-min-example">1-Min Example</h2>
+<p><strong>Requirement:</strong>
+See how many high-priority incidents were created last month per department</p>
+<p><strong>Solution:</strong></p>
+<ol>
+<li>Table: Incident</li>
+<li>Conditions: priority = High, created last month</li>
+<li>Group by: department</li>
+<li>Visualization: Bar Chart</li>
+<li>Save report and add to team dashboard</li>
+</ol>
+<hr />
+<h2 id="relationship-to-other-tools">Relationship to Other Tools</h2>
+<ul>
+<li><strong>Forms/Lists:</strong> source of raw data</li>
+<li><strong>Flows:</strong> can create or update records, which are then reported</li>
+<li><strong>Scripts:</strong> can prepare or calculate fields for reporting</li>
+</ul>
+<hr />
+<h2 id="mental-shortcut">Mental Shortcut</h2>
+<blockquote>
+<p><strong>Reports = data insight</strong>
+<strong>Dashboards = data at a glance</strong>
+**Scripts/Flows = data manipulation</p>
+</blockquote>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../../Flows/flow_fundamentals/" class="btn btn-neutral float-left" title="ServiceNow Flow Fundamentals"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../../Scripting/Business_Rules/" class="btn btn-neutral float-right" title="Business Rule">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../../Flows/flow_fundamentals/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../../Scripting/Business_Rules/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

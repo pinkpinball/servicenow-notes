@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Natalie Walker" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>ServiceNow Fundamentals - ServiceNow Notes</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "ServiceNow Fundamentals";
+        var mkdocs_page_input_path = "ServiceNow_Fundamentals.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/javaScript.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> ServiceNow Notes
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">ServiceNow Notes</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">ServiceNow Fundamentals</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#what-is-servicenow">What is ServiceNow?</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#core-platform-architecture">Core Platform Architecture</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#the-three-layers">The Three Layers</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#data-layer">Data Layer</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#tables">Tables</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#records">Records</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#fields">Fields</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#reference-fields-relationships">Reference Fields &amp; Relationships</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Flows</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../Flows/flow_fundamentals/">ServiceNow Flow Fundamentals</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Reports</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../Reports/Report_fundamentals/">ServiceNow Reports Fundamentals</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Scripting</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../Scripting/Business_Rules/">Business Rule</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Scripting/Client_Scripts/">Client Script</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Scripting/Fix_Script/">Fix Script</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Scripting/Flow_Scripting/">Flow Designer Scripting</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Scripting/JS_On_Now_Platform/">JavaScript On Now Platform</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Scripting/Scheduled_Script/">Scheduled Script</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Scripting/Script_Includes/">Script Includes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Scripting/UI_Action/">UI Action</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Scripting/UI_Page/">UI Page</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Scripting/UI_Policy/">UI Policy</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Scripting/glide_system_gliderecord_notes/">Glide API Notes: GlideSystem &amp; GlideRecord</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Scripting/service_now_script_decision_tree/">ServiceNow: Which Tool Do I Use?</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Scripting/servicenow_js_scripting_notes/">ServiceNow JavaScript &amp; Scripting Notes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Scripting/servicenow_js_scripting_notes_with_client_vs_server_side/">ServiceNow JavaScript: Server Side vs Client Side</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Study Guides</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../Study_Guides/cad_study_guide/">ServiceNow CAD Certification — Master Study Guide</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">ServiceNow Notes</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">ServiceNow Fundamentals</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="servicenow-fundamentals">ServiceNow Fundamentals</h1>
+<p>This document is a <strong>platform-wide mental model</strong> of ServiceNow.</p>
+<p>It answers three questions:</p>
+<blockquote>
+<p><strong>What is ServiceNow?</strong>
+<strong>How do the pieces fit together?</strong>
+<strong>How do I know which tool to use?</strong></p>
+</blockquote>
+<hr />
+<h2 id="what-is-servicenow">What is ServiceNow?</h2>
+<p>ServiceNow is a <strong>cloud-based enterprise platform</strong> used to:</p>
+<ul>
+<li>manage work</li>
+<li>store and relate data</li>
+<li>enforce business rules</li>
+<li>automate processes</li>
+<li>present controlled user experiences</li>
+</ul>
+<p>At its core, ServiceNow is:</p>
+<blockquote>
+<p><strong>A relational database + execution engine + UI framework</strong></p>
+</blockquote>
+<p>Everything you configure maps to <strong>one or more</strong> of these layers.</p>
+<blockquote>
+<p><strong>Everything in ServiceNow is a record in a table.</strong>
+<strong>Every record is represented as a JavaScript object at runtime.</strong></p>
+</blockquote>
+<hr />
+<h2 id="core-platform-architecture">Core Platform Architecture</h2>
+<h3 id="the-three-layers">The Three Layers</h3>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Responsibility</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Data Layer</td>
+<td>Stores records in tables</td>
+</tr>
+<tr>
+<td>Logic Layer</td>
+<td>Enforces rules and automation</td>
+</tr>
+<tr>
+<td>UI Layer</td>
+<td>Displays and controls user interaction</td>
+</tr>
+</tbody>
+</table>
+<p>Every feature you use lives in <strong>at least one</strong> of these layers.</p>
+<hr />
+<h2 id="data-layer">Data Layer</h2>
+<h3 id="tables">Tables</h3>
+<ul>
+<li>Tables store records (rows)</li>
+<li>Tables contain fields (columns)</li>
+<li>Tables can <strong>extend</strong> other tables (inheritance)</li>
+</ul>
+<p><strong>Example:</strong></p>
+<ul>
+<li><code>task</code> (parent)</li>
+<li><code>incident</code> (extends <code>task</code>)</li>
+</ul>
+<blockquote>
+<p>Child tables inherit all parent fields automatically.</p>
+</blockquote>
+<hr />
+<h3 id="records">Records</h3>
+<ul>
+<li>A single row in a table</li>
+<li>Represent a unit of work or data</li>
+</ul>
+<p><strong>Examples:</strong></p>
+<ul>
+<li>One incident</li>
+<li>One request item</li>
+<li>One user</li>
+<li>One CI</li>
+</ul>
+<hr />
+<h3 id="fields">Fields</h3>
+<ul>
+<li>Attributes of a record</li>
+<li>Defined in the <strong>Dictionary</strong></li>
+<li>Common types:</li>
+<li>String</li>
+<li>Reference</li>
+<li>Choice</li>
+<li>Date/Time</li>
+<li>Boolean</li>
+</ul>
+<p><strong>Examples:</strong></p>
+<ul>
+<li><code>state</code> (choice)</li>
+<li><code>caller_id</code> (reference)</li>
+</ul>
+<hr />
+<h3 id="reference-fields-relationships">Reference Fields &amp; Relationships</h3>
+<ul>
+<li>Reference fields point to another table</li>
+<li>Enable <strong>dot-walking</strong></li>
+</ul>
+<p><strong>Example:</strong></p>
+<pre><code class="language-js">incident.caller_id.email;
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href=".." class="btn btn-neutral float-left" title="ServiceNow Notes"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../Flows/flow_fundamentals/" class="btn btn-neutral float-right" title="ServiceNow Flow Fundamentals">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href=".." style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../Flows/flow_fundamentals/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

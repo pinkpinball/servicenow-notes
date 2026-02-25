@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Natalie Walker" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>UI Action - ServiceNow Notes</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "UI Action";
+        var mkdocs_page_input_path = "Scripting/UI_Action.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/javaScript.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> ServiceNow Notes
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">ServiceNow Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../ServiceNow_Fundamentals/">ServiceNow Fundamentals</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Flows</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Flows/flow_fundamentals/">ServiceNow Flow Fundamentals</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Reports</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Reports/Report_fundamentals/">ServiceNow Reports Fundamentals</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Scripting</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../Business_Rules/">Business Rule</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Client_Scripts/">Client Script</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Fix_Script/">Fix Script</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Flow_Scripting/">Flow Designer Scripting</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../JS_On_Now_Platform/">JavaScript On Now Platform</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Scheduled_Script/">Scheduled Script</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Script_Includes/">Script Includes</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">UI Action</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#purpose">Purpose:</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#runs">Runs:</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#use-when">Use When:</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#touches">Touches:</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#common-mistakes">Common Mistakes:</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../UI_Page/">UI Page</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../UI_Policy/">UI Policy</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../glide_system_gliderecord_notes/">Glide API Notes: GlideSystem &amp; GlideRecord</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../service_now_script_decision_tree/">ServiceNow: Which Tool Do I Use?</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../servicenow_js_scripting_notes/">ServiceNow JavaScript &amp; Scripting Notes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../servicenow_js_scripting_notes_with_client_vs_server_side/">ServiceNow JavaScript: Server Side vs Client Side</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Study Guides</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Study_Guides/cad_study_guide/">ServiceNow CAD Certification — Master Study Guide</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">ServiceNow Notes</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Scripting</li>
+      <li class="breadcrumb-item active">UI Action</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="ui-action">UI Action</h1>
+<h2 id="purpose">Purpose:</h2>
+<ul>
+<li>Add buttons / actions to UI</li>
+</ul>
+<h2 id="runs">Runs:</h2>
+<ul>
+<li>Client, Server, or Both</li>
+<li>On click</li>
+</ul>
+<h2 id="use-when">Use When:</h2>
+<ul>
+<li>User-triggered actions</li>
+<li>NOT for background enforcement</li>
+</ul>
+<h2 id="touches">Touches:</h2>
+<ul>
+<li>Tables: current table</li>
+<li>APIs: g_form, current</li>
+</ul>
+<h2 id="common-mistakes">Common Mistakes:</h2>
+<ul>
+<li>Mixing client/server logic incorrectly</li>
+<li>No condition guarding visibility</li>
+</ul>
+<p>1-Min Example:</p>
+<ul>
+<li>"Escalate Incident" button</li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../Script_Includes/" class="btn btn-neutral float-left" title="Script Includes"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../UI_Page/" class="btn btn-neutral float-right" title="UI Page">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../Script_Includes/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../UI_Page/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Natalie Walker" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Business Rule - ServiceNow Notes</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Business Rule";
+        var mkdocs_page_input_path = "Scripting/Business_Rules.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/javaScript.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> ServiceNow Notes
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">ServiceNow Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../ServiceNow_Fundamentals/">ServiceNow Fundamentals</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Flows</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Flows/flow_fundamentals/">ServiceNow Flow Fundamentals</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Reports</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Reports/Report_fundamentals/">ServiceNow Reports Fundamentals</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Scripting</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Business Rule</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#purpose">Purpose:</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#runs">Runs:</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#variables">Variables</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#use-when">Use When:</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#touches">Touches:</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#common-mistakes">Common Mistakes:</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#1-min-example">1-Min Example:</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#types-of-business-rules">Types of Business Rules</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#server-side-debugging">Server-Side Debugging</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#good-practices">Good Practices</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Client_Scripts/">Client Script</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Fix_Script/">Fix Script</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Flow_Scripting/">Flow Designer Scripting</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../JS_On_Now_Platform/">JavaScript On Now Platform</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Scheduled_Script/">Scheduled Script</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Script_Includes/">Script Includes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../UI_Action/">UI Action</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../UI_Page/">UI Page</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../UI_Policy/">UI Policy</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../glide_system_gliderecord_notes/">Glide API Notes: GlideSystem &amp; GlideRecord</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../service_now_script_decision_tree/">ServiceNow: Which Tool Do I Use?</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../servicenow_js_scripting_notes/">ServiceNow JavaScript &amp; Scripting Notes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../servicenow_js_scripting_notes_with_client_vs_server_side/">ServiceNow JavaScript: Server Side vs Client Side</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Study Guides</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Study_Guides/cad_study_guide/">ServiceNow CAD Certification — Master Study Guide</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">ServiceNow Notes</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Scripting</li>
+      <li class="breadcrumb-item active">Business Rule</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="business-rule">Business Rule</h1>
+<p>A record that contains javascript that does something in relation to a table
+When a table is queried. When a record is:</p>
+<ul>
+<li>displayed</li>
+<li>updated</li>
+<li>deleted</li>
+<li>inserted</li>
+</ul>
+<p><strong>Why use</strong>: When you don't/can't use the UI.</p>
+<p><strong>When use</strong>: when enforcing data behavior at the database level (table)</p>
+<p><strong>How often use</strong>: quite often!!</p>
+<hr />
+<h2 id="purpose">Purpose:</h2>
+<ul>
+<li>Enforce data rules at save time</li>
+</ul>
+<hr />
+<h2 id="runs">Runs:</h2>
+<ul>
+<li>Server</li>
+<li>Before | After | Async</li>
+</ul>
+<p><img alt="When Business Rules Execute" src="../When_Business_Rules_Execute.png" /></p>
+<blockquote>
+<p>Note: the green in the image is action being performed relative to a table.
+The blue color is what will happen in the business rule</p>
+</blockquote>
+<p>Business Rules Trigger Actions and do not have to include scripting.
+You can have a condition for when the script runs and then have a function
+for what you can actually do. In scripting you have access to Glide System,</p>
+<hr />
+<h3 id="variables">Variables</h3>
+<ul>
+<li>current</li>
+<li>previous</li>
+<li>g_scratchpad ( take data from server-side and pass to client side)</li>
+<li>Only works with <em>Display</em> Business Rules</li>
+</ul>
+<p><img alt="G_StratchPad Code Example" src="../g_scratchpad.png" /></p>
+<ul>
+<li>global variables</li>
+<li>allows for dot.walking aka dot notation. Allows you to go from table to table or
+    field to field</li>
+<li>allows for the dot-walking Path tree
+    &gt; Note: Dot-walking only works through reference fields, not plain strings.
+    &gt; Example: <object>.<reference object name>.<field of interest></li>
+</ul>
+<hr />
+<h2 id="use-when">Use When:</h2>
+<ul>
+<li>Data integrity is critical</li>
+<li>Logic must run regardless of UI/API/import</li>
+</ul>
+<hr />
+<h2 id="touches">Touches:</h2>
+<ul>
+<li>Tables: current table</li>
+<li>Fields: current.</li>
+<li>APIs: GlideRecord</li>
+</ul>
+<hr />
+<h2 id="common-mistakes">Common Mistakes:</h2>
+<ul>
+<li>Doing UI logic</li>
+<li>Wrong timing (Before vs After)</li>
+<li>Infinite loops</li>
+</ul>
+<hr />
+<h2 id="1-min-example">1-Min Example:</h2>
+<ul>
+<li>If state changes to Closed → set closed_at</li>
+</ul>
+<hr />
+<h2 id="types-of-business-rules">Types of Business Rules</h2>
+<p>Before Query
+: Execute <em>before</em> a query is sent to the database</p>
+<ul>
+<li>Example: Prevent users from one locations seeing CIs from another</li>
+</ul>
+<p>After Rules
+: Execute <em>after</em> form submission and record update in the database</p>
+<ul>
+<li>Example: Cascade changes made to the approval field of a service Catalog request to the requested items attached to that request</li>
+</ul>
+<p>Async Rules
+: Execute <em>after</em> records are inserts/modified/queried. Use this when the update is not time-sensitive to the users. It gets added
+as a Schedule Job and runs asynchronously.</p>
+<ul>
+<li>Example: Notify subscribers when CI's are affected by an incident</li>
+</ul>
+<hr />
+<h2 id="server-side-debugging">Server-Side Debugging</h2>
+<p>There are several tools to use</p>
+<ul>
+<li>GlideSystem logging methods</li>
+<li>gs.info()</li>
+<li>gis.error()</li>
+<li>gs.warn()</li>
+<li>gs.debug()</li>
+<li>gs.log() --&gt; gs.info()</li>
+<li>gs.addInfoMessage() and several others</li>
+<li>Debug Business Rules module</li>
+<li>Script Debugger</li>
+<li>Script tracer</li>
+<li>
+<p>Allows you to filter the debugging search to narrow down and problems in the script
+    <img alt="Script Tracer Anatomy" src="../script_tracer.png" />
+    <img alt="Script Tracer Example" src="../script_tracer_ex.png" /></p>
+</li>
+<li>
+<p>Console Debugger</p>
+</li>
+<li>Try/Catch (JavaScript)</li>
+</ul>
+<p>Debug Mode: Enable debug mode and use break points and you have access to the call
+stack. Cannot use on an async script.</p>
+<blockquote>
+<p>Note: At least one breakpoint is required
+Must be and admin or script_debugger to use this
+<code>this</code> is not supported
+you can use the console with the call stack and see current data when stepping through
+the script</p>
+</blockquote>
+<hr />
+<h2 id="good-practices">Good Practices</h2>
+<p><img alt="Good Practices" src="../good_practices.png" /></p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../../Reports/Report_fundamentals/" class="btn btn-neutral float-left" title="ServiceNow Reports Fundamentals"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../Client_Scripts/" class="btn btn-neutral float-right" title="Client Script">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../../Reports/Report_fundamentals/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../Client_Scripts/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

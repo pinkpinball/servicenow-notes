@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Natalie Walker" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>ServiceNow: Which Tool Do I Use? - ServiceNow Notes</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "ServiceNow: Which Tool Do I Use?";
+        var mkdocs_page_input_path = "Scripting/service_now_script_decision_tree.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/javaScript.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> ServiceNow Notes
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">ServiceNow Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../ServiceNow_Fundamentals/">ServiceNow Fundamentals</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Flows</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Flows/flow_fundamentals/">ServiceNow Flow Fundamentals</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Reports</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Reports/Report_fundamentals/">ServiceNow Reports Fundamentals</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Scripting</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../Business_Rules/">Business Rule</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Client_Scripts/">Client Script</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Fix_Script/">Fix Script</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Flow_Scripting/">Flow Designer Scripting</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../JS_On_Now_Platform/">JavaScript On Now Platform</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Scheduled_Script/">Scheduled Script</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Script_Includes/">Script Includes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../UI_Action/">UI Action</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../UI_Page/">UI Page</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../UI_Policy/">UI Policy</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../glide_system_gliderecord_notes/">Glide API Notes: GlideSystem &amp; GlideRecord</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">ServiceNow: Which Tool Do I Use?</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#step-1-where-does-this-logic-need-to-run">Step 1: Where does this logic need to run?</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#does-it-need-to-run-no-matter-how-the-record-is-changed">Does it need to run no matter how the record is changed?</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#step-2-is-this-only-about-form-behavior-ux">Step 2: Is this only about form behavior (UX)?</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#step-3-can-this-be-done-without-javascript">Step 3: Can this be done without JavaScript?</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#step-4-is-this-process-driven-rather-than-record-driven">Step 4: Is this process-driven rather than record-driven?</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#step-5-does-this-logic-need-to-be-reused-across-scripts">Step 5: Does this logic need to be reused across scripts?</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#quick-summary-table">Quick Summary Table</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#one-line-rules-memorize-these">One-Line Rules (Memorize These)</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#common-anti-patterns">Common Anti-Patterns</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#final-mental-model">Final Mental Model</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../servicenow_js_scripting_notes/">ServiceNow JavaScript &amp; Scripting Notes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../servicenow_js_scripting_notes_with_client_vs_server_side/">ServiceNow JavaScript: Server Side vs Client Side</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Study Guides</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Study_Guides/cad_study_guide/">ServiceNow CAD Certification — Master Study Guide</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">ServiceNow Notes</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Scripting</li>
+      <li class="breadcrumb-item active">ServiceNow: Which Tool Do I Use?</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="servicenow-which-tool-do-i-use">ServiceNow: Which Tool Do I Use?</h1>
+<p>This page is your <strong>mental shortcut</strong> for choosing the <em>right</em> tool on the Now Platform.</p>
+<p>If you memorize nothing else, memorize this flow.</p>
+<hr />
+<pre><code>mermaid
+flowchart TD
+A[Where must the logic run?]
+
+A --&gt;|Always / Server-side| BR[Business Rule]
+
+A --&gt;|UI only| B[Is it form behavior?]
+
+B --&gt;|Yes| C[Can it be done without JavaScript?]
+C --&gt;|Yes| UIP[UI Policy]
+C --&gt;|No| CS[Client Script]
+
+B --&gt;|No| D[Is this a multi-step process or automation?]
+D --&gt;|Yes| FD[Flow Designer]
+D --&gt;|No| E[Is the logic reused in multiple places?]
+E --&gt;|Yes| SI[Script Include]
+E --&gt;|No| R[Re-evaluate requirements]
+</code></pre>
+<hr />
+<h2 id="step-1-where-does-this-logic-need-to-run">Step 1: Where does this logic need to run?</h2>
+<h3 id="does-it-need-to-run-no-matter-how-the-record-is-changed">Does it need to run <strong>no matter how the record is changed</strong>?</h3>
+<ul>
+<li>UI</li>
+<li>API</li>
+<li>Import</li>
+<li>Background script</li>
+</ul>
+<p>➡️ <strong>YES</strong> → <strong>Business Rule</strong></p>
+<p>➡️ <strong>NO (UI only)</strong> → Go to Step 2</p>
+<hr />
+<h2 id="step-2-is-this-only-about-form-behavior-ux">Step 2: Is this only about form behavior (UX)?</h2>
+<p>Examples:</p>
+<ul>
+<li>Show / hide fields</li>
+<li>Make fields mandatory or read-only</li>
+<li>React to user input</li>
+</ul>
+<p>➡️ <strong>YES</strong> → Go to Step 3</p>
+<p>➡️ <strong>NO</strong> → Go to Step 4</p>
+<hr />
+<h2 id="step-3-can-this-be-done-without-javascript">Step 3: Can this be done without JavaScript?</h2>
+<p>Ask yourself:</p>
+<ul>
+<li>Is the logic simple?</li>
+<li>Is it condition-based?</li>
+<li>No calculations?</li>
+</ul>
+<p>➡️ <strong>YES</strong> → <strong>UI Policy</strong></p>
+<p>➡️ <strong>NO</strong> → <strong>Client Script</strong></p>
+<hr />
+<h2 id="step-4-is-this-process-driven-rather-than-record-driven">Step 4: Is this process-driven rather than record-driven?</h2>
+<p>Examples:</p>
+<ul>
+<li>Multi-step logic</li>
+<li>Approvals</li>
+<li>Notifications</li>
+<li>Cross-table actions</li>
+</ul>
+<p>➡️ <strong>YES</strong> → <strong>Flow Designer</strong></p>
+<p>➡️ <strong>NO</strong> → Go to Step 5</p>
+<hr />
+<h2 id="step-5-does-this-logic-need-to-be-reused-across-scripts">Step 5: Does this logic need to be reused across scripts?</h2>
+<p>Examples:</p>
+<ul>
+<li>Shared utility functions</li>
+<li>Reusable business logic</li>
+<li>Centralized calculations</li>
+</ul>
+<p>➡️ <strong>YES</strong> → <strong>Script Include</strong></p>
+<p>➡️ <strong>NO</strong> → Re-evaluate requirements</p>
+<hr />
+<h2 id="quick-summary-table">Quick Summary Table</h2>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Runs</th>
+<th>Best For</th>
+<th>Avoid When</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UI Policy</td>
+<td>Client</td>
+<td>Simple UI rules</td>
+<td>Logic, calculations</td>
+</tr>
+<tr>
+<td>Client Script</td>
+<td>Client</td>
+<td>Complex UI logic</td>
+<td>Data enforcement</td>
+</tr>
+<tr>
+<td>Business Rule</td>
+<td>Server</td>
+<td>Data integrity</td>
+<td>UI behavior</td>
+</tr>
+<tr>
+<td>Flow Designer</td>
+<td>Server</td>
+<td>Process automation</td>
+<td>Fine-grained logic</td>
+</tr>
+<tr>
+<td>Script Include</td>
+<td>Server</td>
+<td>Reusable logic</td>
+<td>One-off rules</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="one-line-rules-memorize-these">One-Line Rules (Memorize These)</h2>
+<ul>
+<li><strong>If it must always happen → Business Rule</strong></li>
+<li><strong>If it’s UI and simple → UI Policy</strong></li>
+<li><strong>If it’s UI and complex → Client Script</strong></li>
+<li><strong>If it’s a process → Flow Designer</strong></li>
+<li><strong>If logic is reused → Script Include</strong></li>
+</ul>
+<hr />
+<h2 id="common-anti-patterns">Common Anti-Patterns</h2>
+<p>❌ UI logic in Business Rules
+❌ Business logic in Client Scripts
+❌ Client Scripts when UI Policies work
+❌ Flows for single-field validation
+❌ Copy-pasting logic instead of Script Includes</p>
+<hr />
+<h2 id="final-mental-model">Final Mental Model</h2>
+<blockquote>
+<p><strong>Client = experience</strong>
+<strong>Server = truth</strong>
+<strong>Flows = orchestration</strong></p>
+</blockquote>
+<p>When in doubt, choose the tool that:</p>
+<ul>
+<li>runs in the right place</li>
+<li>has the smallest scope</li>
+<li>enforces the rule at the correct layer</li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../glide_system_gliderecord_notes/" class="btn btn-neutral float-left" title="Glide API Notes: GlideSystem &amp; GlideRecord"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../servicenow_js_scripting_notes/" class="btn btn-neutral float-right" title="ServiceNow JavaScript &amp; Scripting Notes">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../glide_system_gliderecord_notes/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../servicenow_js_scripting_notes/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

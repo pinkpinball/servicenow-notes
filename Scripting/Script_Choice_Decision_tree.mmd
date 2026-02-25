@@ -1,0 +1,16 @@
+flowchart TD
+    A[Where must the logic run?]
+
+    A -->|Always / Server-side| BR[Business Rule]
+
+    A -->|UI only| B[Is it form behavior?]
+
+    B -->|Yes| C[Can it be done without JavaScript?]
+    C -->|Yes| UIP[UI Policy]
+    C -->|No| CS[Client Script]
+
+    B -->|No| D[Is this a multi-step process or automation?]
+    D -->|Yes| FD[Flow Designer]
+    D -->|No| E[Is the logic reused in multiple places?]
+    E -->|Yes| SI[Script Include]
+    E -->|No| R[Re-evaluate requirements]

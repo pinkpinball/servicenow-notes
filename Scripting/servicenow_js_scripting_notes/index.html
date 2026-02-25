@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Natalie Walker" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>ServiceNow JavaScript &amp; Scripting Notes - ServiceNow Notes</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "ServiceNow JavaScript \u0026amp; Scripting Notes";
+        var mkdocs_page_input_path = "Scripting/servicenow_js_scripting_notes.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/javaScript.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> ServiceNow Notes
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">ServiceNow Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../ServiceNow_Fundamentals/">ServiceNow Fundamentals</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Flows</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Flows/flow_fundamentals/">ServiceNow Flow Fundamentals</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Reports</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Reports/Report_fundamentals/">ServiceNow Reports Fundamentals</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Scripting</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../Business_Rules/">Business Rule</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Client_Scripts/">Client Script</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Fix_Script/">Fix Script</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Flow_Scripting/">Flow Designer Scripting</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../JS_On_Now_Platform/">JavaScript On Now Platform</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Scheduled_Script/">Scheduled Script</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Script_Includes/">Script Includes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../UI_Action/">UI Action</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../UI_Page/">UI Page</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../UI_Policy/">UI Policy</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../glide_system_gliderecord_notes/">Glide API Notes: GlideSystem &amp; GlideRecord</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../service_now_script_decision_tree/">ServiceNow: Which Tool Do I Use?</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">ServiceNow JavaScript &amp; Scripting Notes</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#universal-js-on-now-platform-template">Universal JS on Now Platform Template</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#client-side-scripting">Client-Side Scripting</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#client-script">Client Script</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#ui-policy">UI Policy</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#ui-action">UI Action</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#ui-page">UI Page</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#server-side-scripting">Server-Side Scripting</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#business-rule">Business Rule</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#script-include">Script Include</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#scheduled-script">Scheduled Script</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#fix-script">Fix Script</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#flow-automation">Flow / Automation</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#flow-script-step">Flow Script Step</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#app-engine-scoped-app-script">App Engine / Scoped App Script</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#report-script">Report Script</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#key-js-patterns-to-memorize">Key JS Patterns to Memorize</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../servicenow_js_scripting_notes_with_client_vs_server_side/">ServiceNow JavaScript: Server Side vs Client Side</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Study Guides</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Study_Guides/cad_study_guide/">ServiceNow CAD Certification — Master Study Guide</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">ServiceNow Notes</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Scripting</li>
+      <li class="breadcrumb-item active">ServiceNow JavaScript &amp; Scripting Notes</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="servicenow-javascript-scripting-notes">ServiceNow JavaScript &amp; Scripting Notes</h1>
+<p>This document consolidates <strong>all major scripting types and JS usage on the Now Platform</strong> into one reference. Use it as your active note-taking and recall guide.</p>
+<hr />
+<h2 id="universal-js-on-now-platform-template">Universal JS on Now Platform Template</h2>
+<pre><code>Feature:
+
+Purpose:
+- Why this script exists
+- What problem it solves
+
+Runs:
+- Client | Server | Both
+- Trigger / Event / Flow
+
+APIs / Globals:
+- List of platform APIs (g_form, GlideRecord, GlideAjax, GlideFlow, etc.)
+
+Inputs:
+- Fields, variables, Flow inputs, or app variables
+
+Outputs:
+- Updated fields, records, logs, Flow outputs
+
+Use Cases:
+- Concrete scenarios where this should be used
+- Where NOT to use it
+
+Common Mistakes / Gotchas:
+- Misfires, infinite loops, security issues, context mistakes
+
+1-Min Example:
+- Step-by-step scenario with input → JS → output
+</code></pre>
+<hr />
+<h2 id="client-side-scripting">Client-Side Scripting</h2>
+<h3 id="client-script">Client Script</h3>
+<pre><code> Client Script (onChange example)
+
+Purpose:
+- Control form field behavior
+
+Runs:
+- Client, triggered by field change
+
+APIs / Globals:
+- g_form, g_user
+
+Inputs:
+- Field value changed
+
+Outputs:
+- Field visibility / mandatory / value set
+
+Use Cases:
+- Show/hide fields dynamically
+- Mandatory logic on form
+- NOT for DB changes
+
+Common Mistakes / Gotchas:
+- Trying to modify database fields directly
+- Forgetting runs only in the browser
+
+1-Min Example:
+- If “Category” = Hardware → make “Serial Number” mandatory
+</code></pre>
+<h3 id="ui-policy">UI Policy</h3>
+<pre><code> UI Policy
+
+Purpose:
+- Declarative form behavior (low/no script)
+
+Runs:
+- Client, on form load/change
+
+APIs / Globals:
+- UI Policy Actions
+
+Inputs:
+- Field values
+
+Outputs:
+- Show/hide fields, mandatory logic
+
+Use Cases:
+- Simple form logic without scripts
+- NOT for complex validations
+
+Common Mistakes / Gotchas:
+- Using script when policy can do it
+- Only client-side execution
+
+1-Min Example:
+- If category = Hardware → show serial number
+</code></pre>
+<h3 id="ui-action">UI Action</h3>
+<pre><code> UI Action
+
+Purpose:
+- Add buttons / actions to UI
+
+Runs:
+- Client, Server, or Both, on click
+
+APIs / Globals:
+- g_form, current
+
+Inputs:
+- Button clicked
+
+Outputs:
+- Updates fields, triggers logic
+
+Use Cases:
+- User-triggered actions
+- NOT for background enforcement
+
+Common Mistakes / Gotchas:
+- Mixing client/server logic incorrectly
+- No condition guarding visibility
+
+1-Min Example:
+- &quot;Escalate Incident&quot; button
+</code></pre>
+<h3 id="ui-page">UI Page</h3>
+<pre><code> UI Page
+
+Purpose:
+- Custom UI with HTML/JS
+
+Runs:
+- Client + Server (Jelly)
+
+APIs / Globals:
+- GlideAjax, DOM
+
+Inputs:
+- Form data, user input
+
+Outputs:
+- Custom display, server updates
+
+Use Cases:
+- Custom dashboards or forms
+- NOT for simple forms
+
+Common Mistakes / Gotchas:
+- Reinventing OOB UI
+- Security issues
+
+1-Min Example:
+- Custom dashboard input form
+</code></pre>
+<hr />
+<h2 id="server-side-scripting">Server-Side Scripting</h2>
+<h3 id="business-rule">Business Rule</h3>
+<pre><code> Business Rule
+
+Purpose:
+- Enforce data rules at save time
+
+Runs:
+- Server, Before / After / Async
+
+APIs / Globals:
+- current, previous, GlideRecord, gs
+
+Inputs:
+- Record fields
+
+Outputs:
+- Updated record, notifications, logs
+
+Use Cases:
+- Data integrity enforcement
+- Audit logs
+- NOT for UI behavior
+
+Common Mistakes / Gotchas:
+- Doing UI logic
+- Wrong timing (Before vs After)
+- Infinite loops
+
+1-Min Example:
+- If incident.state = Closed → set closed_at timestamp
+</code></pre>
+<h3 id="script-include">Script Include</h3>
+<pre><code> Script Include
+
+Purpose:
+- Reusable server-side logic
+
+Runs:
+- Server, callable by other scripts
+
+APIs / Globals:
+- GlideRecord, gs
+
+Inputs:
+- Varies by use
+
+Outputs:
+- Return value, updated records
+
+Use Cases:
+- Reusable logic across BRs, Flows, APIs
+- NOT for UI logic
+
+Common Mistakes / Gotchas:
+- Putting logic directly in BRs
+- Forgetting client-callable flag
+
+1-Min Example:
+- Calculate SLA based on priority
+</code></pre>
+<h3 id="scheduled-script">Scheduled Script</h3>
+<pre><code> Scheduled Script
+
+Purpose:
+- Run logic on a schedule
+
+Runs:
+- Server, time-based (cron)
+
+APIs / Globals:
+- GlideRecord, gs
+
+Inputs:
+- Scheduled trigger
+
+Outputs:
+- Updated records, logs
+
+Use Cases:
+- Cleanup jobs, batch updates
+- NOT for real-time logic
+
+Common Mistakes / Gotchas:
+- Heavy processing during business hours
+- Missing logging
+
+1-Min Example:
+- Nightly close stale incidents
+</code></pre>
+<h3 id="fix-script">Fix Script</h3>
+<pre><code> Fix Script
+
+Purpose:
+- One-time data correction
+
+Runs:
+- Server, manual execution
+
+APIs / Globals:
+- GlideRecord
+
+Inputs:
+- Target records
+
+Outputs:
+- Updated records
+
+Use Cases:
+- Backfilling data, correcting bad records
+- NEVER for ongoing logic
+
+Common Mistakes / Gotchas:
+- Running in prod without test
+- Forgetting rollback plan
+
+1-Min Example:
+- Set missing assignment groups
+</code></pre>
+<hr />
+<h2 id="flow-automation">Flow / Automation</h2>
+<h3 id="flow-script-step">Flow Script Step</h3>
+<pre><code> Flow Script Step
+
+Purpose:
+- Custom logic inside Flow Designer
+
+Runs:
+- Server, triggered by Flow
+
+APIs / Globals:
+- GlideRecord, Flow inputs/outputs
+
+Inputs:
+- Flow variables
+
+Outputs:
+- Updated Flow variables, records
+
+Use Cases:
+- Conditional logic not supported declaratively
+- NOT for UI logic
+
+Common Mistakes / Gotchas:
+- Overly complex logic inside Flow
+- Not returning outputs correctly
+
+1-Min Example:
+- If &quot;priority&quot; &gt; 3 → assign to escalation group
+</code></pre>
+<h3 id="app-engine-scoped-app-script">App Engine / Scoped App Script</h3>
+<pre><code> Scoped App Script (Server-side)
+
+Purpose:
+- Encapsulate app-specific logic
+
+Runs:
+- Server, callable from other modules
+
+APIs / Globals:
+- GlideRecord, gs, Script Includes
+
+Inputs:
+- App variables, table fields
+
+Outputs:
+- Updated records, app variables
+
+Use Cases:
+- Reusable app logic, integrations
+- NOT for unrelated tables
+
+Common Mistakes / Gotchas:
+- Forgetting scope protection
+- Using global objects incorrectly
+
+1-Min Example:
+- Calculate SLA for custom app records
+</code></pre>
+<h3 id="report-script">Report Script</h3>
+<pre><code> Report Script
+
+Purpose:
+- Customize report logic / data retrieval
+
+Runs:
+- Server during report generation
+
+APIs / Globals:
+- GlideRecord, gs
+
+Inputs:
+- Table data, filters
+
+Outputs:
+- Report dataset
+
+Use Cases:
+- Advanced filtering, calculated fields
+- NOT for UI actions
+
+Common Mistakes / Gotchas:
+- Slow queries
+- Not respecting permissions
+
+1-Min Example:
+- Calculate overdue incidents grouped by assignment group
+</code></pre>
+<hr />
+<h2 id="key-js-patterns-to-memorize">Key JS Patterns to Memorize</h2>
+<ul>
+<li>If it touches the DB → Server</li>
+<li>If it touches the form → Client</li>
+<li>If it’s reusable logic → Script Include / Scoped App</li>
+<li>If it’s a process / workflow → Flow Script Step</li>
+<li>Always check API scope: g_form = client, current = server, GlideAjax = client→server bridge</li>
+</ul>
+<hr />
+<p>This document is designed for <strong>active note-taking and hands-on reinforcement</strong>. Fill in the <code>1-Min Example</code> and <code>Use Cases</code> sections with examples from your dev instance to lock in memory.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../service_now_script_decision_tree/" class="btn btn-neutral float-left" title="ServiceNow: Which Tool Do I Use?"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../servicenow_js_scripting_notes_with_client_vs_server_side/" class="btn btn-neutral float-right" title="ServiceNow JavaScript: Server Side vs Client Side">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../service_now_script_decision_tree/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../servicenow_js_scripting_notes_with_client_vs_server_side/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

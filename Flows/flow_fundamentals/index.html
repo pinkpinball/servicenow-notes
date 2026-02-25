@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Natalie Walker" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>ServiceNow Flow Fundamentals - ServiceNow Notes</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "ServiceNow Flow Fundamentals";
+        var mkdocs_page_input_path = "Flows/flow_fundamentals.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/javaScript.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> ServiceNow Notes
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">ServiceNow Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../ServiceNow_Fundamentals/">ServiceNow Fundamentals</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Flows</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">ServiceNow Flow Fundamentals</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#what-is-flow-designer">What is Flow Designer?</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#when-should-i-use-a-flow">When Should I Use a Flow?</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#core-flow-components">Core Flow Components</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#trigger">Trigger</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#conditions">Conditions</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#actions">Actions</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#data-pills">Data Pills</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#flow-execution-context">Flow Execution Context</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#flow-vs-script-comparison">Flow vs Script Comparison</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#flow-logic-patterns">Flow Logic Patterns</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#linear-flow">Linear Flow</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#conditional-branching">Conditional Branching</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#looping">Looping</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#flow-designer-vs-workflow-legacy">Flow Designer vs Workflow (Legacy)</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#error-handling">Error Handling</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#performance-considerations">Performance Considerations</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#common-mistakes">Common Mistakes</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#1-min-example">1-Min Example</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#relationship-to-other-tools">Relationship to Other Tools</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#mental-model-memorize-this">Mental Model (Memorize This)</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#final-advice">Final Advice</a>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Reports</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Reports/Report_fundamentals/">ServiceNow Reports Fundamentals</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Scripting</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Scripting/Business_Rules/">Business Rule</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Scripting/Client_Scripts/">Client Script</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Scripting/Fix_Script/">Fix Script</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Scripting/Flow_Scripting/">Flow Designer Scripting</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Scripting/JS_On_Now_Platform/">JavaScript On Now Platform</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Scripting/Scheduled_Script/">Scheduled Script</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Scripting/Script_Includes/">Script Includes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Scripting/UI_Action/">UI Action</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Scripting/UI_Page/">UI Page</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Scripting/UI_Policy/">UI Policy</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Scripting/glide_system_gliderecord_notes/">Glide API Notes: GlideSystem &amp; GlideRecord</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Scripting/service_now_script_decision_tree/">ServiceNow: Which Tool Do I Use?</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Scripting/servicenow_js_scripting_notes/">ServiceNow JavaScript &amp; Scripting Notes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Scripting/servicenow_js_scripting_notes_with_client_vs_server_side/">ServiceNow JavaScript: Server Side vs Client Side</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Study Guides</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Study_Guides/cad_study_guide/">ServiceNow CAD Certification — Master Study Guide</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">ServiceNow Notes</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Flows</li>
+      <li class="breadcrumb-item active">ServiceNow Flow Fundamentals</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="servicenow-flow-fundamentals">ServiceNow Flow Fundamentals</h1>
+<p>This document provides a <strong>clear, practical overview of Flow Designer</strong> on the Now Platform.</p>
+<p>Use this to understand:</p>
+<ul>
+<li>what flows are</li>
+<li>when to use them</li>
+<li>how they differ from scripts</li>
+</ul>
+<hr />
+<h2 id="what-is-flow-designer">What is Flow Designer?</h2>
+<p>Flow Designer is ServiceNow’s <strong>low-code / no-code automation engine</strong>.</p>
+<p>It allows you to:</p>
+<ul>
+<li>react to events</li>
+<li>orchestrate processes</li>
+<li>automate work across tables</li>
+</ul>
+<blockquote>
+<p>Think of Flow Designer as the <em>process layer</em> of ServiceNow.</p>
+</blockquote>
+<hr />
+<h2 id="when-should-i-use-a-flow">When Should I Use a Flow?</h2>
+<p>Use Flow Designer when:</p>
+<ul>
+<li>multiple steps are involved</li>
+<li>approvals are required</li>
+<li>notifications must be sent</li>
+<li>actions span multiple records or tables</li>
+</ul>
+<p><strong>Do NOT use when:</strong></p>
+<ul>
+<li>logic must run at save time</li>
+<li>data integrity is critical</li>
+<li>the logic is a simple field rule</li>
+</ul>
+<blockquote>
+<p>If it must always run → Business Rule</p>
+</blockquote>
+<hr />
+<h2 id="core-flow-components">Core Flow Components</h2>
+<h3 id="trigger">Trigger</h3>
+<p>Defines <strong>when the flow starts</strong>.</p>
+<p>Common triggers:</p>
+<ul>
+<li>Record created</li>
+<li>Record updated</li>
+<li>Schedule</li>
+<li>Service Catalog events</li>
+</ul>
+<p><strong>Example:</strong></p>
+<ul>
+<li>When an Incident is created</li>
+</ul>
+<hr />
+<h3 id="conditions">Conditions</h3>
+<p>Optional checks that control whether the flow continues.</p>
+<p><strong>Example:</strong></p>
+<ul>
+<li>Priority = 1</li>
+</ul>
+<hr />
+<h3 id="actions">Actions</h3>
+<p>Steps performed by the flow.</p>
+<p>Common actions:</p>
+<ul>
+<li>Create Record</li>
+<li>Update Record</li>
+<li>Send Notification</li>
+<li>Ask for Approval</li>
+</ul>
+<hr />
+<h3 id="data-pills">Data Pills</h3>
+<ul>
+<li>Dynamic values passed between steps</li>
+<li>Represent fields, records, or outputs</li>
+</ul>
+<blockquote>
+<p>Data pills replace variables in low-code flows.</p>
+</blockquote>
+<hr />
+<h2 id="flow-execution-context">Flow Execution Context</h2>
+<ul>
+<li>Runs on the <strong>server</strong></li>
+<li>Executes asynchronously</li>
+<li>Does not block form submission</li>
+</ul>
+<blockquote>
+<p>Flows are not guaranteed to run instantly.</p>
+</blockquote>
+<hr />
+<h2 id="flow-vs-script-comparison">Flow vs Script Comparison</h2>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Best For</th>
+<th>Runs</th>
+<th>Timing</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Business Rule</td>
+<td>Data enforcement</td>
+<td>Server</td>
+<td>Immediate</td>
+</tr>
+<tr>
+<td>Flow Designer</td>
+<td>Process automation</td>
+<td>Server</td>
+<td>Async</td>
+</tr>
+<tr>
+<td>Client Script</td>
+<td>UX logic</td>
+<td>Client</td>
+<td>Immediate</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="flow-logic-patterns">Flow Logic Patterns</h2>
+<h3 id="linear-flow">Linear Flow</h3>
+<ul>
+<li>Step-by-step execution</li>
+</ul>
+<p><strong>Example:</strong></p>
+<ul>
+<li>Create incident → notify group → update state</li>
+</ul>
+<hr />
+<h3 id="conditional-branching">Conditional Branching</h3>
+<ul>
+<li>Different paths based on conditions</li>
+</ul>
+<p><strong>Example:</strong></p>
+<ul>
+<li>Priority 1 → notify manager</li>
+<li>Else → standard notification</li>
+</ul>
+<hr />
+<h3 id="looping">Looping</h3>
+<ul>
+<li>Repeat actions for multiple records</li>
+</ul>
+<p><strong>Example:</strong></p>
+<ul>
+<li>Notify all affected users</li>
+</ul>
+<hr />
+<h2 id="flow-designer-vs-workflow-legacy">Flow Designer vs Workflow (Legacy)</h2>
+<ul>
+<li>Flow Designer is the modern replacement</li>
+<li>Workflows still exist in older instances</li>
+</ul>
+<blockquote>
+<p>Always prefer Flow Designer for new development.</p>
+</blockquote>
+<hr />
+<h2 id="error-handling">Error Handling</h2>
+<ul>
+<li>Flow errors can be logged</li>
+<li>Some actions provide failure outputs</li>
+</ul>
+<p><strong>Best Practice:</strong></p>
+<ul>
+<li>Design flows to fail gracefully</li>
+</ul>
+<hr />
+<h2 id="performance-considerations">Performance Considerations</h2>
+<ul>
+<li>Avoid excessive flows on high-volume tables</li>
+<li>Keep flows focused on process, not validation</li>
+<li>Prefer scripts for tight logic loops</li>
+</ul>
+<hr />
+<h2 id="common-mistakes">Common Mistakes</h2>
+<ul>
+<li>Using flows for field validation</li>
+<li>Expecting flows to run synchronously</li>
+<li>Overcomplicating simple logic</li>
+<li>Duplicating logic that belongs in scripts</li>
+</ul>
+<hr />
+<h2 id="1-min-example">1-Min Example</h2>
+<p><strong>Requirement:</strong>
+When an incident with priority 1 is created:</p>
+<ul>
+<li>notify on-call group</li>
+<li>request manager approval</li>
+</ul>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>Trigger: Incident created</li>
+<li>Condition: Priority = 1</li>
+<li>Actions:</li>
+<li>Send notification</li>
+<li>Ask for approval</li>
+</ul>
+<hr />
+<h2 id="relationship-to-other-tools">Relationship to Other Tools</h2>
+<ul>
+<li><strong>UI Policy</strong>: simple UI rules</li>
+<li><strong>Client Script</strong>: complex UI behavior</li>
+<li><strong>Business Rule</strong>: data enforcement</li>
+<li><strong>Flow Designer</strong>: process orchestration</li>
+</ul>
+<hr />
+<h2 id="mental-model-memorize-this">Mental Model (Memorize This)</h2>
+<blockquote>
+<p><strong>Flows move work forward</strong>
+<strong>Scripts enforce rules</strong></p>
+</blockquote>
+<hr />
+<h2 id="final-advice">Final Advice</h2>
+<p>If you’re unsure whether to use a Flow, ask:</p>
+<ol>
+<li>Is this a process with multiple steps?</li>
+<li>Does it need approvals or notifications?</li>
+<li>Is async execution acceptable?</li>
+</ol>
+<p>If yes → Flow Designer is likely the right choice.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../../ServiceNow_Fundamentals/" class="btn btn-neutral float-left" title="ServiceNow Fundamentals"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../../Reports/Report_fundamentals/" class="btn btn-neutral float-right" title="ServiceNow Reports Fundamentals">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../../ServiceNow_Fundamentals/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../../Reports/Report_fundamentals/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

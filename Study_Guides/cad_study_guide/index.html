@@ -1,0 +1,3394 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Natalie Walker" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>ServiceNow CAD Certification — Master Study Guide - ServiceNow Notes</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "ServiceNow CAD Certification \u2014 Master Study Guide";
+        var mkdocs_page_input_path = "Study_Guides/cad_study_guide.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/javaScript.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> ServiceNow Notes
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">ServiceNow Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../ServiceNow_Fundamentals/">ServiceNow Fundamentals</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Flows</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Flows/flow_fundamentals/">ServiceNow Flow Fundamentals</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Reports</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Reports/Report_fundamentals/">ServiceNow Reports Fundamentals</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Scripting</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Scripting/Business_Rules/">Business Rule</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Scripting/Client_Scripts/">Client Script</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Scripting/Fix_Script/">Fix Script</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Scripting/Flow_Scripting/">Flow Designer Scripting</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Scripting/JS_On_Now_Platform/">JavaScript On Now Platform</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Scripting/Scheduled_Script/">Scheduled Script</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Scripting/Script_Includes/">Script Includes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Scripting/UI_Action/">UI Action</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Scripting/UI_Page/">UI Page</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Scripting/UI_Policy/">UI Policy</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Scripting/glide_system_gliderecord_notes/">Glide API Notes: GlideSystem &amp; GlideRecord</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Scripting/service_now_script_decision_tree/">ServiceNow: Which Tool Do I Use?</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Scripting/servicenow_js_scripting_notes/">ServiceNow JavaScript &amp; Scripting Notes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Scripting/servicenow_js_scripting_notes_with_client_vs_server_side/">ServiceNow JavaScript: Server Side vs Client Side</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Study Guides</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">ServiceNow CAD Certification — Master Study Guide</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#table-of-contents">Table of Contents</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#exam-overview">Exam Overview</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#domain-1-designing-creating-an-application-20">Domain 1: Designing &amp; Creating an Application (20%)</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#application-scope-deep-dive">Application Scope — Deep Dive</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#guided-application-creator-gac-full-deep-dive">Guided Application Creator (GAC) — Full Deep Dive</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#how-to-access-gac">How to Access GAC</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#who-can-use-gac">Who Can Use GAC</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#gac-wizard-steps-in-order">GAC Wizard Steps — In Order</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#the-three-ways-to-designate-a-table-in-gac">The Three Ways to Designate a Table in GAC</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#create-a-new-table-vs-extend-a-table-decision-guide">Create a New Table vs. Extend a Table — Decision Guide</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#table-configuration-options-set-during-gac">Table Configuration Options Set During GAC</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#what-gac-does-not-do">What GAC Does NOT Do</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#practice-questions-gac">Practice Questions — GAC</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#cross-scope-access-how-it-really-works">Cross-Scope Access — How it Really Works</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#delegated-development-full-deep-dive">Delegated Development — Full Deep Dive</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#how-to-set-it-up">How to Set It Up</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#what-a-delegated-developer-can-do">What a Delegated Developer CAN Do</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#what-a-delegated-developer-cannot-do">What a Delegated Developer CANNOT Do</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#delegated-developer-vs-admin-key-comparison">Delegated Developer vs Admin — Key Comparison</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#code-review-for-delegated-developers">Code Review for Delegated Developers</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#practice-questions-delegated-development">Practice Questions — Delegated Development</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#application-access-settings-deep-dive">Application Access Settings — Deep Dive</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#modules-link-types-and-configuration">Modules — Link Types and Configuration</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#application-properties">Application Properties</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#practice-questions-domain-1">Practice Questions — Domain 1</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#domain-2-application-user-interface-20">Domain 2: Application User Interface (20%)</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#client-script-types-full-breakdown">Client Script Types — Full Breakdown</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#gliderecord-the-definitive-patterns">GlideRecord — The Definitive Patterns</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#glideajax-client-to-server-communication">GlideAjax — Client-to-Server Communication</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#ui-policy-deep-dive">UI Policy Deep Dive</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#ui-policy-vs-client-script-vs-data-policy">UI Policy vs Client Script vs Data Policy</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#acl-vs-ui-policy-read-only">ACL vs UI Policy (Read Only)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#ui-actions-full-deep-dive">UI Actions — Full Deep Dive</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#ui-action-types">UI Action Types</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#client-vs-server-in-a-ui-action">Client vs Server in a UI Action</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#server-only-ui-action-most-common">Server-Only UI Action (most common)</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#client-server-ui-action-using-gsftsubmit">Client + Server UI Action (using gsftSubmit)</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#form-designer-vs-form-layout">Form Designer vs Form Layout</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#debugging-client-side-scripts">Debugging Client-Side Scripts</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#glidedatetime-in-scoped-apps">GlideDateTime in Scoped Apps</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#practice-questions-domain-2">Practice Questions — Domain 2</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#domain-3-security-restricting-access-20">Domain 3: Security &amp; Restricting Access (20%)</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#acl-evaluation-the-full-mental-model">ACL Evaluation — The Full Mental Model</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#acl-diagnosis-symptom-to-cause">ACL Diagnosis — Symptom to Cause</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#acl-evaluation-role-condition-script">ACL Evaluation — Role → Condition → Script</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#practice-questions-domain-3">Practice Questions — Domain 3</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#domain-4-application-automation-20">Domain 4: Application Automation (20%)</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#business-rule-timing-visual-flow">Business Rule Timing — Visual Flow</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#business-rule-specific-apis">Business Rule Specific APIs</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#flow-designer-key-concepts">Flow Designer — Key Concepts</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#scheduled-jobs-vs-async-business-rules">Scheduled Jobs vs Async Business Rules</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#email-notifications-full-breakdown">Email Notifications — Full Breakdown</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#the-three-configuration-tabs">The Three Configuration Tabs</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#trigger-types-record-vs-event">Trigger Types: Record vs Event</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#the-weight-field-most-tested-email-notification-concept">The Weight Field — Most Tested Email Notification Concept</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#referencing-fields-and-events-in-email-content">Referencing Fields and Events in Email Content</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#watermark">Watermark</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#events-and-the-event-registry">Events and the Event Registry</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#event-flow">Event Flow</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#registering-an-event">Registering an Event</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#automated-test-framework-atf">Automated Test Framework (ATF)</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#key-atf-concepts">Key ATF Concepts</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#what-atf-is-good-for">What ATF Is Good For</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#what-atf-is-not-for">What ATF Is NOT For</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#common-atf-test-steps">Common ATF Test Steps</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#practice-questions-domain-4">Practice Questions — Domain 4</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#domain-5-working-with-external-data-10">Domain 5: Working with External Data (10%)</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#import-sets-full-pipeline">Import Sets — Full Pipeline</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#transform-map-key-settings">Transform Map — Key Settings</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#ui-policy-vs-data-policy-critical-distinction">UI Policy vs Data Policy — Critical Distinction</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#practice-questions-domain-5">Practice Questions — Domain 5</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#domain-6-managing-applications-10">Domain 6: Managing Applications (10%)</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#update-sets-vs-app-repository">Update Sets vs App Repository</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#update-set-deployment-step-by-step">Update Set Deployment — Step by Step</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#service-catalog">Service Catalog</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#rest-apis-full-deep-dive">REST APIs — Full Deep Dive</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#three-rest-directions-know-which-is-which">Three REST Directions — Know Which Is Which</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#table-api-useful-query-parameters">Table API — Useful Query Parameters</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#outbound-rest-sn_wsrestmessagev2-servicenow-external">Outbound REST — sn_ws.RESTMessageV2 (ServiceNow → External)</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#scripted-rest-api-building-custom-endpoints-in-servicenow">Scripted REST API — Building Custom Endpoints in ServiceNow</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#practice-questions-rest-apis">Practice Questions — REST APIs</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#dictionary-attributes">Dictionary Attributes</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#key-roles">Key Roles</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#delegated-development">Delegated Development</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#git-source-control-integration">Git / Source Control Integration</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#linking-to-a-git-repo-what-you-need">Linking to a Git Repo — What You Need</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#source-control-operations-know-which-work-where">Source Control Operations — Know Which Work Where</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#the-stash-operation">The Stash Operation</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#roles-required-for-source-control">Roles Required for Source Control</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#application-files-related-list">Application Files Related List</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#record-producer-additional-notes">Record Producer — Additional Notes</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#practice-questions-domain-6">Practice Questions — Domain 6</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#glide-api-quick-reference">Glide API Quick Reference</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#glidesystem-gs-server-side-system-session-info">GlideSystem / gs (Server Side) — System &amp; Session Info</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#glideform-g_form-client-side-form-manipulation">GlideForm / g_form (Client Side) — Form Manipulation</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#g_user-client-side-current-user-info">g_user (Client Side) — Current User Info</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#g_scratchpad-server-client-bridge">g_scratchpad (Server → Client Bridge)</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#master-quick-reference">Master Quick Reference</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#client-vs-server-api-cheat-sheet">Client vs Server API Cheat Sheet</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#br-timing-quick-reference">BR Timing Quick Reference</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#prefix-quick-reference">Prefix Quick Reference</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#rest-api-quick-reference">REST API Quick Reference</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#script-include-quick-reference">Script Include Quick Reference</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#all-exam-traps-combined-list">All Exam Traps — Combined List</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#mental-checklist-for-exam-decisions">Mental Checklist for Exam Decisions</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#mnemonics-memory-tricks">Mnemonics &amp; Memory Tricks</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#710-day-study-plan">7–10 Day Study Plan</a>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">ServiceNow Notes</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Study Guides</li>
+      <li class="breadcrumb-item active">ServiceNow CAD Certification — Master Study Guide</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="servicenow-cad-certification-master-study-guide">ServiceNow CAD Certification — Master Study Guide</h1>
+<blockquote>
+<p>Deep Dives · Code Examples · Exam Traps · Practice Questions</p>
+</blockquote>
+<hr />
+<h2 id="table-of-contents">Table of Contents</h2>
+<ol>
+<li><a href="#exam-overview">Exam Overview</a></li>
+<li><a href="#domain-1-designing--creating-an-application-20">Domain 1: Designing &amp; Creating an Application (20%)</a></li>
+<li><a href="#domain-2-application-user-interface-20">Domain 2: Application User Interface (20%)</a></li>
+<li><a href="#domain-3-security--restricting-access-20">Domain 3: Security &amp; Restricting Access (20%)</a></li>
+<li><a href="#domain-4-application-automation-20">Domain 4: Application Automation (20%)</a></li>
+<li><a href="#domain-5-working-with-external-data-10">Domain 5: Working with External Data (10%)</a></li>
+<li><a href="#domain-6-managing-applications-10">Domain 6: Managing Applications (10%)</a></li>
+<li><a href="#glide-api-quick-reference">Glide API Quick Reference</a></li>
+<li><a href="#master-quick-reference">Master Quick Reference</a></li>
+<li><a href="#all-exam-traps--combined-list">All Exam Traps — Combined List</a></li>
+<li><a href="#mnemonics--memory-tricks">Mnemonics &amp; Memory Tricks</a></li>
+<li><a href="#710-day-study-plan">7–10 Day Study Plan</a></li>
+</ol>
+<hr />
+<h2 id="exam-overview">Exam Overview</h2>
+<table>
+<thead>
+<tr>
+<th>Detail</th>
+<th>Info</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Total Questions</td>
+<td>~60</td>
+</tr>
+<tr>
+<td>Time Allowed</td>
+<td>90 minutes (~1.5 min/question)</td>
+</tr>
+<tr>
+<td>Passing Score</td>
+<td>70% (42+ correct)</td>
+</tr>
+<tr>
+<td>Focus</td>
+<td>Conceptual understanding + hands-on scripting</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>All six domains carry equal or near-equal weight. Do not neglect any domain — even Import Sets (10%) can swing a borderline result.</p>
+</blockquote>
+<hr />
+<h2 id="domain-1-designing-creating-an-application-20">Domain 1: Designing &amp; Creating an Application (20%)</h2>
+<h3 id="application-scope-deep-dive">Application Scope — Deep Dive</h3>
+<p>Every artifact you create in ServiceNow belongs to exactly one scope. The scope is determined by what is selected in the <strong>App Picker</strong> at the moment of creation — not where you navigate afterward.</p>
+<table>
+<thead>
+<tr>
+<th>Prefix</th>
+<th>When it appears</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>x_</code></td>
+<td>Tables/fields in a <strong>scoped app</strong></td>
+<td><code>x_myco_myapp_incident</code></td>
+</tr>
+<tr>
+<td><code>u_</code></td>
+<td>Custom tables/fields in <strong>global scope</strong></td>
+<td><code>u_custom_field</code></td>
+</tr>
+<tr>
+<td><code>sys_</code></td>
+<td>Native ServiceNow platform tables</td>
+<td><code>sys_user</code>, <code>sys_script</code></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>EXAM TRAP:</strong> <code>u_</code> is for <strong>GLOBAL</strong> customizations. <code>x_</code> is for <strong>SCOPED</strong> apps. Confusing them is the #1 Domain 1 trap.</p>
+</blockquote>
+<p><strong>How to verify an artifact's scope:</strong> Open the record and check the <strong>Application</strong> field — it shows exactly which scope owns it.</p>
+<p><strong>Privately-scoped app default behavior:</strong></p>
+<ul>
+<li><strong>Read</strong> → all scopes can read by default ✅</li>
+<li><strong>Write/Update/Delete</strong> → restricted to owning scope only ✅</li>
+</ul>
+<p><strong>Guided Application Creator (GAC)</strong> → fastest/easiest way to create a new scoped app.</p>
+<p><strong>Delegated Developer</strong> → "admin" abilities within a specific scoped app only — NOT system admin. Cannot modify artifacts outside their assigned app.</p>
+<h3 id="guided-application-creator-gac-full-deep-dive">Guided Application Creator (GAC) — Full Deep Dive</h3>
+<p>GAC is a step-by-step wizard that walks you through building the skeleton of a scoped application. It is intentionally low-code and guided — you don't need to know where everything lives in the platform. Once GAC finishes, you continue development in <strong>Studio</strong>.</p>
+<h4 id="how-to-access-gac">How to Access GAC</h4>
+<p>Two entry points:</p>
+<ol>
+<li><strong>System Applications &gt; My Company Applications &gt; Create New</strong></li>
+<li><strong>Studio &gt; Create Application button</strong></li>
+</ol>
+<blockquote>
+<p>💡 The GAC welcome screen appears <strong>only the first time</strong> it is used. To see it again, delete the <code>sn_g_app_creator.has_viewed_gac</code> record from the <code>sys_user_preference</code> table.</p>
+</blockquote>
+<h4 id="who-can-use-gac">Who Can Use GAC</h4>
+<p>Users with the <strong><code>sn_g_app_creator.app_creator</code></strong> role can access GAC. This is intended for System Administrators, Developers, and Business Analysts.</p>
+<blockquote>
+<p>⚠️ <strong>EXAM TRAP:</strong> By default, GAC does <strong>not</strong> offer the option to create a <strong>Global</strong> application — it only creates scoped apps. To enable global app creation in GAC, the system property <code>sn_g_app_creator.allow_global</code> must be set to <code>true</code>.</p>
+</blockquote>
+<h4 id="gac-wizard-steps-in-order">GAC Wizard Steps — In Order</h4>
+<p>GAC walks you through these steps sequentially:</p>
+<pre><code>1. Application Configuration  → Name, scope ID (max 18 chars), description
+2. User Role                  → Assign existing roles or create new ones for the app
+3. User Experience            → Choose up to 3: Workspace, Mobile, Classic
+4. Table                      → Designate data tables (see below)
+5. Field Inputs               → Add fields to the table
+6. Table Configuration        → Configure access controls, extensibility, etc.
+7. Next Steps                 → Opens Studio for further development
+</code></pre>
+<blockquote>
+<p>💡 <strong>Best practice:</strong> Always create at least one scoped role in the User Role step — don't skip it and rely on global roles alone.</p>
+</blockquote>
+<h4 id="the-three-ways-to-designate-a-table-in-gac">The Three Ways to Designate a Table in GAC</h4>
+<p>This is a <strong>frequently tested exam question</strong> — know all three options and when to use each.</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>What it does</th>
+<th>When to use it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Create a new table</strong></td>
+<td>Builds a brand-new table from scratch with only default system fields</td>
+<td>No similar table exists; you want full control over the schema</td>
+</tr>
+<tr>
+<td><strong>Extend an existing table</strong></td>
+<td>Creates a child table that inherits all fields and logic of a parent</td>
+<td>Parent table has useful fields/logic (e.g., <code>task</code>, <code>cmdb_ci</code>)</td>
+</tr>
+<tr>
+<td><strong>Upload a spreadsheet</strong></td>
+<td>Turns a CSV/Excel file into a new table, mapping columns to fields</td>
+<td>You have existing data to import and use as the table's structure</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>EXAM TRAP:</strong> "Create table from template" is <strong>NOT</strong> a valid GAC option. If you see it in a question, it's a distractor — the correct options are create from scratch, extend, or upload spreadsheet.</p>
+<p>⚠️ <strong>EXAM TRAP:</strong> The exam also asks which file types can be uploaded. Only <strong>spreadsheets (CSV/Excel)</strong> are supported. PDFs and Word documents are <strong>NOT</strong> valid upload types in GAC.</p>
+</blockquote>
+<h4 id="create-a-new-table-vs-extend-a-table-decision-guide">Create a New Table vs. Extend a Table — Decision Guide</h4>
+<table>
+<thead>
+<tr>
+<th>Signal in the scenario</th>
+<th>Right choice</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>No similar table exists in ServiceNow</td>
+<td>Create new table</td>
+</tr>
+<tr>
+<td>Table will hold reference/lookup data only</td>
+<td>Create new table</td>
+</tr>
+<tr>
+<td>You want to script all behaviors yourself</td>
+<td>Create new table</td>
+</tr>
+<tr>
+<td>A similar table already has useful fields and logic</td>
+<td>Extend existing table</td>
+</tr>
+<tr>
+<td>You want approval workflows (other than User Approval)</td>
+<td>Extend <code>task</code></td>
+</tr>
+<tr>
+<td>You're modeling a Configuration Item type</td>
+<td>Extend <code>cmdb_ci</code></td>
+</tr>
+<tr>
+<td>You want to reuse fields without rebuilding them</td>
+<td>Extend existing table</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💡 <strong>Key rule on extending:</strong> The parent table must have <strong>Extensible = true</strong> in its dictionary entry. You <strong>cannot</strong> extend a system table or database view. Inherited fields cannot be deleted from the child table.</p>
+<p>💡 <strong>Approval workflow note:</strong> The <strong>User Approval</strong> workflow activity works with ALL tables. All <strong>other</strong> approval activities (e.g., group approval, manager approval) only work with tables that extend <strong><code>task</code></strong>.</p>
+</blockquote>
+<h4 id="table-configuration-options-set-during-gac">Table Configuration Options Set During GAC</h4>
+<p>When creating or extending a table in GAC, these options are configured:</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Create access controls</td>
+<td>Auto-generates baseline ACLs for the new table — <strong>must be checked for scoped apps</strong></td>
+</tr>
+<tr>
+<td>Extensible</td>
+<td>Allows other tables to extend this one in the future</td>
+</tr>
+<tr>
+<td>Create module</td>
+<td>Automatically adds the table to the app's navigation menu</td>
+</tr>
+<tr>
+<td>Auto-number</td>
+<td>Adds an auto-incrementing number field (like INC0001234)</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>EXAM TRAP:</strong> If <strong>Create access controls</strong> is not checked when creating a table in a scoped app, no ACLs are generated and access may be unexpectedly open or blocked depending on the app's default access settings.</p>
+</blockquote>
+<h4 id="what-gac-does-not-do">What GAC Does NOT Do</h4>
+<p>GAC builds the skeleton — it doesn't do everything. After GAC, you go to Studio to:</p>
+<ul>
+<li>Add Business Rules, Client Scripts, Script Includes</li>
+<li>Create UI Policies and UI Actions</li>
+<li>Configure Form Layouts in detail</li>
+<li>Set up Flow Designer automations</li>
+<li>Add additional tables beyond what GAC created</li>
+</ul>
+<blockquote>
+<p>🧠 <strong>MEMORY TIP:</strong> <strong>GAC = foundation pour</strong>. It sets up the structure. Studio = where you build the house on top.</p>
+</blockquote>
+<h4 id="practice-questions-gac">Practice Questions — GAC</h4>
+<blockquote>
+<p>📋 <strong>PRACTICE Q:</strong> A developer is using GAC to create a new application. When asked to designate a data table, they want to reuse the state management, assignment, and approval logic already built into ServiceNow's task management system. Which table option should they choose, and what should it extend?</p>
+<p>✅ <strong>ANSWER:</strong> Choose <strong>Extend an existing table</strong> and extend the <strong><code>task</code></strong> table. This inherits all task fields, state management logic, and enables the full suite of approval workflow activities.</p>
+</blockquote>
+<hr />
+<blockquote>
+<p>📋 <strong>PRACTICE Q:</strong> Which of the following is NOT a valid way to designate a data table in GAC? (A) Create a new table on the platform (B) Upload an existing spreadsheet (C) Create a table from a template (D) Use an existing table on the platform</p>
+<p>✅ <strong>ANSWER:</strong> <strong>(C) Create a table from a template.</strong> Templates are not an option in GAC. The three valid methods are: create from scratch, extend a table, and upload a spreadsheet.</p>
+</blockquote>
+<hr />
+<blockquote>
+<p>📋 <strong>PRACTICE Q:</strong> A developer opens GAC but does not see an option to create a Global application. What must be configured to enable this?</p>
+<p>✅ <strong>ANSWER:</strong> The system property <strong><code>sn_g_app_creator.allow_global</code></strong> must be set to <code>true</code>. By default, GAC only allows scoped application creation.</p>
+</blockquote>
+<h3 id="cross-scope-access-how-it-really-works">Cross-Scope Access — How it Really Works</h3>
+<p>When App A calls a Script Include in App B, ServiceNow checks the <strong>"Accessible from"</strong> field on the Script Include record.
+If it says "This application scope only", the call silently fails at runtime — no obvious error, just no result.</p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Meaning</th>
+<th>Exam signal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>This application scope only</td>
+<td>Only code in the same scope can call it</td>
+<td>Default — restrictive</td>
+</tr>
+<tr>
+<td>All application scopes</td>
+<td>Any scope including global can call it</td>
+<td>Required for shared utilities</td>
+</tr>
+<tr>
+<td>Caller restriction</td>
+<td>Called resource controls access via <code>sys_scope_privilege</code></td>
+<td>Advanced — check the table</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>🧠 <strong>MEMORY TIP:</strong> To diagnose a cross-scope failure: open the Script Include record and look at "Accessible from". 9 times out of 10, that's the problem.</p>
+</blockquote>
+<h3 id="delegated-development-full-deep-dive">Delegated Development — Full Deep Dive</h3>
+<p>Delegated Development lets you give a developer admin-level power over <strong>one specific scoped app</strong> without granting them system admin. This is the right tool for team-based or contractor-based development.</p>
+<h4 id="how-to-set-it-up">How to Set It Up</h4>
+<pre><code>1. Open the scoped application record (via Studio or App Manager)
+2. Click &quot;Manage Developers&quot; on the application record
+3. Add users to the &quot;Delegated Developers&quot; related list
+4. Those users now have developer access scoped to that app only
+</code></pre>
+<p>The delegated developer works entirely inside Studio, which filters to show only their assigned app. They cannot navigate to other scoped apps or to global scope artifacts.</p>
+<h4 id="what-a-delegated-developer-can-do">What a Delegated Developer CAN Do</h4>
+<ul>
+<li>Create and edit Tables, Fields, Business Rules, Client Scripts, Script Includes within their app</li>
+<li>Create UI Policies, UI Actions, and ACLs within their app</li>
+<li>Publish and version the app to the App Repository</li>
+<li>View the application's update history and versions</li>
+</ul>
+<h4 id="what-a-delegated-developer-cannot-do">What a Delegated Developer CANNOT Do</h4>
+<ul>
+<li>Modify any artifact outside their assigned scope</li>
+<li>Access System Administration menus (User Management, Update Sets, etc.)</li>
+<li>Change instance-level settings or system properties</li>
+<li>Grant themselves <code>admin</code> or <code>security_admin</code></li>
+<li>Edit global scope scripts or other scoped apps</li>
+</ul>
+<h4 id="delegated-developer-vs-admin-key-comparison">Delegated Developer vs Admin — Key Comparison</h4>
+<table>
+<thead>
+<tr>
+<th>Capability</th>
+<th>Admin</th>
+<th>Delegated Developer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Modify artifacts in any scope</td>
+<td>✅</td>
+<td>❌ (own scope only)</td>
+</tr>
+<tr>
+<td>Create/edit tables in assigned app</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Access System Admin menus</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>Grant other users the admin role</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>Publish app to App Repository</td>
+<td>✅</td>
+<td>✅ (unless Code Review)</td>
+</tr>
+<tr>
+<td>Bypass ACLs</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>Manage Update Sets</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>View artifacts in other scoped apps</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>🧠 <strong>MEMORY TIP:</strong> Think of Delegated Developer as a <strong>room key</strong>, not a master key. They can only open the one door they've been assigned.</p>
+</blockquote>
+<h4 id="code-review-for-delegated-developers">Code Review for Delegated Developers</h4>
+<p>When <strong>Code Review</strong> is enabled on an application, delegated developers cannot directly publish their changes. Every change must be approved by a designated reviewer first.</p>
+<pre><code>Delegated Developer saves/commits a change
+         |
+         v
+Change enters &quot;Pending Review&quot; state
+         |
+         v
+Designated Code Reviewer inspects the change
+         |
+   [APPROVE] ──────&gt; Change is promoted and published
+         |
+   [REJECT]  ──────&gt; Developer must revise and resubmit
+</code></pre>
+<blockquote>
+<p>⚠️ <strong>EXAM TRAP:</strong> Code Review is configured <strong>per application</strong>, not globally. Enabling it on one app does not affect other apps.</p>
+<p>⚠️ <strong>EXAM TRAP:</strong> A delegated developer stuck in "Pending Review" does NOT need <code>admin</code> access — they need an assigned <strong>Code Reviewer</strong> to approve or reject their submission.</p>
+</blockquote>
+<h4 id="practice-questions-delegated-development">Practice Questions — Delegated Development</h4>
+<blockquote>
+<p>📋 <strong>PRACTICE Q:</strong> A company wants a contractor to build a new scoped app without being able to access HR data stored in a separate scoped app on the same instance. What should the admin configure?</p>
+<p>✅ <strong>ANSWER:</strong> Create the scoped app and add the contractor as a <strong>Delegated Developer</strong> on that app only. They get full development access to the assigned app but cannot see or modify artifacts in other scopes.</p>
+</blockquote>
+<hr />
+<blockquote>
+<p>📋 <strong>PRACTICE Q:</strong> A delegated developer reports they cannot publish their changes to the App Repository even though their work is complete. They have not been given the <code>admin</code> role. What is the most likely cause?</p>
+<p>✅ <strong>ANSWER:</strong> <strong>Code Review is enabled</strong> on the application. Their changes are in "Pending Review" state and require a designated reviewer to approve them before publishing is allowed.</p>
+</blockquote>
+<hr />
+<h3 id="application-access-settings-deep-dive">Application Access Settings — Deep Dive</h3>
+<p><strong>Application Access</strong> controls how a scoped app's tables interact with the rest of the platform. Found on the table record under the <strong>Application Access</strong> tab.</p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>What it does</th>
+<th>Key exam note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Can read</strong></td>
+<td>Other scopes can read records from this table</td>
+<td>If unchecked, Can create/update/delete become unavailable too</td>
+</tr>
+<tr>
+<td><strong>Can create</strong></td>
+<td>Other scopes can insert new records</td>
+<td>Requires Can read to be checked first</td>
+</tr>
+<tr>
+<td><strong>Can update</strong></td>
+<td>Other scopes can modify existing records</td>
+<td>Requires Can read to be checked first</td>
+</tr>
+<tr>
+<td><strong>Can delete</strong></td>
+<td>Other scopes can delete records</td>
+<td>Requires Can read to be checked first</td>
+</tr>
+<tr>
+<td><strong>Allow configuration</strong></td>
+<td>Out-of-scope apps can create Business Rules, Client Scripts, etc. on this table</td>
+<td>⚠️ Opens the table to configuration from other scopes</td>
+</tr>
+<tr>
+<td><strong>Allow access via web services</strong></td>
+<td>Table is accessible via REST/SOAP APIs</td>
+<td>Does NOT bypass ACLs — callers still need correct permissions</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>EXAM TRAP:</strong> If <strong>Can read</strong> is unchecked, <strong>Can create, Can update, and Can delete</strong> become unavailable in the UI. "Allow access via web services" is NOT affected by Can read.</p>
+<p>⚠️ <strong>EXAM TRAP:</strong> <strong>Allow configuration</strong> = out-of-scope apps <strong>can create Business Rules</strong> on the table. This is a direct exam question. If Allow configuration is NOT checked, only in-scope scripts can configure the table.</p>
+<p>⚠️ <strong>EXAM TRAP:</strong> "Allow access via web services" does <strong>not</strong> mean anyone can access the table — the caller still needs correct ACL permissions. It only controls whether the table is reachable via web service at all.</p>
+<p>💡 <strong>Cross-scope default for new files:</strong> When creating new application files in a scoped app, <strong>REST Messages</strong> have cross-scope access turned on by default. Script Includes, Tables, and Workflows do NOT.</p>
+</blockquote>
+<hr />
+<h3 id="modules-link-types-and-configuration">Modules — Link Types and Configuration</h3>
+<p>A <strong>Module</strong> is a navigation link inside an <strong>Application Menu</strong>. Every module must have a <strong>Link type</strong> that defines what happens when a user clicks it.</p>
+<p><strong>Valid Link Types (memorize this list — it appears directly on the exam):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Link Type</th>
+<th>What it opens</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>List of Records</td>
+<td>A filtered list of records from a table</td>
+</tr>
+<tr>
+<td>Content Page</td>
+<td>A custom UI page</td>
+</tr>
+<tr>
+<td>URL (from arguments)</td>
+<td>Any URL — used to open the Application Properties page for the app</td>
+</tr>
+<tr>
+<td>Assessment</td>
+<td>A survey or assessment</td>
+</tr>
+<tr>
+<td>Separator</td>
+<td>A visual divider between modules (not a link — just a line)</td>
+</tr>
+<tr>
+<td>Timeline Page</td>
+<td>A timeline view of records</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>EXAM TRAP:</strong> Common distractor answers include <strong>"Catalog Type"</strong> and <strong>"Roles"</strong> — these are NOT valid link types. The correct list is: Assessment, List of Records, Separator, Timeline Page, Content Page, URL (from arguments).</p>
+<p>💡 <strong>Application Properties module:</strong> The way to expose the Application Properties page from the nav menu is to create a module with link type <strong>URL (from arguments)</strong> pointing to the sys_properties page filtered by the app's category.</p>
+</blockquote>
+<p><strong>Module configuration options:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Override application menu roles</strong></td>
+<td>Users with the module's role can access it even without access to the parent app menu</td>
+</tr>
+<tr>
+<td>Order</td>
+<td>Controls display order within the application menu</td>
+</tr>
+<tr>
+<td>Active</td>
+<td>Whether the module appears in navigation</td>
+</tr>
+<tr>
+<td>Roles</td>
+<td>Restricts who can see the module</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💡 If a module is created when a table is created in GAC, the <strong>default behavior</strong> is to open a list of all records from that table.</p>
+</blockquote>
+<hr />
+<h3 id="application-properties">Application Properties</h3>
+<p><strong>Application Properties</strong> are system properties scoped to your application. They let admins and developers change an app's behavior without editing its code or artifacts.</p>
+<p><strong>Key facts:</strong></p>
+<ul>
+<li>Stored in the <code>sys_properties</code> table, like all system properties</li>
+<li>Grouped by a <strong>Category</strong> that matches the application name</li>
+<li>Accessed in the nav via a module with link type <strong>URL (from arguments)</strong></li>
+<li>Read in scripts via <code>gs.getProperty('x_myco_myapp.property_name')</code></li>
+</ul>
+<blockquote>
+<p>Application Properties allow a developer or admin to make changes to an application's behavior <strong>without modifying application artifacts</strong>. Use them for feature flags, configurable URLs, thresholds, default values — anything that should be changeable without a code deploy.</p>
+</blockquote>
+<pre><code class="language-javascript">// ✅ Reading an application property in a server-side script
+var threshold = gs.getProperty(&quot;x_myco_myapp.escalation_threshold&quot;, &quot;5&quot;); // second arg = default
+var apiUrl = gs.getProperty(&quot;x_myco_myapp.external_api_url&quot;);
+
+// ✅ Setting a property programmatically
+gs.setProperty(&quot;x_myco_myapp.feature_flag&quot;, &quot;true&quot;);
+</code></pre>
+<blockquote>
+<p>⚠️ <strong>EXAM TRAP:</strong> Application Properties are NOT a separate artifact type — they are ordinary <code>sys_properties</code> records that appear on the Application Properties page because they share the app's category name.</p>
+<p>🧠 <strong>MEMORY TIP:</strong> Application Properties = <strong>config file for your app</strong>. Change behavior without touching code.</p>
+</blockquote>
+<hr />
+<h3 id="practice-questions-domain-1">Practice Questions — Domain 1</h3>
+<blockquote>
+<p>📋 <strong>PRACTICE Q:</strong> A developer creates a new table while the <strong>Global</strong> app is selected in the App Picker. The table prefix is <code>u_</code>. Later, the developer switches to a scoped app and creates a Script Include. Which scope does the Script Include belong to? is selected in the App Picker. The table prefix is <code>u_</code>. Later, the developer switches to a scoped app and creates a Script Include. Which scope does the Script Include belong to?</p>
+<p>✅ <strong>ANSWER:</strong> The Script Include belongs to the <strong>scoped app</strong> — scope is determined at creation time by the App Picker. The earlier <code>u_</code> table stays in global scope.</p>
+</blockquote>
+<hr />
+<blockquote>
+<p>📋 <strong>PRACTICE Q:</strong> A scoped app's Script Include has "Accessible from" set to "This application scope only". A Business Rule in a <strong>different</strong> scoped app tries to call it. What happens?</p>
+<p>✅ <strong>ANSWER:</strong> The call <strong>silently fails</strong>. No error is thrown, but the Script Include does not execute. Fix by changing "Accessible from" to "All application scopes".</p>
+</blockquote>
+<hr />
+<h2 id="domain-2-application-user-interface-20">Domain 2: Application User Interface (20%)</h2>
+<h3 id="client-script-types-full-breakdown">Client Script Types — Full Breakdown</h3>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>When it fires</th>
+<th>Key use case</th>
+<th>Common trap</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>onLoad</code></td>
+<td>Form first renders</td>
+<td>Pre-populate, set visibility</td>
+<td>Runs even if user never touches the form</td>
+</tr>
+<tr>
+<td><code>onChange</code></td>
+<td>A watched field's value changes</td>
+<td>Show/hide dependent fields</td>
+<td>Does NOT run on form load</td>
+</tr>
+<tr>
+<td><code>onSubmit</code></td>
+<td>User clicks Save/Submit</td>
+<td>Last-chance validation</td>
+<td>Return <code>false</code> to cancel submit</td>
+</tr>
+<tr>
+<td><code>onCellEdit</code></td>
+<td>Cell edited in <strong>LIST VIEW</strong></td>
+<td>Inline list editing logic</td>
+<td><strong>Not for forms — list only!</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>EXAM TRAP:</strong> <code>onCellEdit</code> fires in <strong>LIST VIEW only</strong>. If an exam question describes a form field change, the answer is <code>onChange</code>, not <code>onCellEdit</code>.</p>
+<p>💡 <strong>Alert = JavaScript = Client Script</strong> — <code>alert()</code> is a JS method, so it's client-side!</p>
+</blockquote>
+<h3 id="gliderecord-the-definitive-patterns">GlideRecord — The Definitive Patterns</h3>
+<p>GlideRecord is the most heavily tested scripting topic. Memorize the correct pattern and the failure modes.</p>
+<pre><code class="language-javascript">// ✅ CORRECT — standard query pattern
+var gr = new GlideRecord(&quot;incident&quot;);
+gr.addQuery(&quot;priority&quot;, &quot;1&quot;);
+gr.addQuery(&quot;field&quot;, &quot;!=&quot;, &quot;value&quot;); // not equal
+gr.addEncodedQuery(&quot;active=true&quot;); // encoded query string, can pass in a pre-built query!
+gr.query(); // NEVER skip this
+while (gr.next()) {
+  // while, not if
+  gs.log(gr.getValue(&quot;number&quot;)); // getValue(), not gr.number
+  gs.log(gr.getDisplayValue(&quot;field&quot;)); // human-readable display value
+  gs.log(gr.getUniqueValue()); // get sys_id of current record
+}
+
+// ✅ CORRECT — insert a record
+var gr = new GlideRecord(&quot;incident&quot;);
+gr.initialize();
+gr.setValue(&quot;short_description&quot;, &quot;Test&quot;);
+gr.setValue(&quot;priority&quot;, &quot;2&quot;);
+gr.insert();
+
+// ✅ CORRECT — update matching records
+var gr = new GlideRecord(&quot;incident&quot;);
+gr.addQuery(&quot;state&quot;, &quot;1&quot;);
+gr.query();
+while (gr.next()) {
+  gr.setValue(&quot;state&quot;, &quot;2&quot;);
+  gr.update(); // call update() inside the loop
+}
+</code></pre>
+<p><strong>Additional GlideRecord methods:</strong></p>
+<pre><code class="language-javascript">gr.get(&quot;sys_id&quot;, &quot;value&quot;); // get single record by field
+gr.getRowCount(); // count of results
+gr.hasNext(); // check if more records exist
+gr.deleteRecord(); // delete current record
+gr.isNewRecord(); // is this a new record?
+gr.isValidRecord(); // did query return a record?
+
+gr.addNullQuery(&quot;assignment_group&quot;); // ✅ use when BUILDING a query
+gr.addQuery(&quot;assignment_group&quot;, &quot;&quot;); // ❌ unreliable for null checks
+
+gr.orderByDesc(&quot;field&quot;); // descending order
+gr.orderBy(&quot;field&quot;); // ascending order
+gr.setLimit(10); // limit results
+gr.addEncodedQuery(&quot;active=true^priority=1&quot;); // pre-built query string
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Mistake</th>
+<th>Why it's wrong</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Using <code>if</code> instead of <code>while</code></td>
+<td>Processes only the first record</td>
+<td>Always use <code>while(gr.next())</code></td>
+</tr>
+<tr>
+<td>Skipping <code>.query()</code></td>
+<td>Query never executes — <code>gr.next()</code> returns false immediately</td>
+<td>Always call <code>gr.query()</code></td>
+</tr>
+<tr>
+<td>Using <code>gr.field_name</code> directly</td>
+<td>Returns a GlideElement object, not a string — causes comparison bugs</td>
+<td>Use <code>gr.getValue('field_name')</code></td>
+</tr>
+<tr>
+<td><code>current.update()</code> in a Before BR</td>
+<td>Triggers another save event, causing an infinite loop</td>
+<td>Just set values; the platform handles the save</td>
+</tr>
+<tr>
+<td>GlideRecord in a Client Script</td>
+<td>GlideRecord is server-side only — will throw ReferenceError</td>
+<td>Use GlideAjax instead</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>🧠 <strong>MEMORY TIP:</strong> <code>getValue()</code> returns a <strong>string</strong> (DB value). <code>getDisplayValue()</code> returns the <strong>human-readable label</strong> (e.g., a person's name for a reference field). Read with <code>getValue()</code>, write with <code>setValue()</code>. Always.</p>
+</blockquote>
+<h3 id="glideajax-client-to-server-communication">GlideAjax — Client-to-Server Communication</h3>
+<p>When a client script needs to run a server-side database query, use <strong>GlideAjax</strong>. It calls a client-callable Script Include asynchronously without reloading the form.</p>
+<pre><code class="language-javascript">// SERVER — Script Include (must extend AbstractAjaxProcessor)
+var MyAjaxSI = Class.create();
+MyAjaxSI.prototype = Object.extendsObject(AbstractAjaxProcessor, {
+  getManagerName: function () {
+    var userId = this.getParameter(&quot;sysparm_user_id&quot;);
+    var gr = new GlideRecord(&quot;sys_user&quot;);
+    if (gr.get(userId)) {
+      return this.newItem(&quot;result&quot;).setAttribute(
+        &quot;manager&quot;,
+        gr.getValue(&quot;manager.name&quot;),
+      );
+    }
+  },
+  type: &quot;MyAjaxSI&quot;,
+});
+
+// CLIENT — Client Script calling the Script Include
+function onChange(control, oldValue, newValue, isLoading) {
+  if (isLoading) return;
+  var ga = new GlideAjax(&quot;MyAjaxSI&quot;);
+  ga.addParam(&quot;sysparm_name&quot;, &quot;getManagerName&quot;);
+  ga.addParam(&quot;sysparm_user_id&quot;, newValue);
+  ga.getXMLAnswer(function (answer) {
+    // async callback
+    g_form.setValue(&quot;manager&quot;, answer);
+  });
+}
+</code></pre>
+<p><strong>GlideAjax Flow:</strong></p>
+<pre><code>Client Script
+  → GlideAjax (the messenger)
+    → Script Include (extends AbstractAjaxProcessor)
+      → GlideRecord (queries the DB)
+  → GlideAjax callback
+    → g_form.setValue() (updates the form)
+</code></pre>
+<blockquote>
+<p>🧠 <strong>MEMORY TIP:</strong> The 3-step GlideAjax pattern: <strong>(1)</strong> <code>new GlideAjax('ScriptIncludeName')</code>, <strong>(2)</strong> <code>addParam</code> for <code>sysparm_name</code> + data params, <strong>(3)</strong> <code>getXMLAnswer(callback)</code>. The Script Include <strong>must</strong> extend <code>AbstractAjaxProcessor</code>.</p>
+<p>💡 Use <strong>g_scratchpad</strong> when you need server data on <strong>form load</strong> (no extra call). Use <strong>GlideAjax</strong> when you need server data <strong>after user interaction</strong>.</p>
+</blockquote>
+<h3 id="ui-policy-deep-dive">UI Policy Deep Dive</h3>
+<p>A <strong>UI Policy</strong> is a parent record holding a condition. A <strong>UI Policy Action</strong> is a child record saying what happens to a specific field when that condition is true.</p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>What it controls</th>
+<th>Gotcha</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Condition</td>
+<td>When the policy activates</td>
+<td>If condition is already true on load, nothing fires unless "On Load" is checked</td>
+</tr>
+<tr>
+<td><strong>On Load</strong> (checkbox)</td>
+<td>Also evaluate when the form first loads</td>
+<td>Leave unchecked = policy only fires when fields change during the session</td>
+</tr>
+<tr>
+<td>Action: Mandatory</td>
+<td><code>true</code> / <code>false</code> / leave alone</td>
+<td>"Leave alone" = this policy doesn't touch it</td>
+</tr>
+<tr>
+<td>Action: Visible</td>
+<td><code>true</code> / <code>false</code> / leave alone</td>
+<td>Hidden field still submits its value</td>
+</tr>
+<tr>
+<td>Action: Read Only</td>
+<td><code>true</code> / <code>false</code> / leave alone</td>
+<td>UI only — doesn't protect data on server</td>
+</tr>
+<tr>
+<td><strong>Reverse if False</strong></td>
+<td>Auto-reverses when condition is false</td>
+<td>No need for a second UI Policy!</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>EXAM TRAP:</strong> UI Policy controls the <strong>browser form only</strong>. It does not protect data from server-side scripts, imports, or REST API calls. Use <strong>Data Policy</strong> for server-side enforcement.</p>
+</blockquote>
+<h3 id="ui-policy-vs-client-script-vs-data-policy">UI Policy vs Client Script vs Data Policy</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>UI Policy</th>
+<th>Client Script</th>
+<th>Data Policy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Runs on</strong></td>
+<td>Browser</td>
+<td>Browser</td>
+<td>Server</td>
+</tr>
+<tr>
+<td><strong>Can show/hide fields</strong></td>
+<td>✅</td>
+<td>✅ (<code>g_form.setVisible</code>)</td>
+<td>❌</td>
+</tr>
+<tr>
+<td><strong>Can make mandatory</strong></td>
+<td>✅</td>
+<td>✅ (<code>g_form.setMandatory</code>)</td>
+<td>✅</td>
+</tr>
+<tr>
+<td><strong>Can make read only</strong></td>
+<td>✅</td>
+<td>✅ (<code>g_form.setReadOnly</code>)</td>
+<td>✅</td>
+</tr>
+<tr>
+<td><strong>Bypassed by API/import</strong></td>
+<td>✅ Yes</td>
+<td>✅ Yes</td>
+<td>❌ No</td>
+</tr>
+<tr>
+<td><strong>Use when</strong></td>
+<td>Simple condition</td>
+<td>Complex logic / needs server data</td>
+<td>Must enforce via API/Import too</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💡 <strong>Rule:</strong> Simple condition using only form data → <strong>UI Policy</strong>. Complex logic or needs server data → <strong>Client Script</strong>. Must enforce via API/Import Sets too → <strong>Data Policy</strong>.</p>
+</blockquote>
+<h3 id="acl-vs-ui-policy-read-only">ACL vs UI Policy (Read Only)</h3>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Tool</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hide data from certain roles entirely</td>
+<td><strong>ACL</strong></td>
+</tr>
+<tr>
+<td>Make a field read only based on a role</td>
+<td><strong>Client Script</strong> (<code>g_user.hasRole()</code> + <code>g_form.setReadOnly()</code>)</td>
+</tr>
+<tr>
+<td>Make a field read only based on another field</td>
+<td><strong>UI Policy</strong></td>
+</tr>
+<tr>
+<td>Restrict write access at the data level</td>
+<td><strong>ACL</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>ACLs grant or deny access entirely</strong> — they don't have a "read only" mode. Use Client Scripts for read-only behavior based on roles.</p>
+</blockquote>
+<h3 id="ui-actions-full-deep-dive">UI Actions — Full Deep Dive</h3>
+<p>A <strong>UI Action</strong> creates a button, context menu item, or link on a form or list. It is the correct tool when a <strong>user interaction</strong> should trigger logic — not a Business Rule.</p>
+<h4 id="ui-action-types">UI Action Types</h4>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Where it appears</th>
+<th>When to use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Form Button</td>
+<td>Button bar at top of a form</td>
+<td>Most common — user clicks a button on a form</td>
+</tr>
+<tr>
+<td>Context Menu Item</td>
+<td>Right-click menu on a form</td>
+<td>Secondary actions, less prominent</td>
+</tr>
+<tr>
+<td>List Action</td>
+<td>Dropdown on a list row</td>
+<td>Actions taken on a record from a list view</td>
+</tr>
+<tr>
+<td>List Banner Button</td>
+<td>Button above a list (acts on selection)</td>
+<td>Bulk actions on multiple selected records</td>
+</tr>
+</tbody>
+</table>
+<h4 id="client-vs-server-in-a-ui-action">Client vs Server in a UI Action</h4>
+<p>A UI Action script can run <strong>client-side</strong>, <strong>server-side</strong>, or <strong>both</strong> — depending on configuration.</p>
+<table>
+<thead>
+<tr>
+<th>Configuration</th>
+<th>What happens</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Client</code> checkbox OFF</td>
+<td>Script runs <strong>server-side only</strong> — <code>current</code> object is available</td>
+</tr>
+<tr>
+<td><code>Client</code> checkbox ON</td>
+<td>Script runs <strong>client-side first</strong> — <code>g_form</code>, <code>g_user</code> available</td>
+</tr>
+<tr>
+<td>Both (via <code>gsftSubmit</code>)</td>
+<td>Client runs first, then triggers the server-side portion of the same script</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>EXAM TRAP:</strong> UI Actions do NOT always run server-side. If the <strong>Client</strong> checkbox is checked, the script (or at least the <code>onclick</code> function) runs in the browser. This is a direct exam question.</p>
+</blockquote>
+<h4 id="server-only-ui-action-most-common">Server-Only UI Action (most common)</h4>
+<pre><code class="language-javascript">// ✅ Server-side only — Client checkbox unchecked
+// 'current' is the record. action.setRedirectURL() controls where to go after.
+current.state = 6; // closed
+current.close_code = &quot;Solved&quot;;
+current.update();
+action.setRedirectURL(current); // redirect back to the same record
+</code></pre>
+<p><strong>Key server-side UI Action APIs:</strong></p>
+<pre><code class="language-javascript">action.setRedirectURL(gr); // redirect to a specific record after submit
+action.setReturnURL(url); // return to a specific URL
+action.getGlideURI(); // get the current URI
+action.getURL(); // get full URL
+</code></pre>
+<h4 id="client-server-ui-action-using-gsftsubmit">Client + Server UI Action (using <code>gsftSubmit</code>)</h4>
+<p>When you need to validate on the client first, then run server logic:</p>
+<pre><code class="language-javascript">// ✅ Client checkbox ON, Onclick field set to: confirmAction();
+// The script field contains both client and server functions
+
+// Client-side function (runs first when button is clicked)
+function confirmAction() {
+  if (!confirm(&quot;Are you sure?&quot;)) return false; // abort if user cancels
+  gsftSubmit(null, g_form.getFormElement(), &quot;my_action_name&quot;); // trigger server side
+}
+
+// Server-side function (runs after gsftSubmit)
+if (typeof window == &quot;undefined&quot;) runServerSide(); // guard: only run on server
+function runServerSide() {
+  current.state = 3;
+  current.update();
+  action.setRedirectURL(current);
+}
+</code></pre>
+<blockquote>
+<p>🧠 <strong>MEMORY TIP:</strong> <code>gsftSubmit(null, g_form.getFormElement(), 'action_name')</code> — the third argument <strong>must match</strong> the UI Action's <strong>Action name</strong> field exactly, not the display name.</p>
+<p>⚠️ <strong>EXAM TRAP:</strong> <code>typeof window == 'undefined'</code> is the guard that prevents server-side code from running in the browser. Without it, the server portion throws a ReferenceError client-side.</p>
+</blockquote>
+<hr />
+<h3 id="form-designer-vs-form-layout">Form Designer vs Form Layout</h3>
+<p>Two tools exist for editing forms — the exam tests which capabilities belong to which.</p>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Form Designer</th>
+<th>Form Layout (classic)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Interface</td>
+<td>Drag-and-drop graphical</td>
+<td>List-based</td>
+</tr>
+<tr>
+<td>Add existing fields</td>
+<td>✅ (Fields tab)</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Create new fields</td>
+<td>✅ (Field Types tab)</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Remove fields from layout</td>
+<td>✅ (hover → X button)</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Add sections</td>
+<td>✅ (Field Types tab)</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Delete a field from the table</td>
+<td>❌ Cannot delete system fields</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>Edit field labels on child table</td>
+<td>Changes label on child table only — NOT the parent</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>EXAM TRAP:</strong> Removing a field from a form layout does <strong>NOT</strong> delete the field from the table. The field still exists in the schema — it's just not displayed on the form.</p>
+<p>⚠️ <strong>EXAM TRAP:</strong> In Form Designer, editing the label of a field on a <strong>child table</strong> changes the label on the child table only — not the parent. Inherited fields can be relabeled per table.</p>
+<p>💡 <strong>Schema Map</strong> is a separate tool (not part of Form Designer) that shows relationships between tables. It's accessed via System Definition &gt; Tables, not from Form Designer.</p>
+</blockquote>
+<hr />
+<h3 id="debugging-client-side-scripts">Debugging Client-Side Scripts</h3>
+<p>The exam asks which tools are used for client-side vs server-side debugging. Know the distinction cold.</p>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Client or Server</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>jslog()</code></td>
+<td><strong>Client only</strong></td>
+<td>Writes a message to the browser console</td>
+</tr>
+<tr>
+<td><code>g_form.addInfoMessage()</code></td>
+<td><strong>Client only</strong></td>
+<td>Displays a blue info banner on the form</td>
+</tr>
+<tr>
+<td>Field Watcher</td>
+<td><strong>Client only</strong></td>
+<td>Shows current and previous values of watched fields as they change on the form</td>
+</tr>
+<tr>
+<td>Debug Business Rule</td>
+<td><strong>Server only</strong></td>
+<td>Shows which Business Rules ran and in what order for a given transaction</td>
+</tr>
+<tr>
+<td>Debug Business Rule Detail</td>
+<td><strong>Server only</strong></td>
+<td>Shows full script execution details for Business Rules</td>
+</tr>
+<tr>
+<td><code>gs.info()</code> / <code>gs.log()</code></td>
+<td><strong>Server only</strong></td>
+<td>Writes to the system log (<code>gs.log()</code> unavailable in scoped apps)</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>EXAM TRAP:</strong> <code>gs.log()</code> is <strong>NOT</strong> a client-side debugging strategy — it runs on the server. A direct exam question asks which of the following is NOT a client-side debugging tool, and <code>gs.log()</code> is the correct answer.</p>
+<p>⚠️ <strong>EXAM TRAP:</strong> <strong>Field Watcher</strong> debugs <strong>client-side</strong> field changes on a form. It cannot debug server-side Business Rules or Scheduled Jobs.</p>
+<p>⚠️ <strong>EXAM TRAP:</strong> <strong>Debug Business Rule</strong> vs <strong>Debug Business Rule Detail</strong> — BR shows which rules ran; BR Detail shows the full script output and variable values. Know both exist and that they are server-side tools.</p>
+</blockquote>
+<pre><code class="language-javascript">// ✅ Client-side debugging
+jslog(&quot;Field value is: &quot; + g_form.getValue(&quot;priority&quot;)); // browser console
+g_form.addInfoMessage(&quot;Debug: state = &quot; + g_form.getValue(&quot;state&quot;)); // visible on form
+
+// ✅ Server-side debugging (NOT in scoped apps for gs.log)
+gs.info(&quot;BR fired. Current state: &quot; + current.getValue(&quot;state&quot;));
+gs.warn(&quot;Unexpected value encountered&quot;);
+gs.error(&quot;Critical failure in script include&quot;);
+</code></pre>
+<hr />
+<h3 id="glidedatetime-in-scoped-apps">GlideDateTime in Scoped Apps</h3>
+<blockquote>
+<p>⚠️ <strong>EXAM TRAP:</strong> In scoped applications, the correct object for working with dates and times is <strong><code>GlideDateTime</code></strong>, not <code>GlideDate</code>. Some functions available in global scope (like <code>datediff</code>) are <strong>not available</strong> in scoped apps.</p>
+</blockquote>
+<pre><code class="language-javascript">// ✅ CORRECT — use GlideDateTime in scoped apps
+var now = new GlideDateTime(); // current date/time
+var dt = new GlideDateTime(&quot;2025-01-15 10:00:00&quot;); // specific date/time
+gs.info(dt.getDisplayValue()); // human-readable string
+gs.info(dt.getValue()); // internal value (UTC)
+dt.addDays(7); // add 7 days
+dt.addSeconds(3600); // add 1 hour
+
+// Comparing dates
+var start = new GlideDateTime();
+var end = new GlideDateTime();
+end.addDays(5);
+var diff = GlideDateTime.subtract(start, end); // returns GlideDuration
+gs.info(diff.getDayPart()); // number of days difference
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>What it returns</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>getValue()</code></td>
+<td>Internal UTC string (for DB storage)</td>
+</tr>
+<tr>
+<td><code>getDisplayValue()</code></td>
+<td>User's local time formatted string</td>
+</tr>
+<tr>
+<td><code>getDate()</code></td>
+<td>Returns a GlideDate object (date portion only)</td>
+</tr>
+<tr>
+<td><code>addDays(n)</code></td>
+<td>Adds n days to the datetime</td>
+</tr>
+<tr>
+<td><code>addSeconds(n)</code></td>
+<td>Adds n seconds to the datetime</td>
+</tr>
+<tr>
+<td><code>before(other)</code></td>
+<td>Returns true if this datetime is before other</td>
+</tr>
+<tr>
+<td><code>after(other)</code></td>
+<td>Returns true if this datetime is after other</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="practice-questions-domain-2">Practice Questions — Domain 2</h3>
+<blockquote>
+<p>📋 <strong>PRACTICE Q:</strong> A developer wants a field to become mandatory when Priority is set to "High", <strong>including when the form first loads</strong> with Priority already set to High. What must be configured?</p>
+<p>✅ <strong>ANSWER:</strong> Create a UI Policy with Condition: <code>Priority = High</code> <strong>AND</strong> check the <strong>"On Load"</strong> checkbox. Add a UI Policy Action targeting the field with <code>Mandatory = true</code>.</p>
+</blockquote>
+<hr />
+<blockquote>
+<p>📋 <strong>PRACTICE Q:</strong> A client script needs to look up a user's department from the database when a field changes. What is the correct approach?</p>
+<p>✅ <strong>ANSWER:</strong> Use <strong>GlideAjax</strong> with a client-callable Script Include (extending <code>AbstractAjaxProcessor</code>). GlideRecord cannot run in a client script — it is server-side only.</p>
+</blockquote>
+<hr />
+<h2 id="domain-3-security-restricting-access-20">Domain 3: Security &amp; Restricting Access (20%)</h2>
+<h3 id="acl-evaluation-the-full-mental-model">ACL Evaluation — The Full Mental Model</h3>
+<p>ACL evaluation flows strictly from <strong>broad to specific</strong>. Failing any level stops evaluation entirely.</p>
+<pre><code>Access Request comes in
+       |
+       v
+  [TABLE ACL]  ------FAIL------&gt;  Access Denied. STOP. No record/field ACLs checked.
+       |
+      PASS
+       v
+  [RECORD ACL] ------FAIL------&gt;  Access Denied. STOP. No field ACLs checked.
+       |
+      PASS
+       v
+  [FIELD ACL]  ------FAIL------&gt;  Field is hidden or read-only.
+       |
+      PASS
+       v
+  Access fully granted
+
+  KEY RULE: admin role bypasses ALL levels. security_admin does NOT.
+</code></pre>
+<blockquote>
+<p>🧠 <strong>MEMORY TIP:</strong> "Broad to specific — Table → Record → Field. Fail any gate, you're blocked."</p>
+</blockquote>
+<h3 id="acl-diagnosis-symptom-to-cause">ACL Diagnosis — Symptom to Cause</h3>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Root Cause</th>
+<th>Where to look</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>User cannot see the table in nav or list</td>
+<td>Table-level ACL blocking read</td>
+<td>ACL record: <code>name = table_name</code>, <code>operation = read</code></td>
+</tr>
+<tr>
+<td>User sees list but can't open a record</td>
+<td>Record-level ACL blocking read</td>
+<td>ACL record with a condition or script on the record</td>
+</tr>
+<tr>
+<td>User opens record but a field is blank/missing</td>
+<td>Field-level ACL blocking read</td>
+<td>ACL record: <code>name = table_name.field_name</code></td>
+</tr>
+<tr>
+<td>User can see a field but can't edit it</td>
+<td>Field-level ACL blocking write, or dictionary read-only</td>
+<td>Check write ACL AND dictionary entry</td>
+</tr>
+</tbody>
+</table>
+<h3 id="acl-evaluation-role-condition-script">ACL Evaluation — Role → Condition → Script</h3>
+<p>Within a single ACL record, all three checks must pass in order: <strong>Role → Condition → Script</strong>.</p>
+<table>
+<thead>
+<tr>
+<th>Check</th>
+<th>Fails when...</th>
+<th>Practical note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Role</td>
+<td>User does not have the required role</td>
+<td>Leave blank to allow any authenticated user</td>
+</tr>
+<tr>
+<td>Condition</td>
+<td>Record does not match the condition filter</td>
+<td>Example: only allow if <code>assigned_to = current user</code></td>
+</tr>
+<tr>
+<td>Script</td>
+<td>Script returns <code>false</code></td>
+<td>Most powerful — can implement any logic</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>EXAM TRAP:</strong> <code>admin</code> bypasses <strong>ALL</strong> ACL evaluation entirely. <code>security_admin</code> only allows managing ACL records — it does <strong>not</strong> bypass them. Requires <code>security_admin</code> role to create/modify ACLs.</p>
+</blockquote>
+<h3 id="practice-questions-domain-3">Practice Questions — Domain 3</h3>
+<blockquote>
+<p>📋 <strong>PRACTICE Q:</strong> A user with the <code>itil</code> role reports they can see a list of incidents but clicking any record shows an error. The <code>admin</code> role works fine. What is the most likely cause?</p>
+<p>✅ <strong>ANSWER:</strong> A <strong>record-level ACL</strong> is blocking read access for the <code>itil</code> role. The table-level ACL is passing (they see the list), but a record-level ACL is denying access to individual records.</p>
+</blockquote>
+<hr />
+<blockquote>
+<p>📋 <strong>PRACTICE Q:</strong> A new field is added to the incident table. Users with <code>itil</code> can open incident records but the new field is not visible. What should the admin check first?</p>
+<p>✅ <strong>ANSWER:</strong> Check for a <strong>field-level ACL</strong> on <code>incident.new_field_name</code>. Also verify the field is present on the <strong>Form Layout</strong> — a missing field from the layout looks identical to a field-level ACL from the user's perspective.</p>
+</blockquote>
+<hr />
+<h2 id="domain-4-application-automation-20">Domain 4: Application Automation (20%)</h2>
+<h3 id="business-rule-timing-visual-flow">Business Rule Timing — Visual Flow</h3>
+<pre><code>User clicks Save on a form
+         |
+         v
+   [BEFORE BR]  &lt;── Can read &amp; modify 'current'. Can abort with current.setAbortAction(true).
+         |          Do NOT call current.update() here — causes an infinite loop!
+         v
+   DATABASE WRITE  (record is committed to DB)
+         |
+         v
+   [AFTER BR]   &lt;── 'current' is effectively read-only here. Use to update RELATED records.
+         |          User is still waiting. Keep this fast.
+         v
+   [ASYNC BR]   &lt;── Runs in a background thread. User does NOT wait.
+         |          Use for emails, integrations, heavy processing.
+         v
+   [DISPLAY BR] &lt;── Fires when form LOADS for display (not on save).
+                    Use g_scratchpad to pass data to client scripts.
+</code></pre>
+<p><strong>Full Execution Order (when a record is saved):</strong></p>
+<pre><code>1. UI Policy         (browser)
+2. Client Script     (browser)
+3. Before BR         (server)
+4. DATABASE SAVE     ← record written here
+5. After BR          (server)
+6. Async BR          (background)
+</code></pre>
+<p>Business Rules have checkboxes for Insert, Update, Delete, Query
+Checking Insert only → BR fires ONLY on new record creation
+Simple, clean, no scripting needed</p>
+<pre><code>When:   Before / After / Async / Display
+Insert:  ☑ (fires on new records)
+Update:  ☑ (fires on updates)
+Delete:  ☑ (fires on deletions)
+Query:   ☑ (fires on queries)
+</code></pre>
+<blockquote>
+<p>💡 <strong>Browser first → Server second → Background last</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Modify <code>current</code>?</th>
+<th>Blocks user?</th>
+<th>Best used for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Before BR</td>
+<td>Yes — directly set field values</td>
+<td>Yes</td>
+<td>Validate/transform fields before save</td>
+</tr>
+<tr>
+<td>After BR</td>
+<td>No (already saved)</td>
+<td>Yes — user waits</td>
+<td>Update related records, trigger workflows</td>
+</tr>
+<tr>
+<td>Async BR</td>
+<td>No</td>
+<td><strong>No</strong> — background thread</td>
+<td>Notifications, integrations, slow tasks</td>
+</tr>
+<tr>
+<td>Display BR</td>
+<td>Via <code>g_scratchpad</code> only</td>
+<td>Yes (form load)</td>
+<td>Pass server data to client scripts</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>EXAM TRAP:</strong> Async BRs do <strong>NOT</strong> block the user. If an exam question asks for <strong>immediate feedback</strong> after a save, Async is wrong — use After BR. If the task is a notification or integration, Async is the right answer.</p>
+<p>🧠 <strong>MEMORY TIP:</strong> "Before = shape it. After = react to it. Async = fire and forget. Display = feed the form."</p>
+</blockquote>
+<h3 id="business-rule-specific-apis">Business Rule Specific APIs</h3>
+<pre><code class="language-javascript">current; // record that triggered the BR
+previous; // record values BEFORE the update
+current.setAbortAction(true); // stop the save / abort transaction
+current.update(); // save changes (⚠️ don't use in Before BR!)
+current.isNewRecord(); // is this a new record?
+
+// Check if field was changed
+if (current.priority != previous.priority) {
+} // compare old vs new
+if (current.priority.changed()) {
+} // built-in method
+if (current.priority.nil()) {
+} // is field empty?
+</code></pre>
+<h3 id="flow-designer-key-concepts">Flow Designer — Key Concepts</h3>
+<p>Flow Designer is the no-code/low-code replacement for legacy Workflow.</p>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>What to know</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Trigger</td>
+<td>What starts the flow: record created/updated, schedule, inbound email, application event, or manual</td>
+</tr>
+<tr>
+<td>Action</td>
+<td>A single step — create record, update field, send email, call spoke</td>
+</tr>
+<tr>
+<td>Spoke</td>
+<td>A pre-built integration package (e.g., Slack Spoke, JIRA Spoke)</td>
+</tr>
+<tr>
+<td>Subflow</td>
+<td>A reusable flow callable from other flows — like a Script Include for flows</td>
+</tr>
+<tr>
+<td>Script step</td>
+<td>Run arbitrary JavaScript inside a flow when no built-in action exists</td>
+</tr>
+<tr>
+<td>Action Designer</td>
+<td>Where you build custom actions that don't exist out of the box</td>
+</tr>
+<tr>
+<td>Flow Logic</td>
+<td>If/Else, For Each loops, Wait for condition</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💡 <strong>No-code automation = Flow Designer</strong> (not Business Rule)
+💡 <strong>Subflow</strong> = reusable logic YOU built | <strong>Spoke</strong> = pre-built npm-like package for external platforms
+📝 <strong>NOTE:</strong> Flow Designer runs <strong>after</strong> the database write, similar to an After BR. To <strong>prevent</strong> a save, use a Before BR — you cannot do that from Flow Designer.</p>
+</blockquote>
+<h3 id="scheduled-jobs-vs-async-business-rules">Scheduled Jobs vs Async Business Rules</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Scheduled Job</th>
+<th>Async Business Rule</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Triggered by</td>
+<td>A time schedule (daily, hourly, cron)</td>
+<td>A DB event (insert, update, delete)</td>
+</tr>
+<tr>
+<td>When to use</td>
+<td>Nightly batch processing, periodic cleanup</td>
+<td>Background work triggered by a record change</td>
+</tr>
+<tr>
+<td>Example</td>
+<td>Close resolved incidents older than 30 days</td>
+<td>When a new incident is inserted, post to Slack</td>
+</tr>
+</tbody>
+</table>
+<h3 id="email-notifications-full-breakdown">Email Notifications — Full Breakdown</h3>
+<p>Email Notifications automate communication by sending emails when specified conditions or events occur. Configured under <strong>System Notification &gt; Email &gt; Notifications</strong>.</p>
+<h4 id="the-three-configuration-tabs">The Three Configuration Tabs</h4>
+<p>Every Email Notification is built around three tabs — this is a <strong>direct exam question</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Tab</th>
+<th>What you configure</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Who</strong></td>
+<td>Recipients — users, groups, roles, event parameters</td>
+</tr>
+<tr>
+<td><strong>What</strong></td>
+<td>Content — subject, body, template, mail scripts</td>
+</tr>
+<tr>
+<td><strong>When</strong></td>
+<td>Trigger — record-based conditions or event-based trigger</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>EXAM TRAP:</strong> The exam asks which three things are configured in a notification. The answer is <strong>Who, What, When</strong> — NOT "How" (delivery method is not a configurable tab).</p>
+</blockquote>
+<h4 id="trigger-types-record-vs-event">Trigger Types: Record vs Event</h4>
+<table>
+<thead>
+<tr>
+<th>Trigger Type</th>
+<th>How it fires</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Record-based</strong></td>
+<td>When a record is inserted or updated matching a filter</td>
+<td>Priority changes to 1 on an incident</td>
+</tr>
+<tr>
+<td><strong>Event-based</strong></td>
+<td>When a specific event is fired in the Event Registry</td>
+<td><code>incident.commented</code> event fires when a comment is added</td>
+</tr>
+</tbody>
+</table>
+<h4 id="the-weight-field-most-tested-email-notification-concept">The Weight Field — Most Tested Email Notification Concept</h4>
+<p>When multiple notifications target the <strong>same record</strong> and the <strong>same recipients</strong> simultaneously, ServiceNow uses <strong>Weight</strong> to decide which ones to send:</p>
+<pre><code>Weight = 0          → ALWAYS sent (regardless of other notifications)
+Weight &gt; 0          → Only the notification with the HIGHEST weight is sent
+                       All others are moved to the &quot;Skipped&quot; mailbox
+</code></pre>
+<blockquote>
+<p>⚠️ <strong>EXAM TRAP:</strong> A Weight value of zero does <strong>NOT</strong> mean no email is sent — it means the notification is <strong>always</strong> sent. "A weight of zero means no email will be sent" is a known wrong answer on the exam.</p>
+<p>⚠️ <strong>EXAM TRAP:</strong> The default Weight value is <strong>0</strong> — meaning by default, all notifications are always sent.</p>
+</blockquote>
+<h4 id="referencing-fields-and-events-in-email-content">Referencing Fields and Events in Email Content</h4>
+<pre><code>${field_name}               → Value of a field on the triggering record
+${event.parm1}              → First parameter passed when the event was fired
+${event.parm2}              → Second parameter
+&lt;mail_script&gt;               → Opening tag for a server-side mail script block
+  template.print('text');   → Print text into the email body
+&lt;/mail_script&gt;              → Closing tag
+</code></pre>
+<h4 id="watermark">Watermark</h4>
+<p>The <strong>watermark</strong> is a hidden identifier added to every outbound email by default. It allows ServiceNow to match incoming reply emails back to the correct record. It always includes <code>Ref:</code> followed by a prefix (default <code>MSG</code>) and the record's auto-number.</p>
+<blockquote>
+<p>💡 The watermark is what enables <strong>inbound email</strong> to update the correct ticket automatically.</p>
+</blockquote>
+<hr />
+<h3 id="events-and-the-event-registry">Events and the Event Registry</h3>
+<p>An <strong>Event</strong> is a named notification that something happened. Events decouple the "something happened" from "what to do about it" — scripts fire events, and other artifacts (notifications, script actions) react to them.</p>
+<h4 id="event-flow">Event Flow</h4>
+<pre><code>Server-side script fires an event:
+  gs.eventQueue('incident.priority.changed', current, current.priority, previous.priority);
+         |
+         v
+  Event Queue (processed asynchronously)
+         |
+         v
+  Event Registry (must have matching event registered to be recognized)
+         |
+         v
+  Email Notifications with matching event trigger → send email
+  Script Actions with matching event trigger → run script
+</code></pre>
+<h4 id="registering-an-event">Registering an Event</h4>
+<p>Before ServiceNow can respond to an event, it must be <strong>registered</strong> in the Event Registry (<code>sysevent_register</code>). In Studio: <strong>Create New &gt; Event Registration</strong>.</p>
+<pre><code class="language-javascript">// ✅ Firing an event from a Business Rule or Script Include
+gs.eventQueue(
+  &quot;x_myco_myapp.record.escalated&quot;, // event name (must match registry)
+  current, // GlideRecord that caused the event
+  current.getValue(&quot;priority&quot;), // parm1 — available as ${event.parm1} in notifications
+  gs.getUserID(), // parm2 — available as ${event.parm2}
+);
+</code></pre>
+<table>
+<thead>
+<tr>
+<th><code>gs.eventQueue</code> Parameter</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Event name</td>
+<td>Must match a registered event in the Event Registry</td>
+</tr>
+<tr>
+<td>GlideRecord</td>
+<td>The record associated with the event</td>
+</tr>
+<tr>
+<td>parm1</td>
+<td>First custom value — accessible in notifications</td>
+</tr>
+<tr>
+<td>parm2</td>
+<td>Second custom value — accessible in notifications</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>EXAM TRAP:</strong> ServiceNow can only respond to events that are <strong>registered</strong> in the Event Registry. Firing an unregistered event does nothing — no notification, no script action.</p>
+<p>💡 <strong>Events = publish/subscribe pattern.</strong> The script fires and forgets. Notifications and Script Actions subscribe and react. They are decoupled.</p>
+</blockquote>
+<hr />
+<h3 id="automated-test-framework-atf">Automated Test Framework (ATF)</h3>
+<p>ATF allows you to create and run <strong>automated tests</strong> on ServiceNow — no manual clicking required. It's free with the Now Platform.</p>
+<h4 id="key-atf-concepts">Key ATF Concepts</h4>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>What it is</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Test</td>
+<td>A single automated test — contains a sequence of test steps</td>
+</tr>
+<tr>
+<td>Test Suite</td>
+<td>A collection of tests grouped together to run as one batch</td>
+</tr>
+<tr>
+<td>Test Step</td>
+<td>A single action or assertion within a test (e.g., set a field, click a button)</td>
+</tr>
+<tr>
+<td>Step Configuration</td>
+<td>A reusable template that defines how a test step works</td>
+</tr>
+<tr>
+<td>Test Schedule</td>
+<td>Runs a test or suite automatically on a defined schedule</td>
+</tr>
+</tbody>
+</table>
+<h4 id="what-atf-is-good-for">What ATF Is Good For</h4>
+<ul>
+<li><strong>Regression testing</strong> — verify existing functionality still works after an upgrade or change</li>
+<li><strong>Functional testing</strong> — simulate user actions: create records, set values, click buttons, check results</li>
+<li><strong>Scheduled testing</strong> — run tests automatically and receive results by email</li>
+</ul>
+<h4 id="what-atf-is-not-for">What ATF Is NOT For</h4>
+<ul>
+<li><strong>Unit testing</strong> — ATF is not the recommended tool for rapidly changing features (tests break every time the feature changes)</li>
+<li><strong>Load/performance testing</strong> — ATF cannot simulate high-volume traffic</li>
+<li><strong>Production testing</strong> — ATF should only be run in <strong>sub-production</strong> instances</li>
+</ul>
+<blockquote>
+<p>⚠️ <strong>EXAM TRAP:</strong> ATF tests should <strong>never</strong> be run in production. Always run in sub-production (dev, test, UAT).</p>
+<p>⚠️ <strong>EXAM TRAP:</strong> The ATF test step to create a user for testing is <strong>"Create a user"</strong> — this creates a temporary user deleted at the end of the test. There is no "Create a role" or "Create a group" test step — those use "Create a record" with the appropriate table.</p>
+</blockquote>
+<h4 id="common-atf-test-steps">Common ATF Test Steps</h4>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Create a user</td>
+<td>Creates a temp user with specified roles/groups for the test</td>
+</tr>
+<tr>
+<td>Impersonate</td>
+<td>Switches to an existing user (does NOT create one)</td>
+</tr>
+<tr>
+<td>Open a form</td>
+<td>Navigates to a record's form</td>
+</tr>
+<tr>
+<td>Set field values</td>
+<td>Fills in field values on the open form</td>
+</tr>
+<tr>
+<td>Submit a form</td>
+<td>Saves the form</td>
+</tr>
+<tr>
+<td>Assert field values</td>
+<td>Verifies a field contains an expected value (test passes/fails here)</td>
+</tr>
+<tr>
+<td>Run server script</td>
+<td>Runs arbitrary server-side code as part of the test</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="practice-questions-domain-4">Practice Questions — Domain 4</h3>
+<blockquote>
+<p>📋 <strong>PRACTICE Q:</strong> A Business Rule sets a field value on the current record. After deployment, users report the save operation is stuck in an infinite loop. What is the most likely cause?</p>
+<p>✅ <strong>ANSWER:</strong> The Business Rule is calling <code>current.update()</code>. This triggers another save event, which fires the Business Rule again. <strong>Fix:</strong> remove <code>current.update()</code> from a Before BR — the platform handles the save automatically.</p>
+</blockquote>
+<hr />
+<blockquote>
+<p>📋 <strong>PRACTICE Q:</strong> A notification email must be sent after a high-priority incident is created, but the user should not have to wait for it. Which Business Rule type is most appropriate?</p>
+<p>✅ <strong>ANSWER:</strong> <strong>Async Business Rule.</strong> It runs in a background thread after the DB commit, so the user is not blocked.</p>
+</blockquote>
+<hr />
+<h2 id="domain-5-working-with-external-data-10">Domain 5: Working with External Data (10%)</h2>
+<h3 id="import-sets-full-pipeline">Import Sets — Full Pipeline</h3>
+<pre><code>External Data Source (CSV, Excel, JDBC, REST)
+         |
+         v
+   [Import Set Table]   &lt;── Staging table (u_import_*). Raw data lands here first.
+         |
+         v
+   [Transform Map]      &lt;── Maps source columns to target table fields.
+         |                  Contains Field Maps (1 per source→target mapping).
+         |                  Optional: coalesce field to match/update existing records.
+         |                  Optional: &quot;Run business rules&quot; checkbox.
+         v
+   [Target Table]       &lt;── Final destination (e.g., incident, sys_user).
+</code></pre>
+<h3 id="transform-map-key-settings">Transform Map — Key Settings</h3>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>What it does</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Run business rules</td>
+<td>Whether BRs fire on the target table during transform</td>
+<td>Unchecked by default — check it if BRs must run</td>
+</tr>
+<tr>
+<td>Coalesce field</td>
+<td>Match existing records to prevent duplicates</td>
+<td>If match found, updates; otherwise inserts</td>
+</tr>
+<tr>
+<td>Script (field map)</td>
+<td>Transform source value before writing to target</td>
+<td>Access source with <code>source.field_name</code></td>
+</tr>
+<tr>
+<td>Run script (transform map)</td>
+<td>Runs once before/after the entire transform</td>
+<td><code>onBefore</code>, <code>onAfter</code>, <code>onStart</code>, <code>onComplete</code> events</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ui-policy-vs-data-policy-critical-distinction">UI Policy vs Data Policy — Critical Distinction</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>UI Policy</th>
+<th>Data Policy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Runs where?</td>
+<td>Browser (client-side)</td>
+<td>Server (database layer)</td>
+</tr>
+<tr>
+<td>Enforces on import?</td>
+<td><strong>NO</strong> — imports bypass the browser</td>
+<td><strong>YES</strong> — enforced at DB level</td>
+</tr>
+<tr>
+<td>Controls</td>
+<td>Mandatory, visible, read-only on forms</td>
+<td>Mandatory, read-only (no visibility control)</td>
+</tr>
+<tr>
+<td>Enforcement scope</td>
+<td>Current user's form session only</td>
+<td>All data writes — forms, imports, REST, scripts</td>
+</tr>
+<tr>
+<td>When to use</td>
+<td>Dynamic form UX</td>
+<td>Enforcing data integrity across all channels</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>EXAM TRAP:</strong> UI Policies do <strong>NOT</strong> enforce data imported via Import Sets. If a question asks how to ensure a field is mandatory for both form saves AND imports, the answer is <strong>Data Policy</strong>.</p>
+</blockquote>
+<h3 id="practice-questions-domain-5">Practice Questions — Domain 5</h3>
+<blockquote>
+<p>📋 <strong>PRACTICE Q:</strong> An administrator imports a CSV file of user records. A field on <code>sys_user</code> is defined as mandatory in a UI Policy. After the import, records exist with that field empty. Why?</p>
+<p>✅ <strong>ANSWER:</strong> UI Policies are browser-side only and do not apply to server-side imports. To enforce the mandatory rule on imports, a <strong>Data Policy</strong> must be created on the <code>sys_user</code> table for that field.</p>
+</blockquote>
+<hr />
+<h2 id="domain-6-managing-applications-10">Domain 6: Managing Applications (10%)</h2>
+<h3 id="update-sets-vs-app-repository">Update Sets vs App Repository</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Update Set</th>
+<th>App Repository (Studio)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Best for</td>
+<td>Global/legacy configurations</td>
+<td>Scoped apps (preferred)</td>
+</tr>
+<tr>
+<td>Captures</td>
+<td>Configuration changes (scripts, forms, workflows)</td>
+<td>Full scoped app including all artifacts</td>
+</tr>
+<tr>
+<td>Does NOT capture</td>
+<td>Data — records, incidents, users, attachments</td>
+<td>Instance-specific settings</td>
+</tr>
+<tr>
+<td>Source control</td>
+<td>Manual export XML → import to other instance</td>
+<td>Git integration supported</td>
+</tr>
+<tr>
+<td>Deployment flow</td>
+<td>Dev → Test → Prod (Preview before Commit)</td>
+<td>Dev → Test → Prod via app version</td>
+</tr>
+<tr>
+<td>Conflict detection</td>
+<td>Preview step shows conflicts before commit</td>
+<td>Compare with published version</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>EXAM TRAP:</strong> Update Sets capture <strong>CONFIGURATION</strong>, not <strong>DATA</strong>. Creating a new incident record, uploading an attachment, or adding a user will <strong>NOT</strong> appear in your Update Set.</p>
+</blockquote>
+<h3 id="update-set-deployment-step-by-step">Update Set Deployment — Step by Step</h3>
+<pre><code>1. In SOURCE instance:
+   System Update Sets &gt; Local Update Sets
+   Create / select your Update Set &gt; mark Complete
+   Export to XML file
+
+2. In TARGET instance:
+   System Update Sets &gt; Retrieved Update Sets
+   Import XML file
+
+3. PREVIEW the Update Set (mandatory best practice)
+   Identifies conflicts with existing customizations
+   Review any problem records before committing
+
+4. COMMIT the Update Set
+   Applies all configuration changes to the target
+   This action cannot be easily undone — always preview first!
+</code></pre>
+<blockquote>
+<p>🧠 <strong>MEMORY TIP:</strong> "<strong>Complete → Export → Import → Preview → Commit</strong>". If any exam option says to skip Preview, that's a trap — always preview first.</p>
+</blockquote>
+<h3 id="service-catalog">Service Catalog</h3>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Catalog Item</td>
+<td>A requestable item; creates records in <code>sc_request</code> / <code>sc_req_item</code></td>
+</tr>
+<tr>
+<td>Record Producer</td>
+<td>Creates a record in <strong>any table you specify</strong> through the catalog</td>
+</tr>
+<tr>
+<td>Order Guide</td>
+<td>Bundles multiple catalog items together (e.g., New Employee Setup)</td>
+</tr>
+<tr>
+<td>Variable</td>
+<td>A form field on a catalog item/record producer</td>
+</tr>
+<tr>
+<td>Variable Set</td>
+<td>A <strong>reusable group of variables</strong> attachable to multiple catalog items</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💡 <strong>sc_ = Service Catalog</strong> — easy way to remember the table prefix!
+💡 <strong>Variable Set</strong> is to variables what a <strong>Script Include</strong> is to scripts — both exist for reusability!</p>
+</blockquote>
+<h3 id="rest-apis-full-deep-dive">REST APIs — Full Deep Dive</h3>
+<p>The URL structure is predictable:</p>
+<pre><code>https://instance.service-now.com/api/now/table/{table_name}
+
+GET    /api/now/table/incident          → get all incidents
+GET    /api/now/table/incident/{sys_id} → get specific incident
+POST   /api/now/table/incident          → create new incident
+PUT    /api/now/table/incident/{sys_id} → update incident (full replace)
+PATCH  /api/now/table/incident/{sys_id} → update incident (partial update)
+DELETE /api/now/table/incident/{sys_id} → delete incident
+</code></pre>
+<h4 id="three-rest-directions-know-which-is-which">Three REST Directions — Know Which Is Which</h4>
+<table>
+<thead>
+<tr>
+<th>API</th>
+<th>Direction</th>
+<th>Use case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Table API</td>
+<td>External → ServiceNow</td>
+<td>External system reads/writes ServiceNow records</td>
+</tr>
+<tr>
+<td>REST Message</td>
+<td>ServiceNow → External</td>
+<td>ServiceNow calls an outbound REST API</td>
+</tr>
+<tr>
+<td>Scripted REST API</td>
+<td>External → ServiceNow</td>
+<td>Custom endpoints YOU build and expose in ServiceNow</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💡 <strong>Exam key:</strong></p>
+<ul>
+<li>External talking <strong>TO</strong> ServiceNow → <strong>Table API</strong></li>
+<li>ServiceNow talking <strong>TO</strong> external → <strong>REST Message</strong> (<code>sn_ws.RESTMessageV2</code>)</li>
+<li>Need a <strong>custom endpoint</strong> in ServiceNow → <strong>Scripted REST API</strong></li>
+</ul>
+</blockquote>
+<hr />
+<h4 id="table-api-useful-query-parameters">Table API — Useful Query Parameters</h4>
+<p>When calling the Table API from an external system, these query params control what comes back:</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>What it does</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>sysparm_fields</code></td>
+<td>Limit which fields are returned</td>
+<td><code>?sysparm_fields=number,priority,state</code></td>
+</tr>
+<tr>
+<td><code>sysparm_limit</code></td>
+<td>Max number of records returned</td>
+<td><code>?sysparm_limit=10</code></td>
+</tr>
+<tr>
+<td><code>sysparm_offset</code></td>
+<td>Pagination offset</td>
+<td><code>?sysparm_offset=10</code></td>
+</tr>
+<tr>
+<td><code>sysparm_query</code></td>
+<td>Encoded query to filter results</td>
+<td><code>?sysparm_query=priority=1^active=true</code></td>
+</tr>
+<tr>
+<td><code>sysparm_display_value</code></td>
+<td>Return display values instead of raw values</td>
+<td><code>?sysparm_display_value=true</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h4 id="outbound-rest-sn_wsrestmessagev2-servicenow-external">Outbound REST — <code>sn_ws.RESTMessageV2</code> (ServiceNow → External)</h4>
+<p>Use this when ServiceNow needs to call <strong>an external REST API</strong>. Configured under <strong>System Web Services &gt; Outbound &gt; REST Message</strong>, then called via script.</p>
+<pre><code class="language-javascript">// ✅ Calling an outbound REST Message via script (e.g., in a Business Rule or Script Include)
+try {
+  var sm = new sn_ws.RESTMessageV2(&quot;MyRESTMessage&quot;, &quot;get&quot;); // REST Message name + HTTP Method record
+  sm.setStringParameterNoEscape(&quot;table&quot;, &quot;incident&quot;); // set a variable defined on the REST Message
+  sm.setHttpTimeout(10000); // timeout in ms (10 seconds)
+
+  var response = sm.execute(); // synchronous — blocks until response
+  var httpStatus = response.getStatusCode(); // e.g., 200
+  var body = response.getBody(); // response body as string
+  var jsonBody = JSON.parse(body); // parse JSON
+
+  gs.info(&quot;Status: &quot; + httpStatus);
+  gs.info(&quot;Response: &quot; + body);
+} catch (ex) {
+  gs.error(&quot;REST call failed: &quot; + ex.getMessage());
+}
+
+// ✅ Async (non-blocking) outbound REST call
+var sm = new sn_ws.RESTMessageV2(&quot;MyRESTMessage&quot;, &quot;post&quot;);
+sm.setRequestHeader(&quot;Content-Type&quot;, &quot;application/json&quot;);
+sm.setRequestBody(JSON.stringify({ key: &quot;value&quot; }));
+var response = sm.executeAsync(); // returns immediately
+response.waitForResponse(60); // wait up to 60 seconds
+var statusCode = response.getStatusCode();
+</code></pre>
+<p><strong>Key <code>sn_ws.RESTMessageV2</code> methods:</strong></p>
+<pre><code class="language-javascript">sm.setEndpoint(&quot;https://api.example.com/data&quot;); // override the endpoint URL
+sm.setHttpMethod(&quot;POST&quot;); // GET, POST, PUT, PATCH, DELETE
+sm.setRequestHeader(&quot;Authorization&quot;, &quot;Bearer token&quot;); // set a single header
+sm.setRequestBody('{&quot;key&quot;:&quot;value&quot;}'); // set raw body string
+sm.setStringParameterNoEscape(&quot;param&quot;, value); // set a URL/body variable
+sm.setQueryParameter(&quot;filter&quot;, &quot;active&quot;); // add a query string param
+sm.execute(); // synchronous execution
+sm.executeAsync(); // asynchronous execution
+response.getStatusCode(); // HTTP status (200, 404, etc.)
+response.getBody(); // response body as string
+response.getHeader(&quot;Content-Type&quot;); // get a response header
+response.haveError(); // true if a transport error occurred
+response.getErrorMessage(); // error details if haveError() is true
+</code></pre>
+<blockquote>
+<p>⚠️ <strong>EXAM TRAP:</strong> <code>sn_ws.RESTMessageV2</code> is for <strong>outbound</strong> calls — ServiceNow calling an external system. It is NOT used to receive inbound requests.</p>
+</blockquote>
+<hr />
+<h4 id="scripted-rest-api-building-custom-endpoints-in-servicenow">Scripted REST API — Building Custom Endpoints in ServiceNow</h4>
+<p>A <strong>Scripted REST API</strong> lets you create a <strong>custom REST endpoint</strong> that external systems can call, beyond what the Table API provides. You define the URL path, HTTP methods, and write the handler logic yourself.</p>
+<p><strong>When to use it:</strong></p>
+<ul>
+<li>You need a custom URL structure (not <code>/api/now/table/...</code>)</li>
+<li>You want to return a transformed/aggregated response</li>
+<li>You need to expose business logic (not just raw table data)</li>
+<li>You want to restrict what callers can access</li>
+</ul>
+<p><strong>How it's structured:</strong></p>
+<pre><code>Scripted REST API (parent)
+  → defines base path:  /api/x_myco_myapp/myservice
+  → Resources (children)
+      → each Resource = one URL path + one or more HTTP methods
+      → each method has a Script that handles the request and builds the response
+</code></pre>
+<p><strong>Full Example — Creating a custom endpoint:</strong></p>
+<pre><code class="language-javascript">// Scripted REST API Resource script
+// This handles: GET /api/x_myco_myapp/incident_summary/{number}
+
+(function process(/*RESTAPIRequest*/ request, /*RESTAPIResponse*/ response) {
+  // 1. Read path parameters (e.g., /incident_summary/{number})
+  var incidentNumber = request.pathParams.number;
+
+  // 2. Read query parameters (e.g., ?include_comments=true)
+  var includeComments = request.queryParams.include_comments;
+
+  // 3. Read the request body (for POST/PUT)
+  var body = request.body.data; // parsed JSON object (if Content-Type is application/json)
+  var rawBody = request.body.dataString; // raw string body
+
+  // 4. Read request headers
+  var authHeader = request.headers.Authorization;
+
+  // 5. Query ServiceNow data
+  var gr = new GlideRecord(&quot;incident&quot;);
+  gr.addQuery(&quot;number&quot;, incidentNumber);
+  gr.query();
+
+  if (!gr.next()) {
+    // 6a. Return an error response
+    response.setStatus(404);
+    response.setBody({ error: &quot;Incident not found&quot;, number: incidentNumber });
+    return;
+  }
+
+  // 6b. Build and return a success response
+  var result = {
+    number: gr.getValue(&quot;number&quot;),
+    priority: gr.getDisplayValue(&quot;priority&quot;),
+    state: gr.getDisplayValue(&quot;state&quot;),
+    assigned_to: gr.getDisplayValue(&quot;assigned_to&quot;),
+    opened_at: gr.getValue(&quot;opened_at&quot;),
+  };
+
+  response.setStatus(200);
+  response.setBody(result); // automatically serialized to JSON
+})(request, response);
+</code></pre>
+<p><strong>Key <code>RESTAPIRequest</code> methods:</strong></p>
+<pre><code class="language-javascript">request.pathParams.paramName; // path variables defined in the resource URL
+request.queryParams.paramName; // URL query string params (?key=value)
+request.headers.HeaderName; // inbound request headers
+request.body.data; // parsed JSON body (object)
+request.body.dataString; // raw body as string
+request.getRequestBodyAsStream(); // for large/binary bodies
+</code></pre>
+<p><strong>Key <code>RESTAPIResponse</code> methods:</strong></p>
+<pre><code class="language-javascript">response.setStatus(200); // HTTP status code to return
+response.setBody({ key: &quot;value&quot; }); // set response body (object auto-serialized to JSON)
+response.setContentType(&quot;application/json&quot;); // set response content type
+response.setHeader(&quot;X-Custom&quot;, &quot;val&quot;); // set a response header
+response.setError(error); // set an error object on the response
+</code></pre>
+<p><strong>Securing a Scripted REST API:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>How it works</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Requires Authentication</td>
+<td>Checkbox on the API — enforces Basic Auth or OAuth</td>
+</tr>
+<tr>
+<td>ACL on the endpoint</td>
+<td>Create an ACL with operation <code>REST_Endpoint</code> for fine-grained control</td>
+</tr>
+<tr>
+<td>Role check in script</td>
+<td>Use <code>gs.hasRole("role_name")</code> inside the resource script</td>
+</tr>
+<tr>
+<td>OAuth 2.0</td>
+<td>Configure an OAuth provider and associate it with the API</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>EXAM TRAP:</strong> The two REST objects to keep straight:</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Object</th>
+<th>Used in</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RESTAPIResponse</code></td>
+<td>Scripted REST API</td>
+<td>Send a response <strong>TO</strong> an external caller</td>
+</tr>
+<tr>
+<td><code>sn_ws.RESTMessageV2</code></td>
+<td>REST Message</td>
+<td>Call <strong>FROM</strong> ServiceNow to external system</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>🧠 <strong>MEMORY TIP:</strong> <strong>Scripted REST API = you're the server</strong> (ServiceNow receives the call). <strong>REST Message = you're the client</strong> (ServiceNow makes the call).</p>
+</blockquote>
+<h4 id="practice-questions-rest-apis">Practice Questions — REST APIs</h4>
+<blockquote>
+<p>📋 <strong>PRACTICE Q:</strong> An external ticketing system needs to create incidents in ServiceNow by calling a URL. The team wants to expose only specific fields and add custom validation logic. Which ServiceNow feature should they use?</p>
+<p>✅ <strong>ANSWER:</strong> A <strong>Scripted REST API</strong>. The Table API exposes all fields with no custom logic. A Scripted REST API lets you define exactly what fields are accepted, apply business logic, and return a tailored response.</p>
+</blockquote>
+<hr />
+<blockquote>
+<p>📋 <strong>PRACTICE Q:</strong> A Business Rule needs to notify an external webhook URL every time a high-priority incident is created. Which API is used?</p>
+<p>✅ <strong>ANSWER:</strong> <strong><code>sn_ws.RESTMessageV2</code></strong> (Outbound REST Message). ServiceNow is making the call to an external system, which means outbound REST.</p>
+</blockquote>
+<hr />
+<blockquote>
+<p>📋 <strong>PRACTICE Q:</strong> An external system calls the ServiceNow Table API with <code>?sysparm_display_value=true</code>. What changes in the response?</p>
+<p>✅ <strong>ANSWER:</strong> Fields return their <strong>display values</strong> (human-readable labels) instead of raw database values. For example, <code>state</code> returns <code>"In Progress"</code> instead of <code>"2"</code>, and a reference field returns the referenced record's display name instead of its <code>sys_id</code>.</p>
+</blockquote>
+<hr />
+<h3 id="dictionary-attributes">Dictionary Attributes</h3>
+<p>Added as <code>attribute_name=true</code> or <code>attribute_name=value</code> in a field's dictionary entry.</p>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>no_sort=true</code></td>
+<td>Prevents column from being sorted in list view</td>
+</tr>
+<tr>
+<td><code>no_filter=true</code></td>
+<td>Prevents field from being used as a filter</td>
+</tr>
+<tr>
+<td><code>no_negative=true</code></td>
+<td>Prevents negative numbers</td>
+</tr>
+<tr>
+<td><code>show_if_empty=true</code></td>
+<td>Shows field even if it has no value</td>
+</tr>
+<tr>
+<td><code>edge_encryption_enabled=true</code></td>
+<td>Encrypts field data</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💡 <strong>Pattern:</strong> Attributes that <strong>disable</strong> something usually start with <code>no_</code>!</p>
+</blockquote>
+<h3 id="key-roles">Key Roles</h3>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>admin</code></td>
+<td>Full system access — keys to the kingdom</td>
+</tr>
+<tr>
+<td><code>security_admin</code></td>
+<td>Required to create/modify ACL rules (elevated, separate from admin)</td>
+</tr>
+<tr>
+<td><code>itil</code></td>
+<td>Standard role for service desk agents (incidents, requests)</td>
+</tr>
+<tr>
+<td><code>import_set_admin</code></td>
+<td>Manages data imports into ServiceNow</td>
+</tr>
+<tr>
+<td><code>catalog_admin</code></td>
+<td>Manages the Service Catalog</td>
+</tr>
+</tbody>
+</table>
+<h3 id="delegated-development">Delegated Development</h3>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>What to know</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Delegated Developer role</td>
+<td>Grants development access to a specific scoped app only</td>
+</tr>
+<tr>
+<td>Code Review</td>
+<td>A designated approver must review changes before they are promoted/published</td>
+</tr>
+<tr>
+<td>Scope isolation</td>
+<td>Delegated developer cannot modify artifacts outside their assigned app</td>
+</tr>
+<tr>
+<td>Why use it</td>
+<td>Allows team-based development without handing out admin access</td>
+</tr>
+<tr>
+<td>How to assign</td>
+<td>Open the application record → "Manage Developers" → add users to related list</td>
+</tr>
+<tr>
+<td>Code Review config</td>
+<td>Per application — enabling it on one app does not affect others</td>
+</tr>
+</tbody>
+</table>
+<h3 id="git-source-control-integration">Git / Source Control Integration</h3>
+<p>ServiceNow Studio supports linking a scoped application to a <strong>Git repository</strong> for proper version control and team collaboration.</p>
+<h4 id="linking-to-a-git-repo-what-you-need">Linking to a Git Repo — What You Need</h4>
+<table>
+<thead>
+<tr>
+<th>Required</th>
+<th>NOT Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Repository URL</td>
+<td>Application name</td>
+</tr>
+<tr>
+<td>Username</td>
+<td></td>
+</tr>
+<tr>
+<td>Password / token</td>
+<td></td>
+</tr>
+<tr>
+<td>Branch name</td>
+<td></td>
+</tr>
+<tr>
+<td>Authentication type</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>EXAM TRAP:</strong> The <strong>application name is not required</strong> to link to a Git repo — the scope name is used automatically. A common distractor is listing the app name as required.</p>
+</blockquote>
+<h4 id="source-control-operations-know-which-work-where">Source Control Operations — Know Which Work Where</h4>
+<p>Some operations are available from <strong>Studio only</strong>, some from <strong>the Git repo side only</strong>, and some from <strong>both</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>Available in Studio</th>
+<th>Available in Git repo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Create Branch</td>
+<td>✅</td>
+<td>✅ (available in both)</td>
+</tr>
+<tr>
+<td>Create Tag</td>
+<td>✅</td>
+<td>✅ (available in both)</td>
+</tr>
+<tr>
+<td>Create Repository</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Create Credentials</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>Grant Access</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Stash Changes</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>Pull</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>Push</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>EXAM TRAP:</strong> <strong>Create Branch</strong> is the operation available in <strong>both</strong> Studio and the Git repository. This is a direct exam question — "which operation is common to both?"</p>
+</blockquote>
+<h4 id="the-stash-operation">The Stash Operation</h4>
+<p><strong>Stash</strong> stores local uncommitted changes on the instance temporarily so you can switch branches or pull updates without losing your work.</p>
+<blockquote>
+<p>💡 <strong>Stash = save your work in a drawer</strong> so you can do something else, then come back and "pop" the stash to restore it.</p>
+<p>⚠️ <strong>EXAM TRAP:</strong> The exam asks what the source control "stash" operation does. Answer: <strong>stores local changes on the instance for later application</strong> — it does NOT commit or push to the repo.</p>
+</blockquote>
+<h4 id="roles-required-for-source-control">Roles Required for Source Control</h4>
+<p>Users need either the <strong><code>admin</code></strong> or <strong><code>source_control</code></strong> role to link an application to a Git repository.</p>
+<hr />
+<h3 id="application-files-related-list">Application Files Related List</h3>
+<p>To see <strong>all artifacts that will be included when publishing an application</strong>, use the <strong>Application Files Related List</strong> on the application record.</p>
+<blockquote>
+<p>⚠️ <strong>EXAM TRAP:</strong> This is a direct exam question. The correct answer is always <strong>"Examine the Application Files Related List in the application to be published"</strong> — NOT the Global search bar, NOT Update Sets, NOT opening each artifact individually.</p>
+</blockquote>
+<p>The Application Files list groups artifacts by type (Business Rules, Client Scripts, Tables, etc.) and shows the scope each belongs to. It's the single source of truth for what's in the app.</p>
+<hr />
+<h3 id="record-producer-additional-notes">Record Producer — Additional Notes</h3>
+<blockquote>
+<p>💡 <strong>Record Producer variable access syntax:</strong> In a Record Producer's script, access form variable values using <code>producer.variable_name</code> (NOT <code>current.variable_name</code>). This is a direct exam question.</p>
+</blockquote>
+<pre><code class="language-javascript">// ✅ CORRECT — Record Producer script accessing variables
+var shortDesc = producer.short_description; // variable on the Record Producer form
+current.short_description = shortDesc; // set on the target record
+current.caller_id = gs.getUserID();
+current.insert();
+</code></pre>
+<blockquote>
+<p>⚠️ <strong>EXAM TRAP:</strong> In Inbound Action scripts (not Record Producer), the available objects are <code>current</code> and <code>email</code> — NOT <code>previous</code>, NOT <code>event</code>, NOT <code>producer</code>.</p>
+</blockquote>
+<hr />
+<h3 id="practice-questions-domain-6">Practice Questions — Domain 6</h3>
+<blockquote>
+<p>📋 <strong>PRACTICE Q:</strong> A developer completes workflow and script changes in a dev instance. They export the Update Set and import it to test. During Preview, a conflict is shown on a Business Rule. What should happen next?</p>
+<p>✅ <strong>ANSWER:</strong> <strong>Resolve the conflict before committing.</strong> Review both versions, choose which to keep (or merge manually), then proceed to Commit. Never commit a conflicted Update Set without reviewing it.</p>
+</blockquote>
+<hr />
+<h2 id="glide-api-quick-reference">Glide API Quick Reference</h2>
+<h3 id="glidesystem-gs-server-side-system-session-info">GlideSystem / gs (Server Side) — System &amp; Session Info</h3>
+<pre><code class="language-javascript">// Current user
+gs.getCurrentUserID(); // current user's sys_id
+gs.getCurrentUserName(); // current user's username
+gs.getUser().getFirstName(); // current user's first name
+gs.getUser().getEmail(); // current user's email
+gs.hasRole(&quot;admin&quot;); // check if user has role (returns true/false)
+
+// Logging
+gs.log(&quot;message&quot;); // write to log
+gs.info(&quot;message&quot;); // info level log
+gs.warn(&quot;message&quot;); // warning level log
+gs.error(&quot;message&quot;); // error level log
+
+// Messages (server side)
+gs.addInfoMessage(&quot;message&quot;); // show info message to user
+gs.addErrorMessage(&quot;message&quot;); // show error message to user
+
+// Utility
+gs.now(); // current date/time
+gs.nowDateTime(); // current datetime string
+gs.tableExists(&quot;table_name&quot;); // check if table exists
+gs.getProperty(&quot;property.name&quot;); // get system property
+</code></pre>
+<h3 id="glideform-g_form-client-side-form-manipulation">GlideForm / g_form (Client Side) — Form Manipulation</h3>
+<pre><code class="language-javascript">// Getting values
+g_form.getValue(&quot;field&quot;); // get field value
+g_form.getDisplayValue(&quot;field&quot;); // get display value
+
+// Setting values
+g_form.setValue(&quot;field&quot;, &quot;value&quot;); // set field value
+
+// Visibility
+g_form.setVisible(&quot;field&quot;, true); // show/hide field
+g_form.setDisplay(&quot;field&quot;, true); // show/hide field AND label
+
+// Field behavior
+g_form.setMandatory(&quot;field&quot;, true); // make field mandatory
+g_form.setReadOnly(&quot;field&quot;, true); // make field read only
+
+// Messages
+g_form.addInfoMessage(&quot;message&quot;); // show info message on form
+g_form.addErrorMessage(&quot;message&quot;); // show error message on form
+g_form.clearMessages(); // clear all messages
+
+// Sections
+g_form.setSectionDisplay(&quot;name&quot;, true); // show/hide a form section
+
+// Misc
+g_form.save(); // save the form
+g_form.submit(); // submit the form
+g_form.getUniqueValue(); // get current record's sys_id
+</code></pre>
+<h3 id="g_user-client-side-current-user-info">g_user (Client Side) — Current User Info</h3>
+<pre><code class="language-javascript">g_user.userID; // current user's sys_id
+g_user.userName; // current user's username
+g_user.firstName; // current user's first name
+g_user.lastName; // current user's last name
+g_user.email; // current user's email
+g_user.hasRole(&quot;role_name&quot;); // check if user has role
+g_user.hasRoleExactly(&quot;role_name&quot;); // check role without admin override
+</code></pre>
+<h3 id="g_scratchpad-server-client-bridge">g_scratchpad (Server → Client Bridge)</h3>
+<pre><code class="language-javascript">// In a Display Business Rule (server side) — runs BEFORE form loads
+g_scratchpad.anyName = &quot;any value&quot;; // set any property
+
+// In a Client Script (client side) — reads on form load
+var val = g_scratchpad.anyName; // read the property
+</code></pre>
+<blockquote>
+<p>💡 <strong>g_scratchpad = lunchbox packed at home, opened at school</strong> (server packs it → client reads it on load)</p>
+</blockquote>
+<hr />
+<h2 id="master-quick-reference">Master Quick Reference</h2>
+<h3 id="client-vs-server-api-cheat-sheet">Client vs Server API Cheat Sheet</h3>
+<table>
+<thead>
+<tr>
+<th>Object / API</th>
+<th>Client or Server</th>
+<th>Purpose</th>
+<th>Key Gotcha</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>g_form</code></td>
+<td>Client only</td>
+<td>Get/set field values, visibility, mandatory on a form</td>
+<td>Not available in Business Rules</td>
+</tr>
+<tr>
+<td><code>g_user</code></td>
+<td>Client only</td>
+<td>Current logged-in user info</td>
+<td>Use <code>gs</code> on server side instead</td>
+</tr>
+<tr>
+<td><code>current</code></td>
+<td>Server only</td>
+<td>GlideRecord in a BR representing the current record</td>
+<td>Do not call <code>current.update()</code> in a Before BR</td>
+</tr>
+<tr>
+<td><code>previous</code></td>
+<td>Server only</td>
+<td>Pre-update field values in a Business Rule</td>
+<td>Compare with <code>current</code> to detect changes</td>
+</tr>
+<tr>
+<td><code>GlideRecord</code></td>
+<td>Server only</td>
+<td>Query / insert / update any table</td>
+<td>Use <code>getValue()</code>, not <code>gr.field_name</code> directly</td>
+</tr>
+<tr>
+<td><code>GlideAjax</code></td>
+<td>Client → Server</td>
+<td>Call a server Script Include from a client script</td>
+<td>Script Include must extend <code>AbstractAjaxProcessor</code></td>
+</tr>
+<tr>
+<td><code>gs</code> (GlideSystem)</td>
+<td>Server only</td>
+<td>Logging, user info, system properties</td>
+<td><code>gs.getUser()</code> returns a GlideUser object</td>
+</tr>
+<tr>
+<td><code>g_scratchpad</code></td>
+<td>Bridge: server → client</td>
+<td>Pass data from Display BR to client scripts</td>
+<td>Set in Display BR, read in client script</td>
+</tr>
+<tr>
+<td>Script Include</td>
+<td>Server</td>
+<td>Reusable server-side functions</td>
+<td>Set "Accessible from" for cross-scope use</td>
+</tr>
+<tr>
+<td><code>sn_ws.RESTMessageV2</code></td>
+<td>Server only</td>
+<td>Make outbound REST calls to external systems</td>
+<td>ServiceNow is the CLIENT calling an external API</td>
+</tr>
+<tr>
+<td><code>RESTAPIRequest</code></td>
+<td>Server only</td>
+<td>Read inbound data in a Scripted REST API resource</td>
+<td>Available as <code>request</code> variable in resource script</td>
+</tr>
+<tr>
+<td><code>RESTAPIResponse</code></td>
+<td>Server only</td>
+<td>Send response from a Scripted REST API resource</td>
+<td>Available as <code>response</code> variable in resource script</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💡 <strong>Memory trick:</strong> Everything starting with <code>g_</code> is <strong>client-side</strong>. <code>gs</code>, <code>gr</code>, and <code>sn_ws</code> are <strong>server-side</strong>.</p>
+</blockquote>
+<h3 id="br-timing-quick-reference">BR Timing Quick Reference</h3>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Runs</th>
+<th>Can abort?</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Before BR</td>
+<td>Before DB write</td>
+<td>✅ Yes</td>
+<td>Do NOT call <code>current.update()</code></td>
+</tr>
+<tr>
+<td>After BR</td>
+<td>After DB commit</td>
+<td>❌ No</td>
+<td>Update related records; user waits</td>
+</tr>
+<tr>
+<td>Async BR</td>
+<td>After DB commit (background)</td>
+<td>❌ No</td>
+<td>Non-blocking — fire and forget</td>
+</tr>
+<tr>
+<td>Display BR</td>
+<td>On form load</td>
+<td>❌ No</td>
+<td>Use <code>g_scratchpad</code> to pass to client</td>
+</tr>
+<tr>
+<td>Data Policy</td>
+<td>Before DB write</td>
+<td>✅ Yes</td>
+<td>Enforces imports (UI Policy does not)</td>
+</tr>
+<tr>
+<td>UI Policy</td>
+<td>Client/browser only</td>
+<td>❌ No</td>
+<td>Form only — cannot enforce imports</td>
+</tr>
+</tbody>
+</table>
+<h3 id="prefix-quick-reference">Prefix Quick Reference</h3>
+<table>
+<thead>
+<tr>
+<th>Prefix</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>x_</code></td>
+<td>Scoped app table/field</td>
+</tr>
+<tr>
+<td><code>u_</code></td>
+<td>Global scope custom table/field</td>
+</tr>
+<tr>
+<td><code>sys_</code></td>
+<td>ServiceNow native platform table</td>
+</tr>
+<tr>
+<td><code>sc_</code></td>
+<td>Service Catalog tables</td>
+</tr>
+</tbody>
+</table>
+<h3 id="rest-api-quick-reference">REST API Quick Reference</h3>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Direction</th>
+<th>When to use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Table API</td>
+<td>External → ServiceNow</td>
+<td>External system does basic CRUD on standard tables</td>
+</tr>
+<tr>
+<td>Scripted REST API</td>
+<td>External → ServiceNow</td>
+<td>Custom logic, custom URL, aggregated/filtered data</td>
+</tr>
+<tr>
+<td><code>sn_ws.RESTMessageV2</code></td>
+<td>ServiceNow → External</td>
+<td>ServiceNow needs to call an external API</td>
+</tr>
+</tbody>
+</table>
+<h3 id="script-include-quick-reference">Script Include Quick Reference</h3>
+<ul>
+<li><strong>Server-side only</strong> reusable logic</li>
+<li>Called from: Business Rules, other Script Includes, Scheduled Jobs, REST APIs</li>
+<li>Called from Client Scripts via <strong>GlideAjax</strong> (must extend <code>AbstractAjaxProcessor</code>)</li>
+<li><strong>Regular</strong> → server-side only</li>
+<li><strong>Ajax-enabled</strong> → extends <code>AbstractAjaxProcessor</code>, callable from Client Scripts via GlideAjax</li>
+</ul>
+<hr />
+<h2 id="all-exam-traps-combined-list">All Exam Traps — Combined List</h2>
+<table>
+<thead>
+<tr>
+<th>Scenario / Symptom</th>
+<th>Trap</th>
+<th>Correct Answer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Form is slow after save</td>
+<td>Thinking it's a client issue</td>
+<td>Check for heavy After BR — consider Async instead</td>
+</tr>
+<tr>
+<td>Field not saving despite no error</td>
+<td>Checking only UI settings</td>
+<td>Check dictionary read-only flag</td>
+</tr>
+<tr>
+<td>Client Script needs DB data</td>
+<td>Using GlideRecord in client script</td>
+<td>Use GlideAjax + client-callable Script Include</td>
+</tr>
+<tr>
+<td>Mandatory not enforced on import</td>
+<td>Using UI Policy</td>
+<td>Use Data Policy — it's server-side</td>
+</tr>
+<tr>
+<td>Cross-scope call fails silently</td>
+<td>Assuming it's a code bug</td>
+<td>Check "Accessible from" on the Script Include</td>
+</tr>
+<tr>
+<td>User sees list, can't open record</td>
+<td>Checking field-level ACLs first</td>
+<td>Record-level ACL is blocking — check that first</td>
+</tr>
+<tr>
+<td>User can't see list at all</td>
+<td>Checking record/field ACLs</td>
+<td>Table-level ACL is blocking — start there</td>
+</tr>
+<tr>
+<td>Button on form needs server logic</td>
+<td>Using a Business Rule</td>
+<td>Use a UI Action with Form Button checked</td>
+</tr>
+<tr>
+<td>Field change needs silent server call</td>
+<td>Using a UI Action</td>
+<td>Use GlideAjax + client-callable Script Include</td>
+</tr>
+<tr>
+<td>Move config between instances</td>
+<td>Manually recreating scripts</td>
+<td>Use Update Set or App Repository</td>
+</tr>
+<tr>
+<td>Artifact in wrong scope</td>
+<td>Blaming the script</td>
+<td>Check App Picker — was the correct scope selected at creation?</td>
+</tr>
+<tr>
+<td>BR causing infinite loop</td>
+<td>Adding more conditions to the BR</td>
+<td>Remove <code>current.update()</code> from the Before BR</td>
+</tr>
+<tr>
+<td><code>onCellEdit</code> used on a form</td>
+<td>Thinking it works on forms</td>
+<td><code>onCellEdit</code> is list view only — use <code>onChange</code> on forms</td>
+</tr>
+<tr>
+<td><code>security_admin</code> assumed = <code>admin</code></td>
+<td>Thinking <code>security_admin</code> bypasses ACLs</td>
+<td>Only <code>admin</code> bypasses ACLs — <code>security_admin</code> manages them</td>
+</tr>
+<tr>
+<td>Update Set expected to include data records</td>
+<td>Expecting incident records in Update Set</td>
+<td>Update Sets capture config only, not data</td>
+</tr>
+<tr>
+<td>UI Policy expected to enforce on import</td>
+<td>Using UI Policy for import validation</td>
+<td>UI Policies are browser-side — use Data Policy</td>
+</tr>
+<tr>
+<td>Making a field read-only based on role</td>
+<td>Using an ACL</td>
+<td>ACLs have no "read-only" mode — use Client Script</td>
+</tr>
+<tr>
+<td><code>gr.field_name</code> used for comparison</td>
+<td>Thinking it returns the value</td>
+<td>Returns GlideElement object — use <code>getValue()</code> instead</td>
+</tr>
+<tr>
+<td><code>getValue()</code> vs <code>getDisplayValue()</code></td>
+<td>Using wrong one for reference fields</td>
+<td><code>getValue()</code> = sys_id; <code>getDisplayValue()</code> = human label</td>
+</tr>
+<tr>
+<td>Delegated developer can't publish</td>
+<td>Assuming they need <code>admin</code></td>
+<td>Check if Code Review is enabled — they need a reviewer to approve</td>
+</tr>
+<tr>
+<td>Outbound REST call from a Business Rule</td>
+<td>Using Table API or Scripted REST API</td>
+<td>Use <code>sn_ws.RESTMessageV2</code> — ServiceNow is the client here</td>
+</tr>
+<tr>
+<td>Custom external-facing endpoint needed</td>
+<td>Using only the Table API</td>
+<td>Build a Scripted REST API for custom paths and logic</td>
+</tr>
+<tr>
+<td><code>RESTAPIResponse</code> vs <code>RESTMessageV2</code></td>
+<td>Confusing inbound vs outbound</td>
+<td><code>RESTAPIResponse</code> = respond to caller; <code>RESTMessageV2</code> = call out</td>
+</tr>
+<tr>
+<td>GAC table option: "from template"</td>
+<td>Thinking it's a valid GAC option</td>
+<td>Not valid — the three options are create, extend, or upload spreadsheet</td>
+</tr>
+<tr>
+<td>GAC file upload type</td>
+<td>Thinking PDF or Word doc can be uploaded</td>
+<td>Only spreadsheets (CSV/Excel) are valid upload types in GAC</td>
+</tr>
+<tr>
+<td>GAC creates global apps by default</td>
+<td>Thinking GAC defaults to global scope</td>
+<td>GAC creates scoped apps only — set <code>sn_g_app_creator.allow_global</code> to enable global</td>
+</tr>
+<tr>
+<td><code>gs.log()</code> in a scoped app</td>
+<td>Using <code>gs.log()</code> in scoped scripts</td>
+<td><code>gs.log()</code> is NOT available in scoped apps — use <code>gs.info()</code>, <code>gs.warn()</code>, <code>gs.error()</code></td>
+</tr>
+<tr>
+<td>Approval workflows on non-task tables</td>
+<td>Expecting all approvals to work anywhere</td>
+<td>Only <strong>User Approval</strong> works on all tables; all others require extending <code>task</code></td>
+</tr>
+<tr>
+<td>GAC completes the whole application</td>
+<td>Thinking GAC is the complete dev tool</td>
+<td>GAC builds the skeleton only — Business Rules, Client Scripts, flows are added in Studio</td>
+</tr>
+<tr>
+<td><code>Allow configuration</code> checkbox</td>
+<td>Thinking it's an in-scope-only setting</td>
+<td>Allow configuration = <strong>out-of-scope</strong> apps CAN create Business Rules on the table</td>
+</tr>
+<tr>
+<td><code>Can read</code> unchecked → other fields gone</td>
+<td>Thinking other fields are independent</td>
+<td>Can create/update/delete become unavailable when Can read is unchecked</td>
+</tr>
+<tr>
+<td><code>Allow web services</code> = bypasses ACLs</td>
+<td>Thinking it grants open access</td>
+<td>Still requires correct ACL permissions — only controls whether table is web-accessible</td>
+</tr>
+<tr>
+<td>Module link type includes "Catalog Type"</td>
+<td>Selecting Catalog Type or Roles</td>
+<td>Not valid link types — valid ones: Assessment, List of Records, Separator, Timeline Page, Content Page, URL (from arguments)</td>
+</tr>
+<tr>
+<td>Application Properties = special artifact</td>
+<td>Thinking they're a unique object type</td>
+<td>They are ordinary <code>sys_properties</code> records grouped by a category matching the app</td>
+</tr>
+<tr>
+<td>UI Actions always run server-side</td>
+<td>Assuming no client code possible</td>
+<td>If Client checkbox is checked, the onclick runs in the browser first</td>
+</tr>
+<tr>
+<td><code>gsftSubmit</code> third arg = display name</td>
+<td>Using the button label as the action arg</td>
+<td>Third arg must match the <strong>Action name</strong> field exactly, not the display name</td>
+</tr>
+<tr>
+<td>Removing field from form = deletes field</td>
+<td>Thinking layout removal = schema change</td>
+<td>Removing from layout hides it on the form only — field still exists in the table</td>
+</tr>
+<tr>
+<td><code>gs.log()</code> = client debugging tool</td>
+<td>Including it in client debug strategies</td>
+<td><code>gs.log()</code> is server-side — NOT a client debugging strategy (direct exam question)</td>
+</tr>
+<tr>
+<td>Notification Weight 0 = no email sent</td>
+<td>Thinking zero suppresses the email</td>
+<td>Weight 0 = notification is <strong>always</strong> sent; higher weight wins among competing notifications</td>
+</tr>
+<tr>
+<td>Notification tabs include "How"</td>
+<td>Listing "How to send" as a tab</td>
+<td>The three tabs are <strong>Who, What, When</strong> — there is no "How" tab</td>
+</tr>
+<tr>
+<td>Unregistered events get processed</td>
+<td>Firing event without registering it</td>
+<td>Events must be registered in the Event Registry — unregistered events do nothing</td>
+</tr>
+<tr>
+<td>ATF runs in production</td>
+<td>Testing in prod for accuracy</td>
+<td>ATF must only run in <strong>sub-production</strong> instances — never production</td>
+</tr>
+<tr>
+<td>ATF "Create a role" step exists</td>
+<td>Using it to set up test roles</td>
+<td>No such step — use "Create a record" on <code>sys_user_role</code> table instead</td>
+</tr>
+<tr>
+<td>Git link requires application name</td>
+<td>Including app name in required fields</td>
+<td>App name NOT required — URL, username, password, branch, and auth type are required</td>
+</tr>
+<tr>
+<td>Stash = commit to repo</td>
+<td>Thinking stash pushes code upstream</td>
+<td>Stash stores local changes on the <strong>instance</strong> temporarily — does NOT push to Git</td>
+</tr>
+<tr>
+<td>Both Studio and Git: only one operation</td>
+<td>Guessing a Studio-only operation</td>
+<td><strong>Create Branch</strong> is the operation available in BOTH Studio and the Git repository</td>
+</tr>
+<tr>
+<td>App artifacts found in Update Sets</td>
+<td>Checking Update Sets to review app files</td>
+<td>Use <strong>Application Files Related List</strong> on the app record — Update Sets don't show this</td>
+</tr>
+<tr>
+<td>Record Producer uses <code>current.variable</code></td>
+<td>Using current to access form variables</td>
+<td>Use <code>producer.variable_name</code> — <code>current</code> refers to the target record, not the form fields</td>
+</tr>
+<tr>
+<td>Inbound Action has <code>previous</code> object</td>
+<td>Expecting same objects as Business Rules</td>
+<td>Inbound Actions only have <code>current</code> and <code>email</code> — no <code>previous</code>, no <code>event</code>, no <code>producer</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="mental-checklist-for-exam-decisions">Mental Checklist for Exam Decisions</h2>
+<ul>
+<li><strong>ACL issue?</strong> → Table deny → stop; Record deny → stop; Field deny → restrict field only</li>
+<li><strong>BR Timing?</strong> → Before → DB write → After → Async (background)</li>
+<li><strong>Client vs Server?</strong> → <code>g_form</code> / <code>g_user</code> = client; <code>current</code> / <code>GlideRecord</code> / <code>gs</code> = server</li>
+<li><strong>Cross-scope failure?</strong> → Check "Accessible from" on the Script Include</li>
+<li><strong>Button on form?</strong> → UI Action (not Business Rule)</li>
+<li><strong>Silent server call from client?</strong> → GlideAjax + client-callable Script Include</li>
+<li><strong>Mandatory on import?</strong> → Data Policy (not UI Policy)</li>
+<li><strong>Move config between instances?</strong> → Update Set or App Repository</li>
+<li><strong>Wrong scope on artifact?</strong> → Check App Picker, verify Application field on the record</li>
+<li><strong>Read a field in GlideRecord?</strong> → <code>getValue()</code>, not <code>gr.field_name</code></li>
+<li><strong>Read-only behavior based on role?</strong> → Client Script, NOT an ACL</li>
+<li><strong>Need data on form load?</strong> → g_scratchpad. Need data after interaction? → GlideAjax</li>
+<li><strong>ServiceNow calling an external API?</strong> → <code>sn_ws.RESTMessageV2</code></li>
+<li><strong>External system calling a custom ServiceNow endpoint?</strong> → Scripted REST API</li>
+<li><strong>Delegated developer stuck, can't publish?</strong> → Code Review is enabled — needs a reviewer</li>
+<li><strong>Delegated developer accessing another app's artifacts?</strong> → Not possible — scope isolation</li>
+<li><strong>What's in my published app?</strong> → Application Files Related List (not Update Sets, not Global search)</li>
+<li><strong>Email notification question about tabs?</strong> → Who / What / When (NOT How)</li>
+<li><strong>Notification Weight 0?</strong> → Always sent; Weight &gt; 0 → only highest wins</li>
+<li><strong>Fire an event?</strong> → <code>gs.eventQueue()</code> — must be registered in Event Registry first</li>
+<li><strong>ATF for testing?</strong> → Sub-production only, regression and functional testing only</li>
+<li><strong>Git stash?</strong> → Stores local changes on the instance, does NOT push to repo</li>
+<li><strong>Which operation in both Studio and Git?</strong> → Create Branch</li>
+<li><strong>Allow configuration on a table?</strong> → Out-of-scope apps CAN create Business Rules on it</li>
+<li><strong>Can read unchecked?</strong> → Can create/update/delete become unavailable</li>
+<li><strong>Which tool to debug client-side?</strong> → jslog(), g_form.addInfoMessage(), Field Watcher (NOT gs.log)</li>
+<li><strong>Record Producer variable access?</strong> → <code>producer.variable_name</code> (NOT <code>current.variable_name</code>)</li>
+<li><strong>Date/time in scoped app?</strong> → GlideDateTime (not GlideDate; datediff not available in scoped)</li>
+</ul>
+<hr />
+<h2 id="mnemonics-memory-tricks">Mnemonics &amp; Memory Tricks</h2>
+<ul>
+<li><strong>Alert = JavaScript = Client Script</strong> (alert() is a JS method → it's client side!)</li>
+<li><strong><code>g_</code> prefix = client side</strong> (g_form, g_user, g_scratchpad)</li>
+<li><strong><code>gs</code> = system/session</strong> (server side)</li>
+<li><strong><code>gr</code> = records/database</strong> (server side)</li>
+<li><strong><code>sn_ws</code> = web services outbound</strong> (server side — ServiceNow calling out)</li>
+<li><strong><code>no_</code> prefix = disabling a dictionary attribute</strong> (no_sort, no_filter, no_negative)</li>
+<li><strong>sc_ = Service Catalog</strong> (sc_request, sc_req_item)</li>
+<li><strong>UI Policy = simple form conditions</strong> | <strong>Client Script = complex logic</strong></li>
+<li><strong>ACL = security (grants/denies access)</strong> | <strong>UI Policy = appearance only</strong></li>
+<li><strong>Data Policy = enforces beyond the UI</strong> (API, Import Sets too)</li>
+<li><strong>g_scratchpad = lunchbox packed at home, opened at school</strong> (server → client on load)</li>
+<li><strong>Subflow = utility function you wrote</strong> | <strong>Spoke = npm package someone else built</strong></li>
+<li><strong>x_ = scoped</strong> | <strong>u_ = global (user-created)</strong> | <strong>sys_ = system/native</strong></li>
+<li><strong>Before = shape it. After = react to it. Async = fire and forget. Display = feed the form.</strong></li>
+<li><strong>Complete → Export → Import → Preview → Commit</strong> (Update Set deployment order)</li>
+<li><strong>Scripted REST API = you're the server</strong> (ServiceNow receives) | <strong>REST Message = you're the client</strong> (ServiceNow sends)</li>
+<li><strong>Delegated Developer = room key, not master key</strong> (one app only)</li>
+<li><strong>GAC = foundation pour</strong> (sets up structure; Studio builds the house on top)</li>
+<li><strong>GAC table options = Create, Extend, Spreadsheet</strong> (no templates, no PDFs, no Word docs)</li>
+<li><strong><code>gs.log()</code> = global only</strong> — use <code>gs.info()</code>, <code>gs.warn()</code>, <code>gs.error()</code> in scoped apps</li>
+<li><strong>User Approval = any table | All other approvals = must extend <code>task</code></strong></li>
+<li><strong>Notification tabs = Who + What + When</strong> (no "How")</li>
+<li><strong>Weight 0 = always send | Weight &gt; 0 = only highest weight wins</strong></li>
+<li><strong>Events = fire and forget; registry = the subscriber list</strong></li>
+<li><strong>ATF = automated regression testing, sub-production only</strong></li>
+<li><strong>Stash = save in a drawer (local instance), not pushed to Git</strong></li>
+<li><strong>Create Branch = the operation in BOTH Studio and Git</strong></li>
+<li><strong>Application Files Related List = what's in my app before publishing</strong></li>
+<li><strong>Allow configuration = OUT-of-scope apps can write Business Rules to your table</strong></li>
+<li><strong>Can read unchecked = Can create/update/delete disappear</strong></li>
+<li><strong>Module link types: Assessment, List of Records, Separator, Timeline Page, Content Page, URL</strong> (no Catalog Type, no Roles)</li>
+<li><strong>producer.variable_name</strong> (Record Producer) vs <strong>current.field_name</strong> (Business Rule)</li>
+</ul>
+<hr />
+<h2 id="710-day-study-plan">7–10 Day Study Plan</h2>
+<table>
+<thead>
+<tr>
+<th>Days</th>
+<th>Focus</th>
+<th>Goal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1–2</td>
+<td>Domain 1 &amp; 2: Scoped apps, tables, client scripts, UI Policy, GlideRecord</td>
+<td>Build a small scoped app with 2 tables, client scripts, UI Policies</td>
+</tr>
+<tr>
+<td>3–4</td>
+<td>Domain 3 &amp; 4: ACLs, Business Rules, Flow Designer, Scheduled Jobs</td>
+<td>Create ACLs at all 3 levels, all 4 BR types, observe timing differences</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Domain 2 deep dive: GlideAjax, UI Actions, <code>g_scratchpad</code>, Script Includes</td>
+<td>Build a GlideAjax call from scratch — this is exam-heavy content</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Domain 5 &amp; 6: Import Sets, Transform Maps, Update Sets, App Repository</td>
+<td>Import a CSV, test Data Policy, export and import an Update Set</td>
+</tr>
+<tr>
+<td>6.5</td>
+<td>Domain 6 deep dive: Scripted REST API, REST Message, Delegated Development</td>
+<td>Build a Scripted REST API resource; practice outbound REST call script</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Timed practice: 60 questions in 90 minutes</td>
+<td>Identify weak areas — revisit those domain sections</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Quick-reference drills: ACL levels, BR timing, prefix table, client vs server APIs</td>
+<td>Can you recall all tables and flows without looking?</td>
+</tr>
+<tr>
+<td>9–10</td>
+<td>Light review, mental walkthroughs, exam-day confidence</td>
+<td>Re-read all exam traps, sleep well, trust your prep</td>
+</tr>
+</tbody>
+</table>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../../Scripting/servicenow_js_scripting_notes_with_client_vs_server_side/" class="btn btn-neutral float-left" title="ServiceNow JavaScript: Server Side vs Client Side"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../../Scripting/servicenow_js_scripting_notes_with_client_vs_server_side/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

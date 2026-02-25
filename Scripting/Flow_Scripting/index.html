@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Natalie Walker" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Flow Designer Scripting - ServiceNow Notes</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Flow Designer Scripting";
+        var mkdocs_page_input_path = "Scripting/Flow_Scripting.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/javaScript.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> ServiceNow Notes
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">ServiceNow Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../ServiceNow_Fundamentals/">ServiceNow Fundamentals</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Flows</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Flows/flow_fundamentals/">ServiceNow Flow Fundamentals</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Reports</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Reports/Report_fundamentals/">ServiceNow Reports Fundamentals</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Scripting</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../Business_Rules/">Business Rule</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Client_Scripts/">Client Script</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Fix_Script/">Fix Script</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Flow Designer Scripting</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#purpose">Purpose</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#where-it-runs">Where It Runs</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#types-of-flow-scripting">Types of Flow Scripting</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#types-of-triggers">Types of Triggers</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#actions">Actions</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#1-script-step-inside-flow">1. Script Step (Inside Flow)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#2-custom-action-script">2. Custom Action Script</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#3-in-line-scripting">3. In-line Scripting</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_1"></a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#flow-api-vs-flowscript-api">Flow API vs FlowScript API</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_2"></a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#scriptableflowrunner-api">ScriptableFlowRunner API</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#call-order">Call Order</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#glide-flow-api">Glide Flow API</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#use-when">Use When</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#script-structure">Script Structure</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#key-objects">Key Objects</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#what-it-touches">What It Touches</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#performance-considerations">Performance Considerations</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#common-mistakes">Common Mistakes</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#error-handling-pattern">Error Handling Pattern</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#1-min-example-dynamic-approval-path">1-Min Example (Dynamic Approval Path)</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#additional-notes">Additional notes</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../JS_On_Now_Platform/">JavaScript On Now Platform</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Scheduled_Script/">Scheduled Script</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Script_Includes/">Script Includes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../UI_Action/">UI Action</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../UI_Page/">UI Page</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../UI_Policy/">UI Policy</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../glide_system_gliderecord_notes/">Glide API Notes: GlideSystem &amp; GlideRecord</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../service_now_script_decision_tree/">ServiceNow: Which Tool Do I Use?</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../servicenow_js_scripting_notes/">ServiceNow JavaScript &amp; Scripting Notes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../servicenow_js_scripting_notes_with_client_vs_server_side/">ServiceNow JavaScript: Server Side vs Client Side</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Study Guides</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Study_Guides/cad_study_guide/">ServiceNow CAD Certification — Master Study Guide</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">ServiceNow Notes</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Scripting</li>
+      <li class="breadcrumb-item active">Flow Designer Scripting</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="flow-designer-scripting">Flow Designer Scripting</h1>
+<h2 id="purpose">Purpose</h2>
+<p>Flow Designer scripting allows you to add <strong>server-side JavaScript logic
+inside a Flow Action</strong> when out-of-the-box Flow logic (conditions,
+lookups, updates) isn't enough.</p>
+<p>It is primarily used for:</p>
+<ul>
+<li>Data transformation</li>
+<li>Conditional branching logic</li>
+<li>Calculations</li>
+<li>Complex record lookups</li>
+<li>Dynamic outputs</li>
+</ul>
+<p>It is <strong>not</strong> meant to replace Script Includes or business logic layers.
+See <a href="#flow-script-vs-business-rule">Flow Script vs Business Rule</a></p>
+<hr />
+<h2 id="where-it-runs">Where It Runs</h2>
+<ul>
+<li><strong>Server-side</strong></li>
+<li>Executes within the Flow runtime engine</li>
+<li>Runs when the Flow is triggered</li>
+<li>Scoped to the application of the Flow</li>
+</ul>
+<p>You do <strong>not</strong> have access to client-side objects like <code>g_form</code>.</p>
+<hr />
+<h4 id="types-of-flow-scripting">Types of Flow Scripting</h4>
+<p>Workflow Editor is outdated and Flow Designer is now part of Workflow Studio.
+Newer releases utilize Flow Designer</p>
+<p><img alt="Flow Designer vs Workflow Editor" src="../flow_designer_vs_workflow_editor.png" /></p>
+<p><img alt="What is Flow Designer" src="../what_is_flow_designer.png" /></p>
+<p><img alt="Flow Designer Editor" src="../flow_designer_editor.png" /></p>
+<p><img alt="Flow Designer Diagram View" src="../flow_designer_diagram.png" /></p>
+<h4 id="types-of-triggers">Types of Triggers</h4>
+<ul>
+<li>Condition</li>
+<li>date-based</li>
+<li>application trigger: when you order something in the service catalog</li>
+</ul>
+<h4 id="actions">Actions</h4>
+<p>A group of reusable operations that automate the Now Platform features without having to write code.
+You can test the actions just like you would test a flow.</p>
+<ul>
+<li>Actions (can be custom), Flow Logic, or Subflows</li>
+<li>Subflows do not have to have a trigger you can call them from an action</li>
+</ul>
+<p><img alt="Flow Designer Editor" src="../flow_designer_editor.png" /></p>
+<h3 id="1-script-step-inside-flow">1. Script Step (Inside Flow)</h3>
+<ul>
+<li>Inline JavaScript</li>
+<li>Uses <code>inputs</code> and <code>outputs</code></li>
+<li>Good for lightweight logic</li>
+<li>If used as a subflow, you do not have to use a Flow to make it run.
+  -- Server-Side Scripts - Business Rule, UI Action, Script Includes
+  -- Server-Side Apis - Can be used in a none-blocking mode
+  -- Client-Side JS Library - GlideFlow --&gt; uses promises
+  -- THere is a Code Snippet Generator</li>
+</ul>
+<p><img alt="Sub Flow" src="../flow_designer_subflow.png" />
+  <img alt="Script Step" src="../flow_designer_action_step.png" /></p>
+<h3 id="2-custom-action-script">2. Custom Action Script</h3>
+<ul>
+<li>Script inside a reusable Action</li>
+<li>Best practice when logic may be reused</li>
+<li>Encouraged for maintainability</li>
+<li>Use only when ServiceNow doesn't provide the functionality</li>
+</ul>
+<p><img alt="Custom Action" src="../flow_designer_custom_action.png" />
+<img alt="Custom Action" src="../flow_designer_action_step.png" /></p>
+<h3 id="3-in-line-scripting">3. In-line Scripting</h3>
+<ul>
+<li>Script inside a record or table for an action based on the current context</li>
+<li>Can be used for additional filtering on the current record</li>
+<li>Use if you need to set or modify values during a flow</li>
+</ul>
+<h2 id="_1"><img alt="Flow Designer Inline Scripting" src="../flow_designer_inline_scripting.png" /></h2>
+<h2 id="flow-api-vs-flowscript-api">Flow API vs FlowScript API</h2>
+<p><strong>Flow API</strong></p>
+<ul>
+<li>Designed for managing Flows programmatically (starting flows, retrieving context, etc.)</li>
+<li>Typically used outside a script step, e.g., in Script Includes, UI Actions, or other server scripts</li>
+<li>Provides high-level operations on Flow execution</li>
+</ul>
+<p><strong>FlowScript API</strong></p>
+<ul>
+<li>Designed for inside Flow scripting steps</li>
+<li>Scoped to the current Flow context</li>
+<li>Provides access to inputs, outputs, current, and Flow-specific utility methods</li>
+<li>Meant for custom logic in the Flow, not for starting other Flows</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Flow API</th>
+<th>FlowScript API</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Scope</td>
+<td>External scripts / global</td>
+<td>Inside Flow script steps</td>
+</tr>
+<tr>
+<td>Purpose</td>
+<td>Control or inspect Flows</td>
+<td>Run custom logic inside a Flow</td>
+</tr>
+<tr>
+<td>Access</td>
+<td>Flow context table, API methods</td>
+<td>inputs, outputs, current record</td>
+</tr>
+<tr>
+<td>Example Use Case</td>
+<td>Start a Flow from a Script Include</td>
+<td>Determine dynamic approver inside a Flow step</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Note</strong>:</p>
+<ul>
+<li>Flow API → Think “control Flows from outside”</li>
+<li>FlowScript API → Think “custom logic inside Flow”</li>
+</ul>
+<h2 id="_2"><img alt="Flow Designer API VA Script API" src="../flow_designer_script_vs_api.png" /></h2>
+<h2 id="scriptableflowrunner-api">ScriptableFlowRunner API</h2>
+<h4 id="call-order">Call Order</h4>
+<p><img alt="Scriptable Flow Runner" src="../flow_designer_scriptable_flow_runner.png" /></p>
+<p><img alt="Scriptable Flow Runner Example" src="../flow_designer_scriptable_flow_runner_ex.png" /></p>
+<h2 id="glide-flow-api">Glide Flow API</h2>
+<p><img alt="Glide Flow" src="../flow_designer_glide_flow.png" /></p>
+<h2 id="use-when">Use When</h2>
+<p>Use Flow scripting when:</p>
+<ul>
+<li>You need logic not achievable via Flow conditions</li>
+<li>You need to manipulate or transform data</li>
+<li>You must dynamically determine values (approvers, assignment groups,
+  etc.)</li>
+<li>You need multi-step record queries</li>
+</ul>
+<p>Do <strong>NOT</strong> use it when:</p>
+<ul>
+<li>Logic is reusable across multiple Flows → use Script Include</li>
+<li>The logic is large or complex</li>
+<li>It belongs in core business rules</li>
+<li>You need synchronous database validation logic</li>
+</ul>
+<hr />
+<h2 id="script-structure">Script Structure</h2>
+<p>Inside a Script step:</p>
+<pre><code class="language-javascript">(function execute(inputs, outputs) {
+  var gr = new GlideRecord(&quot;incident&quot;);
+  gr.addQuery(&quot;priority&quot;, 1);
+  gr.query();
+
+  var count = 0;
+  while (gr.next()) {
+    count++;
+  }
+
+  outputs.highPriorityCount = count;
+})(inputs, outputs);
+</code></pre>
+<h3 id="key-objects">Key Objects</h3>
+<ul>
+<li><code>inputs</code> → Data passed into the script step</li>
+<li><code>outputs</code> → Values returned to the Flow</li>
+<li><code>current</code> → Available only in record-triggered Flows</li>
+<li><code>GlideRecord</code> → For database operations</li>
+<li><code>gs</code> → System logging</li>
+</ul>
+<hr />
+<h2 id="what-it-touches">What It Touches</h2>
+<ul>
+<li><strong>Tables</strong></li>
+<li>Flow context tables</li>
+<li>Any table queried via GlideRecord</li>
+<li><strong>APIs</strong></li>
+<li>GlideRecord</li>
+<li>GlideAggregate</li>
+<li>GlideSystem (<code>gs</code>)</li>
+<li>Scoped APIs</li>
+</ul>
+<p>Remember: It runs in <strong>the application scope of the Flow</strong>.
+xs</p>
+<hr />
+<h2 id="performance-considerations">Performance Considerations</h2>
+<ul>
+<li>Avoid large loops over massive tables</li>
+<li>Use indexed fields in queries</li>
+<li>Prefer <code>GlideAggregate</code> over manual counting</li>
+<li>Avoid unnecessary record updates inside loops</li>
+<li>Consider asynchronous design</li>
+</ul>
+<p>Flows can become slow if scripts are inefficient.</p>
+<hr />
+<h2 id="common-mistakes">Common Mistakes</h2>
+<ul>
+<li>Stuffing complex business logic into Script steps</li>
+<li>Not handling null/undefined inputs</li>
+<li>No error handling</li>
+<li>Hardcoding sys_ids</li>
+<li>Querying entire tables without filters</li>
+<li>Repeating logic across multiple Flows instead of using an Action</li>
+</ul>
+<hr />
+<h2 id="error-handling-pattern">Error Handling Pattern</h2>
+<p>Enables flows to catch errors, and run a sequence of actions and sublows to correct issues.
+Can set to log the error or send a notification as well.</p>
+<pre><code class="language-javascript">(function execute(inputs, outputs) {
+  try {
+    if (!inputs.userSysId) {
+      throw &quot;User Sys ID is required&quot;;
+    }
+
+    var user = new GlideRecord(&quot;sys_user&quot;);
+    if (!user.get(inputs.userSysId)) {
+      throw &quot;User not found&quot;;
+    }
+
+    outputs.manager = user.manager;
+  } catch (e) {
+    gs.error(&quot;Flow Script Error: &quot; + e);
+    outputs.errorMessage = e;
+  }
+})(inputs, outputs);
+</code></pre>
+<hr />
+<h2 id="1-min-example-dynamic-approval-path">1-Min Example (Dynamic Approval Path)</h2>
+<p><strong>Use Case:</strong> Determine approver based on amount.</p>
+<pre><code class="language-javascript">(function execute(inputs, outputs) {
+  if (inputs.amount &gt; 10000) {
+    outputs.approver = inputs.director;
+  } else {
+    outputs.approver = inputs.manager;
+  }
+})(inputs, outputs);
+</code></pre>
+<p>Flow then routes approval dynamically.</p>
+<hr />
+<h2 id="additional-notes">Additional notes</h2>
+<ul>
+<li>Flow scripting is server-side only</li>
+<li>Actions are reusable --- Script steps are not</li>
+<li>Prefer low-code Flow logic when possible</li>
+<li>Script Includes are better for reusable complex logic</li>
+<li>Know when to choose Flow vs Business Rule</li>
+</ul>
+<h1 id="when-to-choose-flow-vs-business-rule">When to Choose Flow vs Business Rule</h1>
+<h2 id="quick-decision-guide">Quick Decision Guide</h2>
+<h3 id="choose-flow-designer-when">Choose Flow Designer When:</h3>
+<ul>
+<li>You want low-code / declarative logic</li>
+<li>The process involves approvals, notifications, or orchestration</li>
+<li>The logic spans multiple tables or systems</li>
+<li>You want visibility into execution (Flow context)</li>
+<li>Admin-level maintainability is important</li>
+<li>The logic is asynchronous or event-driven</li>
+</ul>
+<h3 id="choose-business-rule-when">Choose Business Rule When:</h3>
+<ul>
+<li>You need synchronous execution during database operations</li>
+<li>The logic must run before/after insert, update, delete, or query</li>
+<li>You need tight control over transaction behavior</li>
+<li>Data integrity must be enforced immediately</li>
+<li>Performance is critical and must occur inline</li>
+</ul>
+<hr />
+<h1 id="comparison-section">Comparison Section</h1>
+<p><img alt="SubFlow VS Action" src="../flow_designer_subflow_vs_action.png" /></p>
+<hr />
+<h2 id="flow-script-vs-business-rule">Flow Script vs Business Rule</h2>
+<p>Feature Flow Script Business Rule</p>
+<hr />
+<p>Execution Runs inside Flow engine Runs during DB transaction
+Timing After trigger Before/After/Async
+Scope Flow context Table-specific
+Visibility Easy UI tracking Requires logs/debug
+Complexity Should stay light Can handle heavy logic
+Best For Orchestration logic Data integrity enforcement</p>
+<h3 id="key-difference">Key Difference</h3>
+<p>Flow Script is orchestration-focused.\
+Business Rules are transaction-focused.</p>
+<p>If the database operation must be controlled --- use a Business Rule.\
+If you're automating a process --- use Flow.</p>
+<hr />
+<h2 id="flow-vs-script-include">Flow vs Script Include</h2>
+<p>Feature Flow Script Include</p>
+<hr />
+<p>Type Process automation tool Reusable code library
+Reusability Limited (unless Action) High
+Audience Admin + Dev Developer
+UI Visual builder Code-only
+Best For Process orchestration Shared business logic</p>
+<h3 id="rule-of-thumb">Rule of Thumb</h3>
+<p>If logic will be reused across:</p>
+<ul>
+<li>Business Rules</li>
+<li>Flows</li>
+<li>UI Actions</li>
+<li>APIs</li>
+</ul>
+<p>→ Put it in a Script Include.</p>
+<p>Flow should call Script Includes for complex reusable logic.</p>
+<hr />
+<h2 id="flow-vs-workflow-legacy">Flow vs Workflow (Legacy)</h2>
+<p>Feature Flow Designer Workflow (Legacy)</p>
+<hr />
+<p>Platform Direction Current standard Deprecated direction
+UI Modern, visual Classic workflow editor
+Extensibility Actions + Spokes Activities
+Scripting Inline + Actions Script activities
+Future Support Active development Maintenance mode</p>
+<h3 id="important">Important!</h3>
+<ul>
+<li>Workflow is legacy.</li>
+<li>Flow Designer is the strategic platform.</li>
+<li>New implementations should use Flow Designer.</li>
+</ul>
+<p>Unless maintaining an older instance, choose Flow.</p>
+<hr />
+<h3 id="mental-model">mental model:</h3>
+<ul>
+<li><strong>Script Include</strong> = Logic Layer\</li>
+<li><strong>Business Rule</strong> = Data Enforcement Layer\</li>
+<li><strong>Flow Designer</strong> = Process Automation Layer</li>
+</ul>
+<p>If you separate these correctly, your applications scale cleanly and you
+avoid logic duplication.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../Fix_Script/" class="btn btn-neutral float-left" title="Fix Script"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../JS_On_Now_Platform/" class="btn btn-neutral float-right" title="JavaScript On Now Platform">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../Fix_Script/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../JS_On_Now_Platform/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
