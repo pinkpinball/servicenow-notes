@@ -72,6 +72,87 @@ If it says "This application scope only", the call silently fails at runtime —
 
 > 🧠 **MEMORY TIP:** To diagnose a cross-scope failure: open the Script Include record and look at "Accessible from". 9 times out of 10, that's the problem.
 
+### Delegated Development — Full Deep Dive
+
+Delegated Development lets you give a developer admin-level power over **one specific scoped app** without granting them system admin. This is the right tool for team-based or contractor-based development.
+
+#### How to Set It Up
+
+```
+1. Open the scoped application record (via Studio or App Manager)
+2. Click "Manage Developers" on the application record
+3. Add users to the "Delegated Developers" related list
+4. Those users now have developer access scoped to that app only
+```
+
+The delegated developer works entirely inside Studio, which filters to show only their assigned app. They cannot navigate to other scoped apps or to global scope artifacts.
+
+#### What a Delegated Developer CAN Do
+
+- Create and edit Tables, Fields, Business Rules, Client Scripts, Script Includes within their app
+- Create UI Policies, UI Actions, and ACLs within their app
+- Publish and version the app to the App Repository
+- View the application's update history and versions
+
+#### What a Delegated Developer CANNOT Do
+
+- Modify any artifact outside their assigned scope
+- Access System Administration menus (User Management, Update Sets, etc.)
+- Change instance-level settings or system properties
+- Grant themselves `admin` or `security_admin`
+- Edit global scope scripts or other scoped apps
+
+#### Delegated Developer vs Admin — Key Comparison
+
+| Capability                          | Admin | Delegated Developer     |
+| ----------------------------------- | ----- | ----------------------- |
+| Modify artifacts in any scope       | ✅    | ❌ (own scope only)     |
+| Create/edit tables in assigned app  | ✅    | ✅                      |
+| Access System Admin menus           | ✅    | ❌                      |
+| Grant other users the admin role    | ✅    | ❌                      |
+| Publish app to App Repository       | ✅    | ✅ (unless Code Review) |
+| Bypass ACLs                         | ✅    | ❌                      |
+| Manage Update Sets                  | ✅    | ❌                      |
+| View artifacts in other scoped apps | ✅    | ❌                      |
+
+> 🧠 **MEMORY TIP:** Think of Delegated Developer as a **room key**, not a master key. They can only open the one door they've been assigned.
+
+#### Code Review for Delegated Developers
+
+When **Code Review** is enabled on an application, delegated developers cannot directly publish their changes. Every change must be approved by a designated reviewer first.
+
+```
+Delegated Developer saves/commits a change
+         |
+         v
+Change enters "Pending Review" state
+         |
+         v
+Designated Code Reviewer inspects the change
+         |
+   [APPROVE] ──────> Change is promoted and published
+         |
+   [REJECT]  ──────> Developer must revise and resubmit
+```
+
+> ⚠️ **EXAM TRAP:** Code Review is configured **per application**, not globally. Enabling it on one app does not affect other apps.
+
+> ⚠️ **EXAM TRAP:** A delegated developer stuck in "Pending Review" does NOT need `admin` access — they need an assigned **Code Reviewer** to approve or reject their submission.
+
+#### Practice Questions — Delegated Development
+
+> 📋 **PRACTICE Q:** A company wants a contractor to build a new scoped app without being able to access HR data stored in a separate scoped app on the same instance. What should the admin configure?
+
+> ✅ **ANSWER:** Create the scoped app and add the contractor as a **Delegated Developer** on that app only. They get full development access to the assigned app but cannot see or modify artifacts in other scopes.
+
+---
+
+> 📋 **PRACTICE Q:** A delegated developer reports they cannot publish their changes to the App Repository even though their work is complete. They have not been given the `admin` role. What is the most likely cause?
+
+> ✅ **ANSWER:** **Code Review is enabled** on the application. Their changes are in "Pending Review" state and require a designated reviewer to approve them before publishing is allowed.
+
+---
+
 ### Practice Questions — Domain 1
 
 > 📋 **PRACTICE Q:** A developer creates a new table while the **Global** app is selected in the App Picker. The table prefix is `u_`. Later, the developer switches to a scoped app and creates a Script Include. Which scope does the Script Include belong to?
@@ -548,7 +629,7 @@ External Data Source (CSV, Excel, JDBC, REST)
 > 💡 **sc\_ = Service Catalog** — easy way to remember the table prefix!
 > 💡 **Variable Set** is to variables what a **Script Include** is to scripts — both exist for reusability!
 
-### REST APIs
+### REST APIs — Full Deep Dive
 
 The URL structure is predictable:
 
@@ -558,20 +639,219 @@ https://instance.service-now.com/api/now/table/{table_name}
 GET    /api/now/table/incident          → get all incidents
 GET    /api/now/table/incident/{sys_id} → get specific incident
 POST   /api/now/table/incident          → create new incident
-PUT    /api/now/table/incident/{sys_id} → update incident
+PUT    /api/now/table/incident/{sys_id} → update incident (full replace)
+PATCH  /api/now/table/incident/{sys_id} → update incident (partial update)
 DELETE /api/now/table/incident/{sys_id} → delete incident
 ```
 
-| API               | Direction             | Use case                                        |
-| ----------------- | --------------------- | ----------------------------------------------- |
-| Table API         | External → ServiceNow | External system reads/writes ServiceNow records |
-| REST Message      | ServiceNow → External | ServiceNow calls an external REST API           |
-| Scripted REST API | External → ServiceNow | Custom endpoints YOU build in ServiceNow        |
+#### Three REST Directions — Know Which Is Which
 
-> 💡 **Exam key:** External talking TO ServiceNow → **Table API** | ServiceNow talking TO external → **REST Message** | Need a custom endpoint in ServiceNow → **Scripted REST API**
+| API               | Direction             | Use case                                            |
+| ----------------- | --------------------- | --------------------------------------------------- |
+| Table API         | External → ServiceNow | External system reads/writes ServiceNow records     |
+| REST Message      | ServiceNow → External | ServiceNow calls an outbound REST API               |
+| Scripted REST API | External → ServiceNow | Custom endpoints YOU build and expose in ServiceNow |
 
-The two REST objects to keep straight:
-ObjectUsed inPurposeRESTAPIResponseScripted REST APISend response TO external systemsn_ws.RESTMessageV2REST MessageCall FROM ServiceNow TO external system
+> 💡 **Exam key:**
+>
+> - External talking **TO** ServiceNow → **Table API**
+> - ServiceNow talking **TO** external → **REST Message** (`sn_ws.RESTMessageV2`)
+> - Need a **custom endpoint** in ServiceNow → **Scripted REST API**
+
+---
+
+#### Table API — Useful Query Parameters
+
+When calling the Table API from an external system, these query params control what comes back:
+
+| Parameter               | What it does                                | Example                                 |
+| ----------------------- | ------------------------------------------- | --------------------------------------- |
+| `sysparm_fields`        | Limit which fields are returned             | `?sysparm_fields=number,priority,state` |
+| `sysparm_limit`         | Max number of records returned              | `?sysparm_limit=10`                     |
+| `sysparm_offset`        | Pagination offset                           | `?sysparm_offset=10`                    |
+| `sysparm_query`         | Encoded query to filter results             | `?sysparm_query=priority=1^active=true` |
+| `sysparm_display_value` | Return display values instead of raw values | `?sysparm_display_value=true`           |
+
+---
+
+#### Outbound REST — `sn_ws.RESTMessageV2` (ServiceNow → External)
+
+Use this when ServiceNow needs to call **an external REST API**. Configured under **System Web Services > Outbound > REST Message**, then called via script.
+
+```javascript
+// ✅ Calling an outbound REST Message via script (e.g., in a Business Rule or Script Include)
+try {
+  var sm = new sn_ws.RESTMessageV2("MyRESTMessage", "get"); // REST Message name + HTTP Method record
+  sm.setStringParameterNoEscape("table", "incident"); // set a variable defined on the REST Message
+  sm.setHttpTimeout(10000); // timeout in ms (10 seconds)
+
+  var response = sm.execute(); // synchronous — blocks until response
+  var httpStatus = response.getStatusCode(); // e.g., 200
+  var body = response.getBody(); // response body as string
+  var jsonBody = JSON.parse(body); // parse JSON
+
+  gs.info("Status: " + httpStatus);
+  gs.info("Response: " + body);
+} catch (ex) {
+  gs.error("REST call failed: " + ex.getMessage());
+}
+
+// ✅ Async (non-blocking) outbound REST call
+var sm = new sn_ws.RESTMessageV2("MyRESTMessage", "post");
+sm.setRequestHeader("Content-Type", "application/json");
+sm.setRequestBody(JSON.stringify({ key: "value" }));
+var response = sm.executeAsync(); // returns immediately
+response.waitForResponse(60); // wait up to 60 seconds
+var statusCode = response.getStatusCode();
+```
+
+**Key `sn_ws.RESTMessageV2` methods:**
+
+```javascript
+sm.setEndpoint("https://api.example.com/data"); // override the endpoint URL
+sm.setHttpMethod("POST"); // GET, POST, PUT, PATCH, DELETE
+sm.setRequestHeader("Authorization", "Bearer token"); // set a single header
+sm.setRequestBody('{"key":"value"}'); // set raw body string
+sm.setStringParameterNoEscape("param", value); // set a URL/body variable
+sm.setQueryParameter("filter", "active"); // add a query string param
+sm.execute(); // synchronous execution
+sm.executeAsync(); // asynchronous execution
+response.getStatusCode(); // HTTP status (200, 404, etc.)
+response.getBody(); // response body as string
+response.getHeader("Content-Type"); // get a response header
+response.haveError(); // true if a transport error occurred
+response.getErrorMessage(); // error details if haveError() is true
+```
+
+> ⚠️ **EXAM TRAP:** `sn_ws.RESTMessageV2` is for **outbound** calls — ServiceNow calling an external system. It is NOT used to receive inbound requests.
+
+---
+
+#### Scripted REST API — Building Custom Endpoints in ServiceNow
+
+A **Scripted REST API** lets you create a **custom REST endpoint** that external systems can call, beyond what the Table API provides. You define the URL path, HTTP methods, and write the handler logic yourself.
+
+**When to use it:**
+
+- You need a custom URL structure (not `/api/now/table/...`)
+- You want to return a transformed/aggregated response
+- You need to expose business logic (not just raw table data)
+- You want to restrict what callers can access
+
+**How it's structured:**
+
+```
+Scripted REST API (parent)
+  → defines base path:  /api/x_myco_myapp/myservice
+  → Resources (children)
+      → each Resource = one URL path + one or more HTTP methods
+      → each method has a Script that handles the request and builds the response
+```
+
+**Full Example — Creating a custom endpoint:**
+
+```javascript
+// Scripted REST API Resource script
+// This handles: GET /api/x_myco_myapp/incident_summary/{number}
+
+(function process(/*RESTAPIRequest*/ request, /*RESTAPIResponse*/ response) {
+  // 1. Read path parameters (e.g., /incident_summary/{number})
+  var incidentNumber = request.pathParams.number;
+
+  // 2. Read query parameters (e.g., ?include_comments=true)
+  var includeComments = request.queryParams.include_comments;
+
+  // 3. Read the request body (for POST/PUT)
+  var body = request.body.data; // parsed JSON object (if Content-Type is application/json)
+  var rawBody = request.body.dataString; // raw string body
+
+  // 4. Read request headers
+  var authHeader = request.headers.Authorization;
+
+  // 5. Query ServiceNow data
+  var gr = new GlideRecord("incident");
+  gr.addQuery("number", incidentNumber);
+  gr.query();
+
+  if (!gr.next()) {
+    // 6a. Return an error response
+    response.setStatus(404);
+    response.setBody({ error: "Incident not found", number: incidentNumber });
+    return;
+  }
+
+  // 6b. Build and return a success response
+  var result = {
+    number: gr.getValue("number"),
+    priority: gr.getDisplayValue("priority"),
+    state: gr.getDisplayValue("state"),
+    assigned_to: gr.getDisplayValue("assigned_to"),
+    opened_at: gr.getValue("opened_at"),
+  };
+
+  response.setStatus(200);
+  response.setBody(result); // automatically serialized to JSON
+})(request, response);
+```
+
+**Key `RESTAPIRequest` methods:**
+
+```javascript
+request.pathParams.paramName; // path variables defined in the resource URL
+request.queryParams.paramName; // URL query string params (?key=value)
+request.headers.HeaderName; // inbound request headers
+request.body.data; // parsed JSON body (object)
+request.body.dataString; // raw body as string
+request.getRequestBodyAsStream(); // for large/binary bodies
+```
+
+**Key `RESTAPIResponse` methods:**
+
+```javascript
+response.setStatus(200); // HTTP status code to return
+response.setBody({ key: "value" }); // set response body (object auto-serialized to JSON)
+response.setContentType("application/json"); // set response content type
+response.setHeader("X-Custom", "val"); // set a response header
+response.setError(error); // set an error object on the response
+```
+
+**Securing a Scripted REST API:**
+
+| Option                  | How it works                                                          |
+| ----------------------- | --------------------------------------------------------------------- |
+| Requires Authentication | Checkbox on the API — enforces Basic Auth or OAuth                    |
+| ACL on the endpoint     | Create an ACL with operation `REST_Endpoint` for fine-grained control |
+| Role check in script    | Use `gs.hasRole("role_name")` inside the resource script              |
+| OAuth 2.0               | Configure an OAuth provider and associate it with the API             |
+
+> ⚠️ **EXAM TRAP:** The two REST objects to keep straight:
+
+| Object                | Used in           | Purpose                                     |
+| --------------------- | ----------------- | ------------------------------------------- |
+| `RESTAPIResponse`     | Scripted REST API | Send a response **TO** an external caller   |
+| `sn_ws.RESTMessageV2` | REST Message      | Call **FROM** ServiceNow to external system |
+
+> 🧠 **MEMORY TIP:** **Scripted REST API = you're the server** (ServiceNow receives the call). **REST Message = you're the client** (ServiceNow makes the call).
+
+#### Practice Questions — REST APIs
+
+> 📋 **PRACTICE Q:** An external ticketing system needs to create incidents in ServiceNow by calling a URL. The team wants to expose only specific fields and add custom validation logic. Which ServiceNow feature should they use?
+
+> ✅ **ANSWER:** A **Scripted REST API**. The Table API exposes all fields with no custom logic. A Scripted REST API lets you define exactly what fields are accepted, apply business logic, and return a tailored response.
+
+---
+
+> 📋 **PRACTICE Q:** A Business Rule needs to notify an external webhook URL every time a high-priority incident is created. Which API is used?
+
+> ✅ **ANSWER:** **`sn_ws.RESTMessageV2`** (Outbound REST Message). ServiceNow is making the call to an external system, which means outbound REST.
+
+---
+
+> 📋 **PRACTICE Q:** An external system calls the ServiceNow Table API with `?sysparm_display_value=true`. What changes in the response?
+
+> ✅ **ANSWER:** Fields return their **display values** (human-readable labels) instead of raw database values. For example, `state` returns `"In Progress"` instead of `"2"`, and a reference field returns the referenced record's display name instead of its `sys_id`.
+
+---
 
 ### Dictionary Attributes
 
@@ -599,12 +879,14 @@ Added as `attribute_name=true` or `attribute_name=value` in a field's dictionary
 
 ### Delegated Development
 
-| Concept                  | What to know                                                           |
-| ------------------------ | ---------------------------------------------------------------------- |
-| Delegated Developer role | Grants development access to a specific scoped app                     |
-| Code Review              | A designated approver must review changes before they are promoted     |
-| Scope isolation          | Delegated developer cannot modify artifacts outside their assigned app |
-| Why use it               | Allows team-based development without handing out admin access         |
+| Concept                  | What to know                                                                  |
+| ------------------------ | ----------------------------------------------------------------------------- |
+| Delegated Developer role | Grants development access to a specific scoped app only                       |
+| Code Review              | A designated approver must review changes before they are promoted/published  |
+| Scope isolation          | Delegated developer cannot modify artifacts outside their assigned app        |
+| Why use it               | Allows team-based development without handing out admin access                |
+| How to assign            | Open the application record → "Manage Developers" → add users to related list |
+| Code Review config       | Per application — enabling it on one app does not affect others               |
 
 ### Practice Questions — Domain 6
 
@@ -705,19 +987,22 @@ var val = g_scratchpad.anyName; // read the property
 
 ### Client vs Server API Cheat Sheet
 
-| Object / API       | Client or Server        | Purpose                                               | Key Gotcha                                         |
-| ------------------ | ----------------------- | ----------------------------------------------------- | -------------------------------------------------- |
-| `g_form`           | Client only             | Get/set field values, visibility, mandatory on a form | Not available in Business Rules                    |
-| `g_user`           | Client only             | Current logged-in user info                           | Use `gs` on server side instead                    |
-| `current`          | Server only             | GlideRecord in a BR representing the current record   | Do not call `current.update()` in a Before BR      |
-| `previous`         | Server only             | Pre-update field values in a Business Rule            | Compare with `current` to detect changes           |
-| `GlideRecord`      | Server only             | Query / insert / update any table                     | Use `getValue()`, not `gr.field_name` directly     |
-| `GlideAjax`        | Client → Server         | Call a server Script Include from a client script     | Script Include must extend `AbstractAjaxProcessor` |
-| `gs` (GlideSystem) | Server only             | Logging, user info, system properties                 | `gs.getUser()` returns a GlideUser object          |
-| `g_scratchpad`     | Bridge: server → client | Pass data from Display BR to client scripts           | Set in Display BR, read in client script           |
-| Script Include     | Server                  | Reusable server-side functions                        | Set "Accessible from" for cross-scope use          |
+| Object / API          | Client or Server        | Purpose                                               | Key Gotcha                                          |
+| --------------------- | ----------------------- | ----------------------------------------------------- | --------------------------------------------------- |
+| `g_form`              | Client only             | Get/set field values, visibility, mandatory on a form | Not available in Business Rules                     |
+| `g_user`              | Client only             | Current logged-in user info                           | Use `gs` on server side instead                     |
+| `current`             | Server only             | GlideRecord in a BR representing the current record   | Do not call `current.update()` in a Before BR       |
+| `previous`            | Server only             | Pre-update field values in a Business Rule            | Compare with `current` to detect changes            |
+| `GlideRecord`         | Server only             | Query / insert / update any table                     | Use `getValue()`, not `gr.field_name` directly      |
+| `GlideAjax`           | Client → Server         | Call a server Script Include from a client script     | Script Include must extend `AbstractAjaxProcessor`  |
+| `gs` (GlideSystem)    | Server only             | Logging, user info, system properties                 | `gs.getUser()` returns a GlideUser object           |
+| `g_scratchpad`        | Bridge: server → client | Pass data from Display BR to client scripts           | Set in Display BR, read in client script            |
+| Script Include        | Server                  | Reusable server-side functions                        | Set "Accessible from" for cross-scope use           |
+| `sn_ws.RESTMessageV2` | Server only             | Make outbound REST calls to external systems          | ServiceNow is the CLIENT calling an external API    |
+| `RESTAPIRequest`      | Server only             | Read inbound data in a Scripted REST API resource     | Available as `request` variable in resource script  |
+| `RESTAPIResponse`     | Server only             | Send response from a Scripted REST API resource       | Available as `response` variable in resource script |
 
-> 💡 **Memory trick:** Everything starting with `g_` is **client-side**. `gs` and `gr` are **server-side**.
+> 💡 **Memory trick:** Everything starting with `g_` is **client-side**. `gs`, `gr`, and `sn_ws` are **server-side**.
 
 ### BR Timing Quick Reference
 
@@ -739,6 +1024,14 @@ var val = g_scratchpad.anyName; // read the property
 | `sys_` | ServiceNow native platform table |
 | `sc_`  | Service Catalog tables           |
 
+### REST API Quick Reference
+
+| Tool                  | Direction             | When to use                                        |
+| --------------------- | --------------------- | -------------------------------------------------- |
+| Table API             | External → ServiceNow | External system does basic CRUD on standard tables |
+| Scripted REST API     | External → ServiceNow | Custom logic, custom URL, aggregated/filtered data |
+| `sn_ws.RESTMessageV2` | ServiceNow → External | ServiceNow needs to call an external API           |
+
 ### Script Include Quick Reference
 
 - **Server-side only** reusable logic
@@ -751,27 +1044,31 @@ var val = g_scratchpad.anyName; // read the property
 
 ## All Exam Traps — Combined List
 
-| Scenario / Symptom                          | Trap                                     | Correct Answer                                                 |
-| ------------------------------------------- | ---------------------------------------- | -------------------------------------------------------------- |
-| Form is slow after save                     | Thinking it's a client issue             | Check for heavy After BR — consider Async instead              |
-| Field not saving despite no error           | Checking only UI settings                | Check dictionary read-only flag                                |
-| Client Script needs DB data                 | Using GlideRecord in client script       | Use GlideAjax + client-callable Script Include                 |
-| Mandatory not enforced on import            | Using UI Policy                          | Use Data Policy — it's server-side                             |
-| Cross-scope call fails silently             | Assuming it's a code bug                 | Check "Accessible from" on the Script Include                  |
-| User sees list, can't open record           | Checking field-level ACLs first          | Record-level ACL is blocking — check that first                |
-| User can't see list at all                  | Checking record/field ACLs               | Table-level ACL is blocking — start there                      |
-| Button on form needs server logic           | Using a Business Rule                    | Use a UI Action with Form Button checked                       |
-| Field change needs silent server call       | Using a UI Action                        | Use GlideAjax + client-callable Script Include                 |
-| Move config between instances               | Manually recreating scripts              | Use Update Set or App Repository                               |
-| Artifact in wrong scope                     | Blaming the script                       | Check App Picker — was the correct scope selected at creation? |
-| BR causing infinite loop                    | Adding more conditions to the BR         | Remove `current.update()` from the Before BR                   |
-| `onCellEdit` used on a form                 | Thinking it works on forms               | `onCellEdit` is list view only — use `onChange` on forms       |
-| `security_admin` assumed = `admin`          | Thinking `security_admin` bypasses ACLs  | Only `admin` bypasses ACLs — `security_admin` manages them     |
-| Update Set expected to include data records | Expecting incident records in Update Set | Update Sets capture config only, not data                      |
-| UI Policy expected to enforce on import     | Using UI Policy for import validation    | UI Policies are browser-side — use Data Policy                 |
-| Making a field read-only based on role      | Using an ACL                             | ACLs have no "read-only" mode — use Client Script              |
-| `gr.field_name` used for comparison         | Thinking it returns the value            | Returns GlideElement object — use `getValue()` instead         |
-| `getValue()` vs `getDisplayValue()`         | Using wrong one for reference fields     | `getValue()` = sys_id; `getDisplayValue()` = human label       |
+| Scenario / Symptom                          | Trap                                     | Correct Answer                                                    |
+| ------------------------------------------- | ---------------------------------------- | ----------------------------------------------------------------- |
+| Form is slow after save                     | Thinking it's a client issue             | Check for heavy After BR — consider Async instead                 |
+| Field not saving despite no error           | Checking only UI settings                | Check dictionary read-only flag                                   |
+| Client Script needs DB data                 | Using GlideRecord in client script       | Use GlideAjax + client-callable Script Include                    |
+| Mandatory not enforced on import            | Using UI Policy                          | Use Data Policy — it's server-side                                |
+| Cross-scope call fails silently             | Assuming it's a code bug                 | Check "Accessible from" on the Script Include                     |
+| User sees list, can't open record           | Checking field-level ACLs first          | Record-level ACL is blocking — check that first                   |
+| User can't see list at all                  | Checking record/field ACLs               | Table-level ACL is blocking — start there                         |
+| Button on form needs server logic           | Using a Business Rule                    | Use a UI Action with Form Button checked                          |
+| Field change needs silent server call       | Using a UI Action                        | Use GlideAjax + client-callable Script Include                    |
+| Move config between instances               | Manually recreating scripts              | Use Update Set or App Repository                                  |
+| Artifact in wrong scope                     | Blaming the script                       | Check App Picker — was the correct scope selected at creation?    |
+| BR causing infinite loop                    | Adding more conditions to the BR         | Remove `current.update()` from the Before BR                      |
+| `onCellEdit` used on a form                 | Thinking it works on forms               | `onCellEdit` is list view only — use `onChange` on forms          |
+| `security_admin` assumed = `admin`          | Thinking `security_admin` bypasses ACLs  | Only `admin` bypasses ACLs — `security_admin` manages them        |
+| Update Set expected to include data records | Expecting incident records in Update Set | Update Sets capture config only, not data                         |
+| UI Policy expected to enforce on import     | Using UI Policy for import validation    | UI Policies are browser-side — use Data Policy                    |
+| Making a field read-only based on role      | Using an ACL                             | ACLs have no "read-only" mode — use Client Script                 |
+| `gr.field_name` used for comparison         | Thinking it returns the value            | Returns GlideElement object — use `getValue()` instead            |
+| `getValue()` vs `getDisplayValue()`         | Using wrong one for reference fields     | `getValue()` = sys_id; `getDisplayValue()` = human label          |
+| Delegated developer can't publish           | Assuming they need `admin`               | Check if Code Review is enabled — they need a reviewer to approve |
+| Outbound REST call from a Business Rule     | Using Table API or Scripted REST API     | Use `sn_ws.RESTMessageV2` — ServiceNow is the client here         |
+| Custom external-facing endpoint needed      | Using only the Table API                 | Build a Scripted REST API for custom paths and logic              |
+| `RESTAPIResponse` vs `RESTMessageV2`        | Confusing inbound vs outbound            | `RESTAPIResponse` = respond to caller; `RESTMessageV2` = call out |
 
 ---
 
@@ -789,6 +1086,10 @@ var val = g_scratchpad.anyName; // read the property
 - **Read a field in GlideRecord?** → `getValue()`, not `gr.field_name`
 - **Read-only behavior based on role?** → Client Script, NOT an ACL
 - **Need data on form load?** → g_scratchpad. Need data after interaction? → GlideAjax
+- **ServiceNow calling an external API?** → `sn_ws.RESTMessageV2`
+- **External system calling a custom ServiceNow endpoint?** → Scripted REST API
+- **Delegated developer stuck, can't publish?** → Code Review is enabled — needs a reviewer
+- **Delegated developer accessing another app's artifacts?** → Not possible — scope isolation
 
 ---
 
@@ -798,6 +1099,7 @@ var val = g_scratchpad.anyName; // read the property
 - **`g_` prefix = client side** (g_form, g_user, g_scratchpad)
 - **`gs` = system/session** (server side)
 - **`gr` = records/database** (server side)
+- **`sn_ws` = web services outbound** (server side — ServiceNow calling out)
 - **`no_` prefix = disabling a dictionary attribute** (no_sort, no_filter, no_negative)
 - **sc\_ = Service Catalog** (sc_request, sc_req_item)
 - **UI Policy = simple form conditions** | **Client Script = complex logic**
@@ -808,6 +1110,8 @@ var val = g_scratchpad.anyName; // read the property
 - **x\_ = scoped** | **u\_ = global (user-created)** | **sys\_ = system/native**
 - **Before = shape it. After = react to it. Async = fire and forget. Display = feed the form.**
 - **Complete → Export → Import → Preview → Commit** (Update Set deployment order)
+- **Scripted REST API = you're the server** (ServiceNow receives) | **REST Message = you're the client** (ServiceNow sends)
+- **Delegated Developer = room key, not master key** (one app only)
 
 ---
 
@@ -819,6 +1123,7 @@ var val = g_scratchpad.anyName; // read the property
 | 3–4  | Domain 3 & 4: ACLs, Business Rules, Flow Designer, Scheduled Jobs                  | Create ACLs at all 3 levels, all 4 BR types, observe timing differences |
 | 5    | Domain 2 deep dive: GlideAjax, UI Actions, `g_scratchpad`, Script Includes         | Build a GlideAjax call from scratch — this is exam-heavy content        |
 | 6    | Domain 5 & 6: Import Sets, Transform Maps, Update Sets, App Repository             | Import a CSV, test Data Policy, export and import an Update Set         |
+| 6.5  | Domain 6 deep dive: Scripted REST API, REST Message, Delegated Development         | Build a Scripted REST API resource; practice outbound REST call script  |
 | 7    | Timed practice: 60 questions in 90 minutes                                         | Identify weak areas — revisit those domain sections                     |
 | 8    | Quick-reference drills: ACL levels, BR timing, prefix table, client vs server APIs | Can you recall all tables and flows without looking?                    |
 | 9–10 | Light review, mental walkthroughs, exam-day confidence                             | Re-read all exam traps, sleep well, trust your prep                     |
