@@ -110,7 +110,7 @@ GlideRecord is the most heavily tested scripting topic. Memorize the correct pat
 var gr = new GlideRecord("incident");
 gr.addQuery("priority", "1");
 gr.addQuery("field", "!=", "value"); // not equal
-gr.addEncodedQuery("active=true"); // encoded query string
+gr.addEncodedQuery("active=true"); // encoded query string, can pass in a pre-built query!
 gr.query(); // NEVER skip this
 while (gr.next()) {
   // while, not if
@@ -145,6 +145,14 @@ gr.hasNext(); // check if more records exist
 gr.deleteRecord(); // delete current record
 gr.isNewRecord(); // is this a new record?
 gr.isValidRecord(); // did query return a record?
+
+gr.addNullQuery("assignment_group"); // ✅ use when BUILDING a query
+gr.addQuery("assignment_group", ""); // ❌ unreliable for null checks
+
+gr.orderByDesc("field"); // descending order
+gr.orderBy("field"); // ascending order
+gr.setLimit(10); // limit results
+gr.addEncodedQuery("active=true^priority=1"); // pre-built query string
 ```
 
 | Mistake                           | Why it's wrong                                                       | Fix                                            |
@@ -358,6 +366,18 @@ User clicks Save on a form
 6. Async BR          (background)
 ```
 
+Business Rules have checkboxes for Insert, Update, Delete, Query
+Checking Insert only → BR fires ONLY on new record creation
+Simple, clean, no scripting needed
+
+```
+When:   Before / After / Async / Display
+Insert:  ☑ (fires on new records)
+Update:  ☑ (fires on updates)
+Delete:  ☑ (fires on deletions)
+Query:   ☑ (fires on queries)
+```
+
 > 💡 **Browser first → Server second → Background last**
 
 | Type       | Modify `current`?               | Blocks user?               | Best used for                             |
@@ -549,6 +569,9 @@ DELETE /api/now/table/incident/{sys_id} → delete incident
 | Scripted REST API | External → ServiceNow | Custom endpoints YOU build in ServiceNow        |
 
 > 💡 **Exam key:** External talking TO ServiceNow → **Table API** | ServiceNow talking TO external → **REST Message** | Need a custom endpoint in ServiceNow → **Scripted REST API**
+
+The two REST objects to keep straight:
+ObjectUsed inPurposeRESTAPIResponseScripted REST APISend response TO external systemsn_ws.RESTMessageV2REST MessageCall FROM ServiceNow TO external system
 
 ### Dictionary Attributes
 
