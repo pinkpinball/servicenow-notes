@@ -62,6 +62,7 @@ Every artifact you create in ServiceNow belongs to exactly one scope. The scope 
 ### Cross-Scope Access — How it Really Works
 
 When App A calls a Script Include in App B, ServiceNow checks the **"Accessible from"** field on the Script Include record.
+If it says "This application scope only", the call silently fails at runtime — no obvious error, just no result.
 
 | Setting                     | Meaning                                                   | Exam signal                   |
 | --------------------------- | --------------------------------------------------------- | ----------------------------- |
@@ -392,15 +393,15 @@ if (current.priority.nil()) {
 
 Flow Designer is the no-code/low-code replacement for legacy Workflow.
 
-| Concept         | What to know                                                                     |
-| --------------- | -------------------------------------------------------------------------------- |
-| Trigger         | What starts the flow: record created/updated, schedule, inbound email, or manual |
-| Action          | A single step — create record, update field, send email, call spoke              |
-| Spoke           | A pre-built integration package (e.g., Slack Spoke, JIRA Spoke)                  |
-| Subflow         | A reusable flow callable from other flows — like a Script Include for flows      |
-| Script step     | Run arbitrary JavaScript inside a flow when no built-in action exists            |
-| Action Designer | Where you build custom actions that don't exist out of the box                   |
-| Flow Logic      | If/Else, For Each loops, Wait for condition                                      |
+| Concept         | What to know                                                                                        |
+| --------------- | --------------------------------------------------------------------------------------------------- |
+| Trigger         | What starts the flow: record created/updated, schedule, inbound email, application event, or manual |
+| Action          | A single step — create record, update field, send email, call spoke                                 |
+| Spoke           | A pre-built integration package (e.g., Slack Spoke, JIRA Spoke)                                     |
+| Subflow         | A reusable flow callable from other flows — like a Script Include for flows                         |
+| Script step     | Run arbitrary JavaScript inside a flow when no built-in action exists                               |
+| Action Designer | Where you build custom actions that don't exist out of the box                                      |
+| Flow Logic      | If/Else, For Each loops, Wait for condition                                                         |
 
 > 💡 **No-code automation = Flow Designer** (not Business Rule)
 > 💡 **Subflow** = reusable logic YOU built | **Spoke** = pre-built npm-like package for external platforms
