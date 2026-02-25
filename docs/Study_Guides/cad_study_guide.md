@@ -59,6 +59,114 @@ Every artifact you create in ServiceNow belongs to exactly one scope. The scope 
 
 **Delegated Developer** → "admin" abilities within a specific scoped app only — NOT system admin. Cannot modify artifacts outside their assigned app.
 
+### Guided Application Creator (GAC) — Full Deep Dive
+
+GAC is a step-by-step wizard that walks you through building the skeleton of a scoped application. It is intentionally low-code and guided — you don't need to know where everything lives in the platform. Once GAC finishes, you continue development in **Studio**.
+
+#### How to Access GAC
+
+Two entry points:
+
+1. **System Applications > My Company Applications > Create New**
+2. **Studio > Create Application button**
+
+> 💡 The GAC welcome screen appears **only the first time** it is used. To see it again, delete the `sn_g_app_creator.has_viewed_gac` record from the `sys_user_preference` table.
+
+#### Who Can Use GAC
+
+Users with the **`sn_g_app_creator.app_creator`** role can access GAC. This is intended for System Administrators, Developers, and Business Analysts.
+
+> ⚠️ **EXAM TRAP:** By default, GAC does **not** offer the option to create a **Global** application — it only creates scoped apps. To enable global app creation in GAC, the system property `sn_g_app_creator.allow_global` must be set to `true`.
+
+#### GAC Wizard Steps — In Order
+
+GAC walks you through these steps sequentially:
+
+```
+1. Application Configuration  → Name, scope ID (max 18 chars), description
+2. User Role                  → Assign existing roles or create new ones for the app
+3. User Experience            → Choose up to 3: Workspace, Mobile, Classic
+4. Table                      → Designate data tables (see below)
+5. Field Inputs               → Add fields to the table
+6. Table Configuration        → Configure access controls, extensibility, etc.
+7. Next Steps                 → Opens Studio for further development
+```
+
+> 💡 **Best practice:** Always create at least one scoped role in the User Role step — don't skip it and rely on global roles alone.
+
+#### The Three Ways to Designate a Table in GAC
+
+This is a **frequently tested exam question** — know all three options and when to use each.
+
+| Method                       | What it does                                                          | When to use it                                                    |
+| ---------------------------- | --------------------------------------------------------------------- | ----------------------------------------------------------------- |
+| **Create a new table**       | Builds a brand-new table from scratch with only default system fields | No similar table exists; you want full control over the schema    |
+| **Extend an existing table** | Creates a child table that inherits all fields and logic of a parent  | Parent table has useful fields/logic (e.g., `task`, `cmdb_ci`)    |
+| **Upload a spreadsheet**     | Turns a CSV/Excel file into a new table, mapping columns to fields    | You have existing data to import and use as the table's structure |
+
+> ⚠️ **EXAM TRAP:** "Create table from template" is **NOT** a valid GAC option. If you see it in a question, it's a distractor — the correct options are create from scratch, extend, or upload spreadsheet.
+
+> ⚠️ **EXAM TRAP:** The exam also asks which file types can be uploaded. Only **spreadsheets (CSV/Excel)** are supported. PDFs and Word documents are **NOT** valid upload types in GAC.
+
+#### Create a New Table vs. Extend a Table — Decision Guide
+
+| Signal in the scenario                                 | Right choice          |
+| ------------------------------------------------------ | --------------------- |
+| No similar table exists in ServiceNow                  | Create new table      |
+| Table will hold reference/lookup data only             | Create new table      |
+| You want to script all behaviors yourself              | Create new table      |
+| A similar table already has useful fields and logic    | Extend existing table |
+| You want approval workflows (other than User Approval) | Extend `task`         |
+| You're modeling a Configuration Item type              | Extend `cmdb_ci`      |
+| You want to reuse fields without rebuilding them       | Extend existing table |
+
+> 💡 **Key rule on extending:** The parent table must have **Extensible = true** in its dictionary entry. You **cannot** extend a system table or database view. Inherited fields cannot be deleted from the child table.
+
+> 💡 **Approval workflow note:** The **User Approval** workflow activity works with ALL tables. All **other** approval activities (e.g., group approval, manager approval) only work with tables that extend **`task`**.
+
+#### Table Configuration Options Set During GAC
+
+When creating or extending a table in GAC, these options are configured:
+
+| Option                 | What it does                                                                         |
+| ---------------------- | ------------------------------------------------------------------------------------ |
+| Create access controls | Auto-generates baseline ACLs for the new table — **must be checked for scoped apps** |
+| Extensible             | Allows other tables to extend this one in the future                                 |
+| Create module          | Automatically adds the table to the app's navigation menu                            |
+| Auto-number            | Adds an auto-incrementing number field (like INC0001234)                             |
+
+> ⚠️ **EXAM TRAP:** If **Create access controls** is not checked when creating a table in a scoped app, no ACLs are generated and access may be unexpectedly open or blocked depending on the app's default access settings.
+
+#### What GAC Does NOT Do
+
+GAC builds the skeleton — it doesn't do everything. After GAC, you go to Studio to:
+
+- Add Business Rules, Client Scripts, Script Includes
+- Create UI Policies and UI Actions
+- Configure Form Layouts in detail
+- Set up Flow Designer automations
+- Add additional tables beyond what GAC created
+
+> 🧠 **MEMORY TIP:** **GAC = foundation pour**. It sets up the structure. Studio = where you build the house on top.
+
+#### Practice Questions — GAC
+
+> 📋 **PRACTICE Q:** A developer is using GAC to create a new application. When asked to designate a data table, they want to reuse the state management, assignment, and approval logic already built into ServiceNow's task management system. Which table option should they choose, and what should it extend?
+
+> ✅ **ANSWER:** Choose **Extend an existing table** and extend the **`task`** table. This inherits all task fields, state management logic, and enables the full suite of approval workflow activities.
+
+---
+
+> 📋 **PRACTICE Q:** Which of the following is NOT a valid way to designate a data table in GAC? (A) Create a new table on the platform (B) Upload an existing spreadsheet (C) Create a table from a template (D) Use an existing table on the platform
+
+> ✅ **ANSWER:** **(C) Create a table from a template.** Templates are not an option in GAC. The three valid methods are: create from scratch, extend a table, and upload a spreadsheet.
+
+---
+
+> 📋 **PRACTICE Q:** A developer opens GAC but does not see an option to create a Global application. What must be configured to enable this?
+
+> ✅ **ANSWER:** The system property **`sn_g_app_creator.allow_global`** must be set to `true`. By default, GAC only allows scoped application creation.
+
 ### Cross-Scope Access — How it Really Works
 
 When App A calls a Script Include in App B, ServiceNow checks the **"Accessible from"** field on the Script Include record.
@@ -1044,31 +1152,37 @@ var val = g_scratchpad.anyName; // read the property
 
 ## All Exam Traps — Combined List
 
-| Scenario / Symptom                          | Trap                                     | Correct Answer                                                    |
-| ------------------------------------------- | ---------------------------------------- | ----------------------------------------------------------------- |
-| Form is slow after save                     | Thinking it's a client issue             | Check for heavy After BR — consider Async instead                 |
-| Field not saving despite no error           | Checking only UI settings                | Check dictionary read-only flag                                   |
-| Client Script needs DB data                 | Using GlideRecord in client script       | Use GlideAjax + client-callable Script Include                    |
-| Mandatory not enforced on import            | Using UI Policy                          | Use Data Policy — it's server-side                                |
-| Cross-scope call fails silently             | Assuming it's a code bug                 | Check "Accessible from" on the Script Include                     |
-| User sees list, can't open record           | Checking field-level ACLs first          | Record-level ACL is blocking — check that first                   |
-| User can't see list at all                  | Checking record/field ACLs               | Table-level ACL is blocking — start there                         |
-| Button on form needs server logic           | Using a Business Rule                    | Use a UI Action with Form Button checked                          |
-| Field change needs silent server call       | Using a UI Action                        | Use GlideAjax + client-callable Script Include                    |
-| Move config between instances               | Manually recreating scripts              | Use Update Set or App Repository                                  |
-| Artifact in wrong scope                     | Blaming the script                       | Check App Picker — was the correct scope selected at creation?    |
-| BR causing infinite loop                    | Adding more conditions to the BR         | Remove `current.update()` from the Before BR                      |
-| `onCellEdit` used on a form                 | Thinking it works on forms               | `onCellEdit` is list view only — use `onChange` on forms          |
-| `security_admin` assumed = `admin`          | Thinking `security_admin` bypasses ACLs  | Only `admin` bypasses ACLs — `security_admin` manages them        |
-| Update Set expected to include data records | Expecting incident records in Update Set | Update Sets capture config only, not data                         |
-| UI Policy expected to enforce on import     | Using UI Policy for import validation    | UI Policies are browser-side — use Data Policy                    |
-| Making a field read-only based on role      | Using an ACL                             | ACLs have no "read-only" mode — use Client Script                 |
-| `gr.field_name` used for comparison         | Thinking it returns the value            | Returns GlideElement object — use `getValue()` instead            |
-| `getValue()` vs `getDisplayValue()`         | Using wrong one for reference fields     | `getValue()` = sys_id; `getDisplayValue()` = human label          |
-| Delegated developer can't publish           | Assuming they need `admin`               | Check if Code Review is enabled — they need a reviewer to approve |
-| Outbound REST call from a Business Rule     | Using Table API or Scripted REST API     | Use `sn_ws.RESTMessageV2` — ServiceNow is the client here         |
-| Custom external-facing endpoint needed      | Using only the Table API                 | Build a Scripted REST API for custom paths and logic              |
-| `RESTAPIResponse` vs `RESTMessageV2`        | Confusing inbound vs outbound            | `RESTAPIResponse` = respond to caller; `RESTMessageV2` = call out |
+| Scenario / Symptom                          | Trap                                     | Correct Answer                                                                           |
+| ------------------------------------------- | ---------------------------------------- | ---------------------------------------------------------------------------------------- |
+| Form is slow after save                     | Thinking it's a client issue             | Check for heavy After BR — consider Async instead                                        |
+| Field not saving despite no error           | Checking only UI settings                | Check dictionary read-only flag                                                          |
+| Client Script needs DB data                 | Using GlideRecord in client script       | Use GlideAjax + client-callable Script Include                                           |
+| Mandatory not enforced on import            | Using UI Policy                          | Use Data Policy — it's server-side                                                       |
+| Cross-scope call fails silently             | Assuming it's a code bug                 | Check "Accessible from" on the Script Include                                            |
+| User sees list, can't open record           | Checking field-level ACLs first          | Record-level ACL is blocking — check that first                                          |
+| User can't see list at all                  | Checking record/field ACLs               | Table-level ACL is blocking — start there                                                |
+| Button on form needs server logic           | Using a Business Rule                    | Use a UI Action with Form Button checked                                                 |
+| Field change needs silent server call       | Using a UI Action                        | Use GlideAjax + client-callable Script Include                                           |
+| Move config between instances               | Manually recreating scripts              | Use Update Set or App Repository                                                         |
+| Artifact in wrong scope                     | Blaming the script                       | Check App Picker — was the correct scope selected at creation?                           |
+| BR causing infinite loop                    | Adding more conditions to the BR         | Remove `current.update()` from the Before BR                                             |
+| `onCellEdit` used on a form                 | Thinking it works on forms               | `onCellEdit` is list view only — use `onChange` on forms                                 |
+| `security_admin` assumed = `admin`          | Thinking `security_admin` bypasses ACLs  | Only `admin` bypasses ACLs — `security_admin` manages them                               |
+| Update Set expected to include data records | Expecting incident records in Update Set | Update Sets capture config only, not data                                                |
+| UI Policy expected to enforce on import     | Using UI Policy for import validation    | UI Policies are browser-side — use Data Policy                                           |
+| Making a field read-only based on role      | Using an ACL                             | ACLs have no "read-only" mode — use Client Script                                        |
+| `gr.field_name` used for comparison         | Thinking it returns the value            | Returns GlideElement object — use `getValue()` instead                                   |
+| `getValue()` vs `getDisplayValue()`         | Using wrong one for reference fields     | `getValue()` = sys_id; `getDisplayValue()` = human label                                 |
+| Delegated developer can't publish           | Assuming they need `admin`               | Check if Code Review is enabled — they need a reviewer to approve                        |
+| Outbound REST call from a Business Rule     | Using Table API or Scripted REST API     | Use `sn_ws.RESTMessageV2` — ServiceNow is the client here                                |
+| Custom external-facing endpoint needed      | Using only the Table API                 | Build a Scripted REST API for custom paths and logic                                     |
+| `RESTAPIResponse` vs `RESTMessageV2`        | Confusing inbound vs outbound            | `RESTAPIResponse` = respond to caller; `RESTMessageV2` = call out                        |
+| GAC table option: "from template"           | Thinking it's a valid GAC option         | Not valid — the three options are create, extend, or upload spreadsheet                  |
+| GAC file upload type                        | Thinking PDF or Word doc can be uploaded | Only spreadsheets (CSV/Excel) are valid upload types in GAC                              |
+| GAC creates global apps by default          | Thinking GAC defaults to global scope    | GAC creates scoped apps only — set `sn_g_app_creator.allow_global` to enable global      |
+| `gs.log()` in a scoped app                  | Using `gs.log()` in scoped scripts       | `gs.log()` is NOT available in scoped apps — use `gs.info()`, `gs.warn()`, `gs.error()`  |
+| Approval workflows on non-task tables       | Expecting all approvals to work anywhere | Only **User Approval** works on all tables; all others require extending `task`          |
+| GAC completes the whole application         | Thinking GAC is the complete dev tool    | GAC builds the skeleton only — Business Rules, Client Scripts, flows are added in Studio |
 
 ---
 
@@ -1112,6 +1226,10 @@ var val = g_scratchpad.anyName; // read the property
 - **Complete → Export → Import → Preview → Commit** (Update Set deployment order)
 - **Scripted REST API = you're the server** (ServiceNow receives) | **REST Message = you're the client** (ServiceNow sends)
 - **Delegated Developer = room key, not master key** (one app only)
+- **GAC = foundation pour** (sets up structure; Studio builds the house on top)
+- **GAC table options = Create, Extend, Spreadsheet** (no templates, no PDFs, no Word docs)
+- **`gs.log()` = global only** — use `gs.info()`, `gs.warn()`, `gs.error()` in scoped apps
+- **User Approval = any table | All other approvals = must extend `task`**
 
 ---
 
