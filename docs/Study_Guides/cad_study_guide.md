@@ -261,9 +261,92 @@ Designated Code Reviewer inspects the change
 
 ---
 
+### Application Access Settings — Deep Dive
+
+**Application Access** controls how a scoped app's tables interact with the rest of the platform. Found on the table record under the **Application Access** tab.
+
+| Setting                           | What it does                                                                    | Key exam note                                                 |
+| --------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------- |
+| **Can read**                      | Other scopes can read records from this table                                   | If unchecked, Can create/update/delete become unavailable too |
+| **Can create**                    | Other scopes can insert new records                                             | Requires Can read to be checked first                         |
+| **Can update**                    | Other scopes can modify existing records                                        | Requires Can read to be checked first                         |
+| **Can delete**                    | Other scopes can delete records                                                 | Requires Can read to be checked first                         |
+| **Allow configuration**           | Out-of-scope apps can create Business Rules, Client Scripts, etc. on this table | ⚠️ Opens the table to configuration from other scopes         |
+| **Allow access via web services** | Table is accessible via REST/SOAP APIs                                          | Does NOT bypass ACLs — callers still need correct permissions |
+
+> ⚠️ **EXAM TRAP:** If **Can read** is unchecked, **Can create, Can update, and Can delete** become unavailable in the UI. "Allow access via web services" is NOT affected by Can read.
+
+> ⚠️ **EXAM TRAP:** **Allow configuration** = out-of-scope apps **can create Business Rules** on the table. This is a direct exam question. If Allow configuration is NOT checked, only in-scope scripts can configure the table.
+
+> ⚠️ **EXAM TRAP:** "Allow access via web services" does **not** mean anyone can access the table — the caller still needs correct ACL permissions. It only controls whether the table is reachable via web service at all.
+
+> 💡 **Cross-scope default for new files:** When creating new application files in a scoped app, **REST Messages** have cross-scope access turned on by default. Script Includes, Tables, and Workflows do NOT.
+
+---
+
+### Modules — Link Types and Configuration
+
+A **Module** is a navigation link inside an **Application Menu**. Every module must have a **Link type** that defines what happens when a user clicks it.
+
+**Valid Link Types (memorize this list — it appears directly on the exam):**
+
+| Link Type            | What it opens                                                      |
+| -------------------- | ------------------------------------------------------------------ |
+| List of Records      | A filtered list of records from a table                            |
+| Content Page         | A custom UI page                                                   |
+| URL (from arguments) | Any URL — used to open the Application Properties page for the app |
+| Assessment           | A survey or assessment                                             |
+| Separator            | A visual divider between modules (not a link — just a line)        |
+| Timeline Page        | A timeline view of records                                         |
+
+> ⚠️ **EXAM TRAP:** Common distractor answers include **"Catalog Type"** and **"Roles"** — these are NOT valid link types. The correct list is: Assessment, List of Records, Separator, Timeline Page, Content Page, URL (from arguments).
+
+> 💡 **Application Properties module:** The way to expose the Application Properties page from the nav menu is to create a module with link type **URL (from arguments)** pointing to the sys_properties page filtered by the app's category.
+
+**Module configuration options:**
+
+| Option                              | What it does                                                                          |
+| ----------------------------------- | ------------------------------------------------------------------------------------- |
+| **Override application menu roles** | Users with the module's role can access it even without access to the parent app menu |
+| Order                               | Controls display order within the application menu                                    |
+| Active                              | Whether the module appears in navigation                                              |
+| Roles                               | Restricts who can see the module                                                      |
+
+> 💡 If a module is created when a table is created in GAC, the **default behavior** is to open a list of all records from that table.
+
+---
+
+### Application Properties
+
+**Application Properties** are system properties scoped to your application. They let admins and developers change an app's behavior without editing its code or artifacts.
+
+**Key facts:**
+
+- Stored in the `sys_properties` table, like all system properties
+- Grouped by a **Category** that matches the application name
+- Accessed in the nav via a module with link type **URL (from arguments)**
+- Read in scripts via `gs.getProperty('x_myco_myapp.property_name')`
+
+> Application Properties allow a developer or admin to make changes to an application's behavior **without modifying application artifacts**. Use them for feature flags, configurable URLs, thresholds, default values — anything that should be changeable without a code deploy.
+
+```javascript
+// ✅ Reading an application property in a server-side script
+var threshold = gs.getProperty("x_myco_myapp.escalation_threshold", "5"); // second arg = default
+var apiUrl = gs.getProperty("x_myco_myapp.external_api_url");
+
+// ✅ Setting a property programmatically
+gs.setProperty("x_myco_myapp.feature_flag", "true");
+```
+
+> ⚠️ **EXAM TRAP:** Application Properties are NOT a separate artifact type — they are ordinary `sys_properties` records that appear on the Application Properties page because they share the app's category name.
+
+> 🧠 **MEMORY TIP:** Application Properties = **config file for your app**. Change behavior without touching code.
+
+---
+
 ### Practice Questions — Domain 1
 
-> 📋 **PRACTICE Q:** A developer creates a new table while the **Global** app is selected in the App Picker. The table prefix is `u_`. Later, the developer switches to a scoped app and creates a Script Include. Which scope does the Script Include belong to?
+> 📋 **PRACTICE Q:** A developer creates a new table while the **Global** app is selected in the App Picker. The table prefix is `u_`. Later, the developer switches to a scoped app and creates a Script Include. Which scope does the Script Include belong to? is selected in the App Picker. The table prefix is `u_`. Later, the developer switches to a scoped app and creates a Script Include. Which scope does the Script Include belong to?
 
 > ✅ **ANSWER:** The Script Include belongs to the **scoped app** — scope is determined at creation time by the App Picker. The earlier `u_` table stays in global scope.
 
@@ -441,6 +524,167 @@ A **UI Policy** is a parent record holding a condition. A **UI Policy Action** i
 | Restrict write access at the data level       | **ACL**                                                         |
 
 > ⚠️ **ACLs grant or deny access entirely** — they don't have a "read only" mode. Use Client Scripts for read-only behavior based on roles.
+
+### UI Actions — Full Deep Dive
+
+A **UI Action** creates a button, context menu item, or link on a form or list. It is the correct tool when a **user interaction** should trigger logic — not a Business Rule.
+
+#### UI Action Types
+
+| Type               | Where it appears                        | When to use                                  |
+| ------------------ | --------------------------------------- | -------------------------------------------- |
+| Form Button        | Button bar at top of a form             | Most common — user clicks a button on a form |
+| Context Menu Item  | Right-click menu on a form              | Secondary actions, less prominent            |
+| List Action        | Dropdown on a list row                  | Actions taken on a record from a list view   |
+| List Banner Button | Button above a list (acts on selection) | Bulk actions on multiple selected records    |
+
+#### Client vs Server in a UI Action
+
+A UI Action script can run **client-side**, **server-side**, or **both** — depending on configuration.
+
+| Configuration           | What happens                                                                |
+| ----------------------- | --------------------------------------------------------------------------- |
+| `Client` checkbox OFF   | Script runs **server-side only** — `current` object is available            |
+| `Client` checkbox ON    | Script runs **client-side first** — `g_form`, `g_user` available            |
+| Both (via `gsftSubmit`) | Client runs first, then triggers the server-side portion of the same script |
+
+> ⚠️ **EXAM TRAP:** UI Actions do NOT always run server-side. If the **Client** checkbox is checked, the script (or at least the `onclick` function) runs in the browser. This is a direct exam question.
+
+#### Server-Only UI Action (most common)
+
+```javascript
+// ✅ Server-side only — Client checkbox unchecked
+// 'current' is the record. action.setRedirectURL() controls where to go after.
+current.state = 6; // closed
+current.close_code = "Solved";
+current.update();
+action.setRedirectURL(current); // redirect back to the same record
+```
+
+**Key server-side UI Action APIs:**
+
+```javascript
+action.setRedirectURL(gr); // redirect to a specific record after submit
+action.setReturnURL(url); // return to a specific URL
+action.getGlideURI(); // get the current URI
+action.getURL(); // get full URL
+```
+
+#### Client + Server UI Action (using `gsftSubmit`)
+
+When you need to validate on the client first, then run server logic:
+
+```javascript
+// ✅ Client checkbox ON, Onclick field set to: confirmAction();
+// The script field contains both client and server functions
+
+// Client-side function (runs first when button is clicked)
+function confirmAction() {
+  if (!confirm("Are you sure?")) return false; // abort if user cancels
+  gsftSubmit(null, g_form.getFormElement(), "my_action_name"); // trigger server side
+}
+
+// Server-side function (runs after gsftSubmit)
+if (typeof window == "undefined") runServerSide(); // guard: only run on server
+function runServerSide() {
+  current.state = 3;
+  current.update();
+  action.setRedirectURL(current);
+}
+```
+
+> 🧠 **MEMORY TIP:** `gsftSubmit(null, g_form.getFormElement(), 'action_name')` — the third argument **must match** the UI Action's **Action name** field exactly, not the display name.
+
+> ⚠️ **EXAM TRAP:** `typeof window == 'undefined'` is the guard that prevents server-side code from running in the browser. Without it, the server portion throws a ReferenceError client-side.
+
+---
+
+### Form Designer vs Form Layout
+
+Two tools exist for editing forms — the exam tests which capabilities belong to which.
+
+| Feature                          | Form Designer                                      | Form Layout (classic) |
+| -------------------------------- | -------------------------------------------------- | --------------------- |
+| Interface                        | Drag-and-drop graphical                            | List-based            |
+| Add existing fields              | ✅ (Fields tab)                                    | ✅                    |
+| Create new fields                | ✅ (Field Types tab)                               | ✅                    |
+| Remove fields from layout        | ✅ (hover → X button)                              | ✅                    |
+| Add sections                     | ✅ (Field Types tab)                               | ✅                    |
+| Delete a field from the table    | ❌ Cannot delete system fields                     | ❌                    |
+| Edit field labels on child table | Changes label on child table only — NOT the parent |                       |
+
+> ⚠️ **EXAM TRAP:** Removing a field from a form layout does **NOT** delete the field from the table. The field still exists in the schema — it's just not displayed on the form.
+
+> ⚠️ **EXAM TRAP:** In Form Designer, editing the label of a field on a **child table** changes the label on the child table only — not the parent. Inherited fields can be relabeled per table.
+
+> 💡 **Schema Map** is a separate tool (not part of Form Designer) that shows relationships between tables. It's accessed via System Definition > Tables, not from Form Designer.
+
+---
+
+### Debugging Client-Side Scripts
+
+The exam asks which tools are used for client-side vs server-side debugging. Know the distinction cold.
+
+| Tool                       | Client or Server | What it does                                                                   |
+| -------------------------- | ---------------- | ------------------------------------------------------------------------------ |
+| `jslog()`                  | **Client only**  | Writes a message to the browser console                                        |
+| `g_form.addInfoMessage()`  | **Client only**  | Displays a blue info banner on the form                                        |
+| Field Watcher              | **Client only**  | Shows current and previous values of watched fields as they change on the form |
+| Debug Business Rule        | **Server only**  | Shows which Business Rules ran and in what order for a given transaction       |
+| Debug Business Rule Detail | **Server only**  | Shows full script execution details for Business Rules                         |
+| `gs.info()` / `gs.log()`   | **Server only**  | Writes to the system log (`gs.log()` unavailable in scoped apps)               |
+
+> ⚠️ **EXAM TRAP:** `gs.log()` is **NOT** a client-side debugging strategy — it runs on the server. A direct exam question asks which of the following is NOT a client-side debugging tool, and `gs.log()` is the correct answer.
+
+> ⚠️ **EXAM TRAP:** **Field Watcher** debugs **client-side** field changes on a form. It cannot debug server-side Business Rules or Scheduled Jobs.
+
+> ⚠️ **EXAM TRAP:** **Debug Business Rule** vs **Debug Business Rule Detail** — BR shows which rules ran; BR Detail shows the full script output and variable values. Know both exist and that they are server-side tools.
+
+```javascript
+// ✅ Client-side debugging
+jslog("Field value is: " + g_form.getValue("priority")); // browser console
+g_form.addInfoMessage("Debug: state = " + g_form.getValue("state")); // visible on form
+
+// ✅ Server-side debugging (NOT in scoped apps for gs.log)
+gs.info("BR fired. Current state: " + current.getValue("state"));
+gs.warn("Unexpected value encountered");
+gs.error("Critical failure in script include");
+```
+
+---
+
+### GlideDateTime in Scoped Apps
+
+> ⚠️ **EXAM TRAP:** In scoped applications, the correct object for working with dates and times is **`GlideDateTime`**, not `GlideDate`. Some functions available in global scope (like `datediff`) are **not available** in scoped apps.
+
+```javascript
+// ✅ CORRECT — use GlideDateTime in scoped apps
+var now = new GlideDateTime(); // current date/time
+var dt = new GlideDateTime("2025-01-15 10:00:00"); // specific date/time
+gs.info(dt.getDisplayValue()); // human-readable string
+gs.info(dt.getValue()); // internal value (UTC)
+dt.addDays(7); // add 7 days
+dt.addSeconds(3600); // add 1 hour
+
+// Comparing dates
+var start = new GlideDateTime();
+var end = new GlideDateTime();
+end.addDays(5);
+var diff = GlideDateTime.subtract(start, end); // returns GlideDuration
+gs.info(diff.getDayPart()); // number of days difference
+```
+
+| Method              | What it returns                                |
+| ------------------- | ---------------------------------------------- |
+| `getValue()`        | Internal UTC string (for DB storage)           |
+| `getDisplayValue()` | User's local time formatted string             |
+| `getDate()`         | Returns a GlideDate object (date portion only) |
+| `addDays(n)`        | Adds n days to the datetime                    |
+| `addSeconds(n)`     | Adds n seconds to the datetime                 |
+| `before(other)`     | Returns true if this datetime is before other  |
+| `after(other)`      | Returns true if this datetime is after other   |
+
+---
 
 ### Practice Questions — Domain 2
 
@@ -623,6 +867,154 @@ Flow Designer is the no-code/low-code replacement for legacy Workflow.
 | Triggered by | A time schedule (daily, hourly, cron)       | A DB event (insert, update, delete)            |
 | When to use  | Nightly batch processing, periodic cleanup  | Background work triggered by a record change   |
 | Example      | Close resolved incidents older than 30 days | When a new incident is inserted, post to Slack |
+
+### Email Notifications — Full Breakdown
+
+Email Notifications automate communication by sending emails when specified conditions or events occur. Configured under **System Notification > Email > Notifications**.
+
+#### The Three Configuration Tabs
+
+Every Email Notification is built around three tabs — this is a **direct exam question**:
+
+| Tab      | What you configure                                       |
+| -------- | -------------------------------------------------------- |
+| **Who**  | Recipients — users, groups, roles, event parameters      |
+| **What** | Content — subject, body, template, mail scripts          |
+| **When** | Trigger — record-based conditions or event-based trigger |
+
+> ⚠️ **EXAM TRAP:** The exam asks which three things are configured in a notification. The answer is **Who, What, When** — NOT "How" (delivery method is not a configurable tab).
+
+#### Trigger Types: Record vs Event
+
+| Trigger Type     | How it fires                                           | Example                                                  |
+| ---------------- | ------------------------------------------------------ | -------------------------------------------------------- |
+| **Record-based** | When a record is inserted or updated matching a filter | Priority changes to 1 on an incident                     |
+| **Event-based**  | When a specific event is fired in the Event Registry   | `incident.commented` event fires when a comment is added |
+
+#### The Weight Field — Most Tested Email Notification Concept
+
+When multiple notifications target the **same record** and the **same recipients** simultaneously, ServiceNow uses **Weight** to decide which ones to send:
+
+```
+Weight = 0          → ALWAYS sent (regardless of other notifications)
+Weight > 0          → Only the notification with the HIGHEST weight is sent
+                       All others are moved to the "Skipped" mailbox
+```
+
+> ⚠️ **EXAM TRAP:** A Weight value of zero does **NOT** mean no email is sent — it means the notification is **always** sent. "A weight of zero means no email will be sent" is a known wrong answer on the exam.
+
+> ⚠️ **EXAM TRAP:** The default Weight value is **0** — meaning by default, all notifications are always sent.
+
+#### Referencing Fields and Events in Email Content
+
+```
+${field_name}               → Value of a field on the triggering record
+${event.parm1}              → First parameter passed when the event was fired
+${event.parm2}              → Second parameter
+<mail_script>               → Opening tag for a server-side mail script block
+  template.print('text');   → Print text into the email body
+</mail_script>              → Closing tag
+```
+
+#### Watermark
+
+The **watermark** is a hidden identifier added to every outbound email by default. It allows ServiceNow to match incoming reply emails back to the correct record. It always includes `Ref:` followed by a prefix (default `MSG`) and the record's auto-number.
+
+> 💡 The watermark is what enables **inbound email** to update the correct ticket automatically.
+
+---
+
+### Events and the Event Registry
+
+An **Event** is a named notification that something happened. Events decouple the "something happened" from "what to do about it" — scripts fire events, and other artifacts (notifications, script actions) react to them.
+
+#### Event Flow
+
+```
+Server-side script fires an event:
+  gs.eventQueue('incident.priority.changed', current, current.priority, previous.priority);
+         |
+         v
+  Event Queue (processed asynchronously)
+         |
+         v
+  Event Registry (must have matching event registered to be recognized)
+         |
+         v
+  Email Notifications with matching event trigger → send email
+  Script Actions with matching event trigger → run script
+```
+
+#### Registering an Event
+
+Before ServiceNow can respond to an event, it must be **registered** in the Event Registry (`sysevent_register`). In Studio: **Create New > Event Registration**.
+
+```javascript
+// ✅ Firing an event from a Business Rule or Script Include
+gs.eventQueue(
+  "x_myco_myapp.record.escalated", // event name (must match registry)
+  current, // GlideRecord that caused the event
+  current.getValue("priority"), // parm1 — available as ${event.parm1} in notifications
+  gs.getUserID(), // parm2 — available as ${event.parm2}
+);
+```
+
+| `gs.eventQueue` Parameter | Purpose                                             |
+| ------------------------- | --------------------------------------------------- |
+| Event name                | Must match a registered event in the Event Registry |
+| GlideRecord               | The record associated with the event                |
+| parm1                     | First custom value — accessible in notifications    |
+| parm2                     | Second custom value — accessible in notifications   |
+
+> ⚠️ **EXAM TRAP:** ServiceNow can only respond to events that are **registered** in the Event Registry. Firing an unregistered event does nothing — no notification, no script action.
+
+> 💡 **Events = publish/subscribe pattern.** The script fires and forgets. Notifications and Script Actions subscribe and react. They are decoupled.
+
+---
+
+### Automated Test Framework (ATF)
+
+ATF allows you to create and run **automated tests** on ServiceNow — no manual clicking required. It's free with the Now Platform.
+
+#### Key ATF Concepts
+
+| Concept            | What it is                                                                     |
+| ------------------ | ------------------------------------------------------------------------------ |
+| Test               | A single automated test — contains a sequence of test steps                    |
+| Test Suite         | A collection of tests grouped together to run as one batch                     |
+| Test Step          | A single action or assertion within a test (e.g., set a field, click a button) |
+| Step Configuration | A reusable template that defines how a test step works                         |
+| Test Schedule      | Runs a test or suite automatically on a defined schedule                       |
+
+#### What ATF Is Good For
+
+- **Regression testing** — verify existing functionality still works after an upgrade or change
+- **Functional testing** — simulate user actions: create records, set values, click buttons, check results
+- **Scheduled testing** — run tests automatically and receive results by email
+
+#### What ATF Is NOT For
+
+- **Unit testing** — ATF is not the recommended tool for rapidly changing features (tests break every time the feature changes)
+- **Load/performance testing** — ATF cannot simulate high-volume traffic
+- **Production testing** — ATF should only be run in **sub-production** instances
+
+> ⚠️ **EXAM TRAP:** ATF tests should **never** be run in production. Always run in sub-production (dev, test, UAT).
+
+> ⚠️ **EXAM TRAP:** The ATF test step to create a user for testing is **"Create a user"** — this creates a temporary user deleted at the end of the test. There is no "Create a role" or "Create a group" test step — those use "Create a record" with the appropriate table.
+
+#### Common ATF Test Steps
+
+| Step                | What it does                                                         |
+| ------------------- | -------------------------------------------------------------------- |
+| Create a user       | Creates a temp user with specified roles/groups for the test         |
+| Impersonate         | Switches to an existing user (does NOT create one)                   |
+| Open a form         | Navigates to a record's form                                         |
+| Set field values    | Fills in field values on the open form                               |
+| Submit a form       | Saves the form                                                       |
+| Assert field values | Verifies a field contains an expected value (test passes/fails here) |
+| Run server script   | Runs arbitrary server-side code as part of the test                  |
+
+---
 
 ### Practice Questions — Domain 4
 
@@ -996,6 +1388,79 @@ Added as `attribute_name=true` or `attribute_name=value` in a field's dictionary
 | How to assign            | Open the application record → "Manage Developers" → add users to related list |
 | Code Review config       | Per application — enabling it on one app does not affect others               |
 
+### Git / Source Control Integration
+
+ServiceNow Studio supports linking a scoped application to a **Git repository** for proper version control and team collaboration.
+
+#### Linking to a Git Repo — What You Need
+
+| Required            | NOT Required     |
+| ------------------- | ---------------- |
+| Repository URL      | Application name |
+| Username            |                  |
+| Password / token    |                  |
+| Branch name         |                  |
+| Authentication type |                  |
+
+> ⚠️ **EXAM TRAP:** The **application name is not required** to link to a Git repo — the scope name is used automatically. A common distractor is listing the app name as required.
+
+#### Source Control Operations — Know Which Work Where
+
+Some operations are available from **Studio only**, some from **the Git repo side only**, and some from **both**:
+
+| Operation          | Available in Studio | Available in Git repo  |
+| ------------------ | ------------------- | ---------------------- |
+| Create Branch      | ✅                  | ✅ (available in both) |
+| Create Tag         | ✅                  | ✅ (available in both) |
+| Create Repository  | ✅                  | ✅                     |
+| Create Credentials | ✅                  | ❌                     |
+| Grant Access       | ❌                  | ✅                     |
+| Stash Changes      | ✅                  | ❌                     |
+| Pull               | ✅                  | ❌                     |
+| Push               | ✅                  | ❌                     |
+
+> ⚠️ **EXAM TRAP:** **Create Branch** is the operation available in **both** Studio and the Git repository. This is a direct exam question — "which operation is common to both?"
+
+#### The Stash Operation
+
+**Stash** stores local uncommitted changes on the instance temporarily so you can switch branches or pull updates without losing your work.
+
+> 💡 **Stash = save your work in a drawer** so you can do something else, then come back and "pop" the stash to restore it.
+
+> ⚠️ **EXAM TRAP:** The exam asks what the source control "stash" operation does. Answer: **stores local changes on the instance for later application** — it does NOT commit or push to the repo.
+
+#### Roles Required for Source Control
+
+Users need either the **`admin`** or **`source_control`** role to link an application to a Git repository.
+
+---
+
+### Application Files Related List
+
+To see **all artifacts that will be included when publishing an application**, use the **Application Files Related List** on the application record.
+
+> ⚠️ **EXAM TRAP:** This is a direct exam question. The correct answer is always **"Examine the Application Files Related List in the application to be published"** — NOT the Global search bar, NOT Update Sets, NOT opening each artifact individually.
+
+The Application Files list groups artifacts by type (Business Rules, Client Scripts, Tables, etc.) and shows the scope each belongs to. It's the single source of truth for what's in the app.
+
+---
+
+### Record Producer — Additional Notes
+
+> 💡 **Record Producer variable access syntax:** In a Record Producer's script, access form variable values using `producer.variable_name` (NOT `current.variable_name`). This is a direct exam question.
+
+```javascript
+// ✅ CORRECT — Record Producer script accessing variables
+var shortDesc = producer.short_description; // variable on the Record Producer form
+current.short_description = shortDesc; // set on the target record
+current.caller_id = gs.getUserID();
+current.insert();
+```
+
+> ⚠️ **EXAM TRAP:** In Inbound Action scripts (not Record Producer), the available objects are `current` and `email` — NOT `previous`, NOT `event`, NOT `producer`.
+
+---
+
 ### Practice Questions — Domain 6
 
 > 📋 **PRACTICE Q:** A developer completes workflow and script changes in a dev instance. They export the Update Set and import it to test. During Preview, a conflict is shown on a Business Rule. What should happen next?
@@ -1152,37 +1617,57 @@ var val = g_scratchpad.anyName; // read the property
 
 ## All Exam Traps — Combined List
 
-| Scenario / Symptom                          | Trap                                     | Correct Answer                                                                           |
-| ------------------------------------------- | ---------------------------------------- | ---------------------------------------------------------------------------------------- |
-| Form is slow after save                     | Thinking it's a client issue             | Check for heavy After BR — consider Async instead                                        |
-| Field not saving despite no error           | Checking only UI settings                | Check dictionary read-only flag                                                          |
-| Client Script needs DB data                 | Using GlideRecord in client script       | Use GlideAjax + client-callable Script Include                                           |
-| Mandatory not enforced on import            | Using UI Policy                          | Use Data Policy — it's server-side                                                       |
-| Cross-scope call fails silently             | Assuming it's a code bug                 | Check "Accessible from" on the Script Include                                            |
-| User sees list, can't open record           | Checking field-level ACLs first          | Record-level ACL is blocking — check that first                                          |
-| User can't see list at all                  | Checking record/field ACLs               | Table-level ACL is blocking — start there                                                |
-| Button on form needs server logic           | Using a Business Rule                    | Use a UI Action with Form Button checked                                                 |
-| Field change needs silent server call       | Using a UI Action                        | Use GlideAjax + client-callable Script Include                                           |
-| Move config between instances               | Manually recreating scripts              | Use Update Set or App Repository                                                         |
-| Artifact in wrong scope                     | Blaming the script                       | Check App Picker — was the correct scope selected at creation?                           |
-| BR causing infinite loop                    | Adding more conditions to the BR         | Remove `current.update()` from the Before BR                                             |
-| `onCellEdit` used on a form                 | Thinking it works on forms               | `onCellEdit` is list view only — use `onChange` on forms                                 |
-| `security_admin` assumed = `admin`          | Thinking `security_admin` bypasses ACLs  | Only `admin` bypasses ACLs — `security_admin` manages them                               |
-| Update Set expected to include data records | Expecting incident records in Update Set | Update Sets capture config only, not data                                                |
-| UI Policy expected to enforce on import     | Using UI Policy for import validation    | UI Policies are browser-side — use Data Policy                                           |
-| Making a field read-only based on role      | Using an ACL                             | ACLs have no "read-only" mode — use Client Script                                        |
-| `gr.field_name` used for comparison         | Thinking it returns the value            | Returns GlideElement object — use `getValue()` instead                                   |
-| `getValue()` vs `getDisplayValue()`         | Using wrong one for reference fields     | `getValue()` = sys_id; `getDisplayValue()` = human label                                 |
-| Delegated developer can't publish           | Assuming they need `admin`               | Check if Code Review is enabled — they need a reviewer to approve                        |
-| Outbound REST call from a Business Rule     | Using Table API or Scripted REST API     | Use `sn_ws.RESTMessageV2` — ServiceNow is the client here                                |
-| Custom external-facing endpoint needed      | Using only the Table API                 | Build a Scripted REST API for custom paths and logic                                     |
-| `RESTAPIResponse` vs `RESTMessageV2`        | Confusing inbound vs outbound            | `RESTAPIResponse` = respond to caller; `RESTMessageV2` = call out                        |
-| GAC table option: "from template"           | Thinking it's a valid GAC option         | Not valid — the three options are create, extend, or upload spreadsheet                  |
-| GAC file upload type                        | Thinking PDF or Word doc can be uploaded | Only spreadsheets (CSV/Excel) are valid upload types in GAC                              |
-| GAC creates global apps by default          | Thinking GAC defaults to global scope    | GAC creates scoped apps only — set `sn_g_app_creator.allow_global` to enable global      |
-| `gs.log()` in a scoped app                  | Using `gs.log()` in scoped scripts       | `gs.log()` is NOT available in scoped apps — use `gs.info()`, `gs.warn()`, `gs.error()`  |
-| Approval workflows on non-task tables       | Expecting all approvals to work anywhere | Only **User Approval** works on all tables; all others require extending `task`          |
-| GAC completes the whole application         | Thinking GAC is the complete dev tool    | GAC builds the skeleton only — Business Rules, Client Scripts, flows are added in Studio |
+| Scenario / Symptom                          | Trap                                     | Correct Answer                                                                                                               |
+| ------------------------------------------- | ---------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| Form is slow after save                     | Thinking it's a client issue             | Check for heavy After BR — consider Async instead                                                                            |
+| Field not saving despite no error           | Checking only UI settings                | Check dictionary read-only flag                                                                                              |
+| Client Script needs DB data                 | Using GlideRecord in client script       | Use GlideAjax + client-callable Script Include                                                                               |
+| Mandatory not enforced on import            | Using UI Policy                          | Use Data Policy — it's server-side                                                                                           |
+| Cross-scope call fails silently             | Assuming it's a code bug                 | Check "Accessible from" on the Script Include                                                                                |
+| User sees list, can't open record           | Checking field-level ACLs first          | Record-level ACL is blocking — check that first                                                                              |
+| User can't see list at all                  | Checking record/field ACLs               | Table-level ACL is blocking — start there                                                                                    |
+| Button on form needs server logic           | Using a Business Rule                    | Use a UI Action with Form Button checked                                                                                     |
+| Field change needs silent server call       | Using a UI Action                        | Use GlideAjax + client-callable Script Include                                                                               |
+| Move config between instances               | Manually recreating scripts              | Use Update Set or App Repository                                                                                             |
+| Artifact in wrong scope                     | Blaming the script                       | Check App Picker — was the correct scope selected at creation?                                                               |
+| BR causing infinite loop                    | Adding more conditions to the BR         | Remove `current.update()` from the Before BR                                                                                 |
+| `onCellEdit` used on a form                 | Thinking it works on forms               | `onCellEdit` is list view only — use `onChange` on forms                                                                     |
+| `security_admin` assumed = `admin`          | Thinking `security_admin` bypasses ACLs  | Only `admin` bypasses ACLs — `security_admin` manages them                                                                   |
+| Update Set expected to include data records | Expecting incident records in Update Set | Update Sets capture config only, not data                                                                                    |
+| UI Policy expected to enforce on import     | Using UI Policy for import validation    | UI Policies are browser-side — use Data Policy                                                                               |
+| Making a field read-only based on role      | Using an ACL                             | ACLs have no "read-only" mode — use Client Script                                                                            |
+| `gr.field_name` used for comparison         | Thinking it returns the value            | Returns GlideElement object — use `getValue()` instead                                                                       |
+| `getValue()` vs `getDisplayValue()`         | Using wrong one for reference fields     | `getValue()` = sys_id; `getDisplayValue()` = human label                                                                     |
+| Delegated developer can't publish           | Assuming they need `admin`               | Check if Code Review is enabled — they need a reviewer to approve                                                            |
+| Outbound REST call from a Business Rule     | Using Table API or Scripted REST API     | Use `sn_ws.RESTMessageV2` — ServiceNow is the client here                                                                    |
+| Custom external-facing endpoint needed      | Using only the Table API                 | Build a Scripted REST API for custom paths and logic                                                                         |
+| `RESTAPIResponse` vs `RESTMessageV2`        | Confusing inbound vs outbound            | `RESTAPIResponse` = respond to caller; `RESTMessageV2` = call out                                                            |
+| GAC table option: "from template"           | Thinking it's a valid GAC option         | Not valid — the three options are create, extend, or upload spreadsheet                                                      |
+| GAC file upload type                        | Thinking PDF or Word doc can be uploaded | Only spreadsheets (CSV/Excel) are valid upload types in GAC                                                                  |
+| GAC creates global apps by default          | Thinking GAC defaults to global scope    | GAC creates scoped apps only — set `sn_g_app_creator.allow_global` to enable global                                          |
+| `gs.log()` in a scoped app                  | Using `gs.log()` in scoped scripts       | `gs.log()` is NOT available in scoped apps — use `gs.info()`, `gs.warn()`, `gs.error()`                                      |
+| Approval workflows on non-task tables       | Expecting all approvals to work anywhere | Only **User Approval** works on all tables; all others require extending `task`                                              |
+| GAC completes the whole application         | Thinking GAC is the complete dev tool    | GAC builds the skeleton only — Business Rules, Client Scripts, flows are added in Studio                                     |
+| `Allow configuration` checkbox              | Thinking it's an in-scope-only setting   | Allow configuration = **out-of-scope** apps CAN create Business Rules on the table                                           |
+| `Can read` unchecked → other fields gone    | Thinking other fields are independent    | Can create/update/delete become unavailable when Can read is unchecked                                                       |
+| `Allow web services` = bypasses ACLs        | Thinking it grants open access           | Still requires correct ACL permissions — only controls whether table is web-accessible                                       |
+| Module link type includes "Catalog Type"    | Selecting Catalog Type or Roles          | Not valid link types — valid ones: Assessment, List of Records, Separator, Timeline Page, Content Page, URL (from arguments) |
+| Application Properties = special artifact   | Thinking they're a unique object type    | They are ordinary `sys_properties` records grouped by a category matching the app                                            |
+| UI Actions always run server-side           | Assuming no client code possible         | If Client checkbox is checked, the onclick runs in the browser first                                                         |
+| `gsftSubmit` third arg = display name       | Using the button label as the action arg | Third arg must match the **Action name** field exactly, not the display name                                                 |
+| Removing field from form = deletes field    | Thinking layout removal = schema change  | Removing from layout hides it on the form only — field still exists in the table                                             |
+| `gs.log()` = client debugging tool          | Including it in client debug strategies  | `gs.log()` is server-side — NOT a client debugging strategy (direct exam question)                                           |
+| Notification Weight 0 = no email sent       | Thinking zero suppresses the email       | Weight 0 = notification is **always** sent; higher weight wins among competing notifications                                 |
+| Notification tabs include "How"             | Listing "How to send" as a tab           | The three tabs are **Who, What, When** — there is no "How" tab                                                               |
+| Unregistered events get processed           | Firing event without registering it      | Events must be registered in the Event Registry — unregistered events do nothing                                             |
+| ATF runs in production                      | Testing in prod for accuracy             | ATF must only run in **sub-production** instances — never production                                                         |
+| ATF "Create a role" step exists             | Using it to set up test roles            | No such step — use "Create a record" on `sys_user_role` table instead                                                        |
+| Git link requires application name          | Including app name in required fields    | App name NOT required — URL, username, password, branch, and auth type are required                                          |
+| Stash = commit to repo                      | Thinking stash pushes code upstream      | Stash stores local changes on the **instance** temporarily — does NOT push to Git                                            |
+| Both Studio and Git: only one operation     | Guessing a Studio-only operation         | **Create Branch** is the operation available in BOTH Studio and the Git repository                                           |
+| App artifacts found in Update Sets          | Checking Update Sets to review app files | Use **Application Files Related List** on the app record — Update Sets don't show this                                       |
+| Record Producer uses `current.variable`     | Using current to access form variables   | Use `producer.variable_name` — `current` refers to the target record, not the form fields                                    |
+| Inbound Action has `previous` object        | Expecting same objects as Business Rules | Inbound Actions only have `current` and `email` — no `previous`, no `event`, no `producer`                                   |
 
 ---
 
@@ -1204,6 +1689,18 @@ var val = g_scratchpad.anyName; // read the property
 - **External system calling a custom ServiceNow endpoint?** → Scripted REST API
 - **Delegated developer stuck, can't publish?** → Code Review is enabled — needs a reviewer
 - **Delegated developer accessing another app's artifacts?** → Not possible — scope isolation
+- **What's in my published app?** → Application Files Related List (not Update Sets, not Global search)
+- **Email notification question about tabs?** → Who / What / When (NOT How)
+- **Notification Weight 0?** → Always sent; Weight > 0 → only highest wins
+- **Fire an event?** → `gs.eventQueue()` — must be registered in Event Registry first
+- **ATF for testing?** → Sub-production only, regression and functional testing only
+- **Git stash?** → Stores local changes on the instance, does NOT push to repo
+- **Which operation in both Studio and Git?** → Create Branch
+- **Allow configuration on a table?** → Out-of-scope apps CAN create Business Rules on it
+- **Can read unchecked?** → Can create/update/delete become unavailable
+- **Which tool to debug client-side?** → jslog(), g_form.addInfoMessage(), Field Watcher (NOT gs.log)
+- **Record Producer variable access?** → `producer.variable_name` (NOT `current.variable_name`)
+- **Date/time in scoped app?** → GlideDateTime (not GlideDate; datediff not available in scoped)
 
 ---
 
@@ -1230,6 +1727,17 @@ var val = g_scratchpad.anyName; // read the property
 - **GAC table options = Create, Extend, Spreadsheet** (no templates, no PDFs, no Word docs)
 - **`gs.log()` = global only** — use `gs.info()`, `gs.warn()`, `gs.error()` in scoped apps
 - **User Approval = any table | All other approvals = must extend `task`**
+- **Notification tabs = Who + What + When** (no "How")
+- **Weight 0 = always send | Weight > 0 = only highest weight wins**
+- **Events = fire and forget; registry = the subscriber list**
+- **ATF = automated regression testing, sub-production only**
+- **Stash = save in a drawer (local instance), not pushed to Git**
+- **Create Branch = the operation in BOTH Studio and Git**
+- **Application Files Related List = what's in my app before publishing**
+- **Allow configuration = OUT-of-scope apps can write Business Rules to your table**
+- **Can read unchecked = Can create/update/delete disappear**
+- **Module link types: Assessment, List of Records, Separator, Timeline Page, Content Page, URL** (no Catalog Type, no Roles)
+- **producer.variable_name** (Record Producer) vs **current.field_name** (Business Rule)
 
 ---
 
