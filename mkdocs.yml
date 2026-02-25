@@ -2,7 +2,7 @@ site_name: ServiceNow Notes
 site_author: Natalie Walker
 site_description: Personal ServiceNow reference site
 theme:
-  name: flatly
+  name: readthedocs
   highlightjs: true
   hljs_languages:
     - yaml
