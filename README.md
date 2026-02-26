@@ -142,3 +142,8 @@ mkdocs build -v
 
 **Run the app without python env**
 mkdocs serve --livereload
+
+## Udate the live github page
+
+run `mkdocs gh-deploy ` on the main branch
+[ServieNow_Notes Page](https://pinkpinball.github.io/servicenow-notes/)
