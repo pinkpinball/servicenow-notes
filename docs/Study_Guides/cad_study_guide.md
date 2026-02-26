@@ -346,7 +346,7 @@ gs.setProperty("x_myco_myapp.feature_flag", "true");
 
 ### Practice Questions — Domain 1
 
-> 📋 **PRACTICE Q:** A developer creates a new table while the **Global** app is selected in the App Picker. The table prefix is `u_`. Later, the developer switches to a scoped app and creates a Script Include. Which scope does the Script Include belong to? is selected in the App Picker. The table prefix is `u_`. Later, the developer switches to a scoped app and creates a Script Include. Which scope does the Script Include belong to?
+> 📋 **PRACTICE Q:** A developer creates a new table while the **Global** app is selected in the App Picker. The table prefix is `u_`. Later, the developer switches to a scoped app and creates a Script Include. Which scope does the Script Include belong to?
 
 > ✅ **ANSWER:** The Script Include belongs to the **scoped app** — scope is determined at creation time by the App Picker. The earlier `u_` table stays in global scope.
 
