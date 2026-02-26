@@ -425,6 +425,27 @@ gr.orderByDesc("field"); // descending order
 gr.orderBy("field"); // ascending order
 gr.setLimit(10); // limit results
 gr.addEncodedQuery("active=true^priority=1"); // pre-built query string
+
+// ^ means AND
+active=true^priority=1^state=2
+
+// Translates to:
+// active = true AND priority = 1 AND state = 2
+```
+
+**The encoded query operators:**
+
+```
+^        → AND
+^OR      → OR
+^NQ      → starts a new query (advanced)
+=        → equals
+!=       → not equal
+LIKE     → contains
+STARTSWITH → starts with
+ENDSWITH   → ends with
+ISEMPTY  → is empty
+ISNOTEMPTY → is not empty
 ```
 
 | Mistake                           | Why it's wrong                                                       | Fix                                            |
@@ -1315,6 +1336,16 @@ response.setHeader("X-Custom", "val"); // set a response header
 response.setError(error); // set an error object on the response
 ```
 
+**Key `Scripted REST` methods:**
+
+```javascript
+// Inside Scripted REST API resource:
+request.body.data; // parsed JSON object ✅
+request.getBody(); // raw string body
+request.getHeader("name"); // request header
+request.getQueryParameter("name"); // URL query param
+```
+
 **Securing a Scripted REST API:**
 
 | Option                  | How it works                                                          |
@@ -1668,6 +1699,102 @@ var val = g_scratchpad.anyName; // read the property
 | App artifacts found in Update Sets          | Checking Update Sets to review app files | Use **Application Files Related List** on the app record — Update Sets don't show this                                       |
 | Record Producer uses `current.variable`     | Using current to access form variables   | Use `producer.variable_name` — `current` refers to the target record, not the form fields                                    |
 | Inbound Action has `previous` object        | Expecting same objects as Business Rules | Inbound Actions only have `current` and `email` — no `previous`, no `event`, no `producer`                                   |
+
+---
+
+## Scripting Pattern
+
+```code
+Side:
+  g_ prefix    → always client side
+  gs.          → always server side
+  gr.          → always server side
+
+Fields:
+  .getValue()        → raw DB value / sys_id
+  .getDisplayValue() → human readable
+  .nil()             → is it empty?
+  .changed()         → did it change?
+
+Reference fields:
+  current.field.method()    → dot INTO the field first!!
+
+Catalog:
+  producer.variablename     → what user filled out
+  current.field             → what gets saved
+
+Dates:
+  gs.now()          → date only
+  gs.nowDateTime()  → date + time
+  gs.daysAgo(n)     → n days ago
+```
+
+---
+
+## User Patter
+
+```code
+CLIENT SIDE:
+g_user.userID          → sys_id
+g_user.userName        → username
+g_user.firstName       → first name
+g_user.hasRole()       → check role
+g_user.hasRoleExactly() → strict role check
+
+SERVER SIDE:
+gs.getUserID()         → sys_id
+gs.getUserName()       → username
+gs.getUser().getFirstName() → first name
+gs.hasRole()           → check role
+gs.hasRoleExactly()    → strict role check
+
+The pattern is IDENTICAL — just different prefix!!
+
+Client → g_user.property
+Server → gs.method()
+
+The one gotcha:
+g_user.userID          → property (no parentheses!!)
+gs.getUserID()         → method (parentheses!!)
+
+Quick explanations:
+ Q: Get the sys_id of the current logged in user (server side)
+ g_user.userID → client side only!! ❌
+ gs.getUserID() → ✅ correct!!
+ gs.getCurrentUser() → returns GlideUser OBJECT not sys_id ❌
+ gr.getUserID() → doesn't exist!! ❌
+
+The pattern:
+gs.getUserID()        → sys_id (string)
+gs.getCurrentUser()   → GlideUser object
+gs.getUserName()      → username string
+
+Memory trick:
+
+g_user → properties you ACCESS like an object
+gs → methods you CALL like a function
+```
+
+1. The prefix rule saves everything:
+
+```code
+   g\_ → client side
+   gs. → server side, system methods
+   gr. → GlideRecord operations
+```
+
+2. Parentheses rule:
+
+```code
+   g_user.userID → no parentheses (property)
+   gs.getUserID() → parentheses (method)
+```
+
+3. When two answers look identical:
+   Ask yourself:
+   - Server or client context?
+   - Property or method?
+   - Field level or record level?
 
 ---
 
