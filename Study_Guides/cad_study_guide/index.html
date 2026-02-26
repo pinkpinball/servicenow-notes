@@ -334,6 +334,10 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#all-exam-traps-combined-list">All Exam Traps — Combined List</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#scripting-pattern">Scripting Pattern</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#user-patter">User Patter</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#mental-checklist-for-exam-decisions">Mental Checklist for Exam Decisions</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#mnemonics-memory-tricks">Mnemonics &amp; Memory Tricks</a>
@@ -1006,6 +1010,24 @@ gr.orderByDesc(&quot;field&quot;); // descending order
 gr.orderBy(&quot;field&quot;); // ascending order
 gr.setLimit(10); // limit results
 gr.addEncodedQuery(&quot;active=true^priority=1&quot;); // pre-built query string
+
+// ^ means AND
+active=true^priority=1^state=2
+
+// Translates to:
+// active = true AND priority = 1 AND state = 2
+</code></pre>
+<p><strong>The encoded query operators:</strong></p>
+<pre><code>^        → AND
+^OR      → OR
+^NQ      → starts a new query (advanced)
+=        → equals
+!=       → not equal
+LIKE     → contains
+STARTSWITH → starts with
+ENDSWITH   → ends with
+ISEMPTY  → is empty
+ISNOTEMPTY → is not empty
 </code></pre>
 <table>
 <thead>
@@ -2395,6 +2417,13 @@ response.setContentType(&quot;application/json&quot;); // set response content t
 response.setHeader(&quot;X-Custom&quot;, &quot;val&quot;); // set a response header
 response.setError(error); // set an error object on the response
 </code></pre>
+<p><strong>Key <code>Scripted REST</code> methods:</strong></p>
+<pre><code class="language-javascript">// Inside Scripted REST API resource:
+request.body.data; // parsed JSON object ✅
+request.getBody(); // raw string body
+request.getHeader(&quot;name&quot;); // request header
+request.getQueryParameter(&quot;name&quot;); // URL query param
+</code></pre>
 <p><strong>Securing a Scripted REST API:</strong></p>
 <table>
 <thead>
@@ -3226,6 +3255,93 @@ var val = g_scratchpad.anyName; // read the property
 </tr>
 </tbody>
 </table>
+<hr />
+<h2 id="scripting-pattern">Scripting Pattern</h2>
+<pre><code class="language-code">Side:
+  g_ prefix    → always client side
+  gs.          → always server side
+  gr.          → always server side
+
+Fields:
+  .getValue()        → raw DB value / sys_id
+  .getDisplayValue() → human readable
+  .nil()             → is it empty?
+  .changed()         → did it change?
+
+Reference fields:
+  current.field.method()    → dot INTO the field first!!
+
+Catalog:
+  producer.variablename     → what user filled out
+  current.field             → what gets saved
+
+Dates:
+  gs.now()          → date only
+  gs.nowDateTime()  → date + time
+  gs.daysAgo(n)     → n days ago
+</code></pre>
+<hr />
+<h2 id="user-patter">User Patter</h2>
+<pre><code class="language-code">CLIENT SIDE:
+g_user.userID          → sys_id
+g_user.userName        → username
+g_user.firstName       → first name
+g_user.hasRole()       → check role
+g_user.hasRoleExactly() → strict role check
+
+SERVER SIDE:
+gs.getUserID()         → sys_id
+gs.getUserName()       → username
+gs.getUser().getFirstName() → first name
+gs.hasRole()           → check role
+gs.hasRoleExactly()    → strict role check
+
+The pattern is IDENTICAL — just different prefix!!
+
+Client → g_user.property
+Server → gs.method()
+
+The one gotcha:
+g_user.userID          → property (no parentheses!!)
+gs.getUserID()         → method (parentheses!!)
+
+Quick explanations:
+ Q: Get the sys_id of the current logged in user (server side)
+ g_user.userID → client side only!! ❌
+ gs.getUserID() → ✅ correct!!
+ gs.getCurrentUser() → returns GlideUser OBJECT not sys_id ❌
+ gr.getUserID() → doesn't exist!! ❌
+
+The pattern:
+gs.getUserID()        → sys_id (string)
+gs.getCurrentUser()   → GlideUser object
+gs.getUserName()      → username string
+
+Memory trick:
+
+g_user → properties you ACCESS like an object
+gs → methods you CALL like a function
+</code></pre>
+<ol>
+<li>The prefix rule saves everything:</li>
+</ol>
+<pre><code class="language-code">   g\_ → client side
+   gs. → server side, system methods
+   gr. → GlideRecord operations
+</code></pre>
+<ol>
+<li>Parentheses rule:</li>
+</ol>
+<pre><code class="language-code">   g_user.userID → no parentheses (property)
+   gs.getUserID() → parentheses (method)
+</code></pre>
+<ol>
+<li>When two answers look identical:
+   Ask yourself:</li>
+<li>Server or client context?</li>
+<li>Property or method?</li>
+<li>Field level or record level?</li>
+</ol>
 <hr />
 <h2 id="mental-checklist-for-exam-decisions">Mental Checklist for Exam Decisions</h2>
 <ul>
