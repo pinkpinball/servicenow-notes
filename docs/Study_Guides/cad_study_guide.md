@@ -426,6 +426,10 @@ gr.orderBy("field"); // ascending order
 gr.setLimit(10); // limit results
 gr.addEncodedQuery("active=true^priority=1"); // pre-built query string
 
+^      = AND in encoded query
+^OR    = OR in encoded query
+addOrCondition() = OR in GlideRecord query
+
 // ^ means AND
 active=true^priority=1^state=2
 
@@ -502,6 +506,11 @@ Client Script
   → GlideAjax callback
     → g_form.setValue() (updates the form)
 ```
+
+**IMPORTANT**
+getXML() is synchronous — blocks the browser until complete ❌
+Should use getXMLAnswer() with a callback function ✅
+Blocking the browser = bad user experience!!
 
 > 🧠 **MEMORY TIP:** The 3-step GlideAjax pattern: **(1)** `new GlideAjax('ScriptIncludeName')`, **(2)** `addParam` for `sysparm_name` + data params, **(3)** `getXMLAnswer(callback)`. The Script Include **must** extend `AbstractAjaxProcessor`.
 
@@ -1185,13 +1194,13 @@ DELETE /api/now/table/incident/{sys_id} → delete incident
 
 When calling the Table API from an external system, these query params control what comes back:
 
-| Parameter               | What it does                                | Example                                 |
-| ----------------------- | ------------------------------------------- | --------------------------------------- |
-| `sysparm_fields`        | Limit which fields are returned             | `?sysparm_fields=number,priority,state` |
-| `sysparm_limit`         | Max number of records returned              | `?sysparm_limit=10`                     |
-| `sysparm_offset`        | Pagination offset                           | `?sysparm_offset=10`                    |
-| `sysparm_query`         | Encoded query to filter results             | `?sysparm_query=priority=1^active=true` |
-| `sysparm_display_value` | Return display values instead of raw values | `?sysparm_display_value=true`           |
+| Parameter               | What it does                                | Example                                |
+| ----------------------- | ------------------------------------------- | -------------------------------------- |
+| `sysparm_fields`        | Limit which fields are returned             | `sysparm_fields=number,priority,state` |
+| `sysparm_limit`         | Max number of records returned              | `sysparm_limit=10`                     |
+| `sysparm_offset`        | Pagination offset                           | `sysparm_offset=10`                    |
+| `sysparm_query`         | Encoded query to filter results             | `sysparm_query=priority=1^active=true` |
+| `sysparm_display_value` | Return display values instead of raw values | `sysparm_display_value=true`           |
 
 ---
 
@@ -1589,6 +1598,62 @@ var val = g_scratchpad.anyName; // read the property
 
 ## Master Quick Reference
 
+### Essential ServiceNow Tables for Developers
+
+Understanding key tables in ServiceNow is crucial for effective development and management. Here are the most important tables every developer should know:
+
+#### User and Incident Management
+
+| Table Name | Description                                                                                     |
+| ---------- | ----------------------------------------------------------------------------------------------- |
+| sys_user   | Stores all user records, including details like name, email, roles, and department.             |
+| incident   | Contains all support issues logged by users, including fields like short description and state. |
+
+#### Task and Configuration Management
+
+| Table Name | Description                                                                                 |
+| ---------- | ------------------------------------------------------------------------------------------- |
+| task       | The parent table for various process tables, including incident and change requests.        |
+| cmdb_ci    | Powers the Configuration Management Database (CMDB), storing all Configuration Items (CIs). |
+
+#### Request and Catalog Management
+
+| Table Name  | Description                                                                                |
+| ----------- | ------------------------------------------------------------------------------------------ |
+| sc_request  | Represents an entire order in the service catalog, containing one or more Requested Items. |
+| sc_req_item | Holds records for each catalog item submitted, crucial for automation and approvals.       |
+
+#### Email and System Properties
+
+| Table Name     | Description                                                                       |
+| -------------- | --------------------------------------------------------------------------------- |
+| sys_email      | Logs all inbound and outbound emails, useful for debugging notifications.         |
+| sys_properties | Configures system-level settings, such as default time zones and feature toggles. |
+
+#### Audit and Metadata
+
+| Table Name    | Description                                                                         |
+| ------------- | ----------------------------------------------------------------------------------- |
+| sys_audit     | Tracks changes made to fields, essential for auditing purposes.                     |
+| sys_db_object | Lists all tables in the instance, useful for exploring relationships and debugging. |
+
+These tables form the backbone of most ServiceNow implementations, helping developers create efficient and scalable solutions.
+
+### More tables names
+
+What Table
+Business Rules → sys_script
+Client Scripts → sys_client_script
+UI Policies → sys_ui_policy
+Script Includes → sys_script_include
+UI Actions → sys_ui_action
+SLA Tasks → task_sla
+SC Requests → sc_request
+SC Items → sc_req_item
+
+Memory trick:
+Business Rules are just "scripts" to ServiceNow — hence sys_script!! The more specific ones get their full name!!
+
 ### Client vs Server API Cheat Sheet
 
 | Object / API          | Client or Server        | Purpose                                               | Key Gotcha                                          |
@@ -1643,6 +1708,31 @@ var val = g_scratchpad.anyName; // read the property
 - Called from Client Scripts via **GlideAjax** (must extend `AbstractAjaxProcessor`)
 - **Regular** → server-side only
 - **Ajax-enabled** → extends `AbstractAjaxProcessor`, callable from Client Scripts via GlideAjax
+
+Script Includes Structure
+
+```javascript
+javascriptvar MyUtils = Class.create();
+MyUtils.prototype = {
+    initialize: function() {},  // constructor
+    myMethod: function() {},    // your methods
+    type: 'MyUtils'             // always matches class name!!
+};
+```
+
+### SLA quick notes
+
+You can configure alerts at:
+50% → warning approaching
+75% → getting close!!
+100% → BREACHED!! 🚨
+
+Your SLA mental model:
+
+SLA Definition → the rules + notification config
+SLA Task → the actual timer (task_sla table)
+Breach → timer hits 100%
+Notification → automatic email on breach
 
 ---
 
@@ -1729,9 +1819,25 @@ Dates:
   gs.daysAgo(n)     → n days ago
 ```
 
+The pattern:
+
+```javascript
+current.field.changed(); // did it change? ✅ cleanest!!
+current.field.nil(); // is it empty?
+current.field.changesTo("value"); // did it change TO this value?
+current.field.changesFrom("value"); // did it change FROM this value?
+```
+
+Two new methods worth knowing:
+
+```javascript
+current.priority.changesTo("1"); // just became P1?
+current.priority.changesFrom("1"); // was P1, now something else?
+```
+
 ---
 
-## User Patter
+## User Pattern
 
 ```code
 CLIENT SIDE:
@@ -1848,7 +1954,9 @@ gs → methods you CALL like a function
 - **x\_ = scoped** | **u\_ = global (user-created)** | **sys\_ = system/native**
 - **Before = shape it. After = react to it. Async = fire and forget. Display = feed the form.**
 - **Complete → Export → Import → Preview → Commit** (Update Set deployment order)
-- **Scripted REST API = you're the server** (ServiceNow receives) | **REST Message = you're the client** (ServiceNow sends)
+- **Scripted REST API = you're the server** | **REST Message = you're the client**
+  -- Scripted REST API → you BUILT an API → others call YOU
+  -- REST Message → you call SOMEONE ELSE'S API
 - **Delegated Developer = room key, not master key** (one app only)
 - **GAC = foundation pour** (sets up structure; Studio builds the house on top)
 - **GAC table options = Create, Extend, Spreadsheet** (no templates, no PDFs, no Word docs)
@@ -1865,6 +1973,8 @@ gs → methods you CALL like a function
 - **Can read unchecked = Can create/update/delete disappear**
 - **Module link types: Assessment, List of Records, Separator, Timeline Page, Content Page, URL** (no Catalog Type, no Roles)
 - **producer.variable_name** (Record Producer) vs **current.field_name** (Business Rule)
+- **User actively searches** → Knowledge Base Search
+- **Articles appear auto** → Contextual Search
 
 ---
 
