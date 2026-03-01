@@ -1904,6 +1904,32 @@ gs → methods you CALL like a function
 
 ---
 
+## UI Action types mental model:
+
+Think of WHERE they appear:
+FORM:
+Form button → button on form ✅
+Form link → hyperlink on form ✅
+Form context menu → right-click menu ✅
+
+LIST:
+List banner button → button above list ✅
+List choice → dropdown on list ✅
+List link → hyperlink in list ✅
+List context menu → right-click on list ✅
+
+NAVIGATION:
+Record navigation button → next/previous ✅
+
+The pattern:
+UI Action types = WHERE they appear + WHAT they look like
+Form/List + button/link/choice/menu!!
+Form choice is a FIELD TYPE:
+Field types: text, integer, boolean, choice, reference...
+UI Actions: button, link, context menu...
+
+---
+
 ## Mental Checklist for Exam Decisions
 
 - **ACL issue?** → Table deny → stop; Record deny → stop; Field deny → restrict field only
@@ -1934,6 +1960,9 @@ gs → methods you CALL like a function
 - **Which tool to debug client-side?** → jslog(), g_form.addInfoMessage(), Field Watcher (NOT gs.log)
 - **Record Producer variable access?** → `producer.variable_name` (NOT `current.variable_name`)
 - **Date/time in scoped app?** → GlideDateTime (not GlideDate; datediff not available in scoped)
+- **ScheduledJobs function** name → `runNow()`
+- **Error Pattern** → gs.AddErrorMessage() THEN setAbortAction()
+- **Notification debugging** → System Logs → sent = emails, triggered = events
 
 ---
 
