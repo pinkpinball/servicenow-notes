@@ -356,6 +356,8 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#user-pattern">User Pattern</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ui-action-types-mental-model">UI Action types mental model:</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#mental-checklist-for-exam-decisions">Mental Checklist for Exam Decisions</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#mnemonics-memory-tricks">Mnemonics &amp; Memory Tricks</a>
@@ -3507,6 +3509,26 @@ gs → methods you CALL like a function
 <li>Field level or record level?</li>
 </ol>
 <hr />
+<h2 id="ui-action-types-mental-model">UI Action types mental model:</h2>
+<p>Think of WHERE they appear:
+FORM:
+Form button → button on form ✅
+Form link → hyperlink on form ✅
+Form context menu → right-click menu ✅</p>
+<p>LIST:
+List banner button → button above list ✅
+List choice → dropdown on list ✅
+List link → hyperlink in list ✅
+List context menu → right-click on list ✅</p>
+<p>NAVIGATION:
+Record navigation button → next/previous ✅</p>
+<p>The pattern:
+UI Action types = WHERE they appear + WHAT they look like
+Form/List + button/link/choice/menu!!
+Form choice is a FIELD TYPE:
+Field types: text, integer, boolean, choice, reference...
+UI Actions: button, link, context menu...</p>
+<hr />
 <h2 id="mental-checklist-for-exam-decisions">Mental Checklist for Exam Decisions</h2>
 <ul>
 <li><strong>ACL issue?</strong> → Table deny → stop; Record deny → stop; Field deny → restrict field only</li>
@@ -3537,6 +3559,9 @@ gs → methods you CALL like a function
 <li><strong>Which tool to debug client-side?</strong> → jslog(), g_form.addInfoMessage(), Field Watcher (NOT gs.log)</li>
 <li><strong>Record Producer variable access?</strong> → <code>producer.variable_name</code> (NOT <code>current.variable_name</code>)</li>
 <li><strong>Date/time in scoped app?</strong> → GlideDateTime (not GlideDate; datediff not available in scoped)</li>
+<li><strong>ScheduledJobs function</strong> name → <code>runNow()</code></li>
+<li><strong>Error Pattern</strong> → gs.AddErrorMessage() THEN setAbortAction()</li>
+<li><strong>Notification debugging</strong> → System Logs → sent = emails, triggered = events</li>
 </ul>
 <hr />
 <h2 id="mnemonics-memory-tricks">Mnemonics &amp; Memory Tricks</h2>
